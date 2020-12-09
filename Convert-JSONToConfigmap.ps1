@@ -1,18 +1,18 @@
-# Import all YAML files in folder
-$YAMLFiles = Get-ChildItem -Name -File -Filter '*.yaml' -Path ".\datasources"
+# Import all JSON files in folder
+$JSONFiles = Get-ChildItem -Name -File -Filter '*.json' -Path ".\dashboards"
 
-Write-Output "Creating secrets folder"
-New-Item -Name "secrets" -ItemType "directory"
+Write-Output "Creating configmaps folder"
+New-Item -Name "configmaps" -ItemType "directory"
 
-Write-Output "Converting the following Secrets:"
+Write-Output "Converting the following ConfigMaps:"
 
-foreach ($File in $YAMLFiles) {
-    $DATASOURCE_NAME = ($File -replace "-[0-9]{13}", "" -replace " ", "-" -replace ".yaml", "").ToLower()
+foreach ($File in $JSONFiles) {
+    $DASHBOARD_NAME = ($File -replace "-[0-9]{13}", "" -replace " ", "-" -replace ".json", "").ToLower()
 
-    # Generate secret, indenting YAML 4 spaces
-    (Get-Content .\templates\template-datasource-s.yaml) -replace "DATASOURCE_NAME", $DATASOURCE_NAME | Out-File .\secrets\$($DATASOURCE_NAME)-s.yaml
-    '    ' + (Get-Content .\datasources\$($File) -Raw) -replace "`n", "`n    " | Out-File .\secrets\$($DATASOURCE_NAME)-s.yaml -Append
+    # Generate configmap, indenting JSON 4 spaces
+    (Get-Content .\templates\template-dashboard-cm.yaml) -replace "DASHBOARD_NAME", $DASHBOARD_NAME | Out-File .\configmaps\$($DASHBOARD_NAME)-cm.yaml
+    '    ' + (Get-Content .\dashboards\$($File) -Raw) -replace "`n", "`n    " | Out-File .\configmaps\$($DASHBOARD_NAME)-cm.yaml -Append
 
 }
 
-Get-ChildItem -Name -Path ".\secrets"
+Get-ChildItem -Name -Path ".\configmaps"
