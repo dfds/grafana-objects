@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  labels:
+    grafana_dashboard: "1"
+  name: DASHBOARD_NAME
+data:
+  DASHBOARD_NAME.json: |-

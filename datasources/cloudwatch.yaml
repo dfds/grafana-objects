@@ -1,0 +1,11 @@
+apiVersion: 1
+datasources:
+- name: CloudWatch
+  type: cloudwatch
+  jsonData:
+     authType: keys
+     defaultRegion: eu-west-1
+  secureJsonData:
+    accessKey: "$(GRAFANA_CLOUDWATCH_KEY)"
+    secretKey: "$(GRAFANA_CLOUDWATCH_SECRET)"
+  editable: false

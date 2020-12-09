@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: DATASOURCE_NAME
+  labels:
+     grafana_datasource: "1"
+  namespace: monitoring
+type: Opaque
+stringData:
+  datasourceDATASOURCE_NAME.yaml: |-
