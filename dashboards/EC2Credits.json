@@ -82,9 +82,10 @@
           ],
           "fields": "",
           "values": false
-        }
+        },
+        "textMode": "auto"
       },
-      "pluginVersion": "7.0.3",
+      "pluginVersion": "7.2.0",
       "targets": [
         {
           "alias": "",
@@ -149,9 +150,10 @@
           ],
           "fields": "",
           "values": false
-        }
+        },
+        "textMode": "auto"
       },
-      "pluginVersion": "7.0.3",
+      "pluginVersion": "7.2.0",
       "targets": [
         {
           "alias": "",
@@ -184,7 +186,8 @@
       "datasource": "CloudWatch",
       "fieldConfig": {
         "defaults": {
-          "custom": {}
+          "custom": {},
+          "links": []
         },
         "overrides": []
       },
@@ -210,10 +213,8 @@
       "lines": true,
       "linewidth": 1,
       "nullPointMode": "connected",
-      "options": {
-        "dataLinks": []
-      },
       "percentage": false,
+      "pluginVersion": "7.2.0",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -289,7 +290,8 @@
       "datasource": "CloudWatch",
       "fieldConfig": {
         "defaults": {
-          "custom": {}
+          "custom": {},
+          "links": []
         },
         "overrides": []
       },
@@ -318,10 +320,8 @@
       "lines": true,
       "linewidth": 1,
       "nullPointMode": "connected",
-      "options": {
-        "dataLinks": []
-      },
       "percentage": false,
+      "pluginVersion": "7.2.0",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -447,7 +447,7 @@
         "handler": 1,
         "message": "An EC2 instance has used its CPU Credit Balance. Performance issues may be encountered on this Kubernetes node, please check node CPU usage and take action to resolve or consider upgrading or changing the node instance type.",
         "name": "EC2 Worker Node Credit Balance alert",
-        "noDataState": "keep_state",
+        "noDataState": "ok",
         "notifications": []
       },
       "aliasColors": {},
@@ -458,6 +458,7 @@
       "fieldConfig": {
         "defaults": {
           "custom": {},
+          "links": [],
           "mappings": [],
           "max": 2304,
           "min": 0,
@@ -512,10 +513,10 @@
       "linewidth": 1,
       "nullPointMode": "null",
       "options": {
-        "dataLinks": []
+        "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.0.3",
+      "pluginVersion": "7.2.0",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -593,7 +594,7 @@
     }
   ],
   "refresh": "5m",
-  "schemaVersion": 25,
+  "schemaVersion": 26,
   "style": "dark",
   "tags": [],
   "templating": {
