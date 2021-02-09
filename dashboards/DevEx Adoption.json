@@ -15,7 +15,7 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "iteration": 1611919042953,
+  "iteration": 1612878594586,
   "links": [],
   "panels": [
     {
@@ -634,6 +634,7 @@
           "expr": "count(kube_pod_info{priority_class=~\"service-critical\",namespace!~\"kube-system\"}) OR on() vector(0)",
           "format": "time_series",
           "hide": false,
+          "interval": "",
           "intervalFactor": 2,
           "legendFormat": "service-critical",
           "refId": "B"
@@ -648,9 +649,10 @@
           "refId": "C"
         },
         {
-          "expr": "count(kube_pod_info{priority_class=~\"selfservice\",namespace!~\"selfservice|selfservice-herald-vbqkr\"}) OR on() vector(0)",
+          "expr": "count(kube_pod_info{priority_class=~\"selfservice\",namespace!~\"selfservice|selfservice-herald-vbqkr|developerautomation-xavgy\"}) OR on() vector(0)",
           "format": "time_series",
           "hide": false,
+          "interval": "",
           "intervalFactor": 2,
           "legendFormat": "selfservice",
           "refId": "D"
@@ -801,5 +803,5 @@
   "timezone": "",
   "title": "DevEx Adoption",
   "uid": "axdphXDZz",
-  "version": 1
+  "version": 2
 }
