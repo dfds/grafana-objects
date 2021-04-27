@@ -150,6 +150,7 @@
     },
     {
       "alert": {
+        "alertRuleTags": {},
         "conditions": [
           {
             "evaluator": {
@@ -234,7 +235,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "count(kube_pod_info{priority_class=\"selfservice\", namespace!=\"selfservice\", namespace!=\"selfservice-herald-vbqkr\", namespace!=\"developerautomation-xavgy\"}) by (pririty_class, namespace)",
+          "expr": "count(kube_pod_info{priority_class=\"selfservice\", namespace!=\"selfservice\", namespace!=\"selfservice-herald-vbqkr\", namespace!=\"developerautomation-xavgy\", namespace!=\"velero\"}) by (pririty_class, namespace)",
           "format": "time_series",
           "hide": false,
           "interval": "",
