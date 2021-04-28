@@ -16,8 +16,7 @@
   "editable": true,
   "gnetId": 11055,
   "graphTooltip": 1,
-  "id": 40,
-  "iteration": 1619526828033,
+  "iteration": 1619620522964,
   "links": [],
   "panels": [
     {
@@ -104,7 +103,7 @@
       "tableColumn": "",
       "targets": [
         {
-          "expr": "sum(velero_backup_active_total{schedule=~\"$schedule\"})",
+          "expr": "sum(velero_backup_active_total{schedule=~\"velero-hellman-cluster-backup\"})",
           "instant": false,
           "interval": "",
           "legendFormat": "",
@@ -193,8 +192,9 @@
       "tableColumn": "",
       "targets": [
         {
-          "expr": "sum(velero_backup_success_total{schedule=~\"$schedule\"}) / sum(velero_backup_attempt_total{schedule=~\"$schedule\"})",
+          "expr": "sum(velero_backup_success_total{schedule=~\"velero-hellman-cluster-backup\"}) / sum(velero_backup_attempt_total{schedule=~\"velero-hellman-cluster-backup\"})",
           "format": "time_series",
+          "interval": "",
           "intervalFactor": 1,
           "legendFormat": "",
           "refId": "A"
@@ -216,12 +216,48 @@
       "valueName": "current"
     },
     {
+      "alert": {
+        "alertRuleTags": {},
+        "conditions": [
+          {
+            "evaluator": {
+              "params": [
+                0
+              ],
+              "type": "gt"
+            },
+            "operator": {
+              "type": "and"
+            },
+            "query": {
+              "params": [
+                "B",
+                "5m",
+                "now"
+              ]
+            },
+            "reducer": {
+              "params": [],
+              "type": "avg"
+            },
+            "type": "query"
+          }
+        ],
+        "executionErrorState": "alerting",
+        "for": "5m",
+        "frequency": "1m",
+        "handler": 1,
+        "message": "A Velero backup of the cluster has failed.  Please use the Velero CLI to retrieve the backup logs to assist in investigation of the issue.",
+        "name": "Failed Backup Alert",
+        "noDataState": "no_data",
+        "notifications": []
+      },
       "aliasColors": {},
       "bars": false,
       "cacheTimeout": null,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "$datasource",
+      "datasource": "Prometheus",
       "decimals": 0,
       "fieldConfig": {
         "defaults": {
@@ -271,7 +307,7 @@
       "steppedLine": true,
       "targets": [
         {
-          "expr": "sum(increase(velero_backup_success_total{schedule=~\"$schedule\"}[1h]))",
+          "expr": "sum(increase(velero_backup_success_total{schedule=~\"velero-hellman-cluster-backup\"}[1h]))",
           "format": "time_series",
           "instant": false,
           "interval": "",
@@ -279,28 +315,42 @@
           "refId": "A"
         },
         {
-          "expr": "sum(increase(velero_backup_failure_total{schedule=~\"$schedule\"}[1h]))",
+          "expr": "sum(increase(velero_backup_failure_total{schedule=~\"velero-hellman-cluster-backup\"}[1h]))",
           "hide": false,
+          "interval": "",
           "legendFormat": "Backup failure",
           "refId": "B"
         },
         {
-          "expr": "sum(increase(velero_backup_partial_failure_total{schedule=~\"$schedule\"}[1h]))",
+          "expr": "sum(increase(velero_backup_partial_failure_total{schedule=~\"velero-hellman-cluster-backup\"}[1h]))",
+          "interval": "",
           "legendFormat": "Backup partial failure",
           "refId": "C"
         },
         {
-          "expr": "sum(increase(velero_backup_deletion_success_total{schedule=~\"$schedule\"}[1h]))",
+          "expr": "sum(increase(velero_backup_deletion_success_total{schedule=~\"velero-hellman-cluster-backup\"}[1h]))",
+          "interval": "",
           "legendFormat": "Backup deletion success",
           "refId": "D"
         },
         {
-          "expr": "sum(increase(velero_backup_deletion_failure_total{schedule=~\"$schedule\"}[1h]))",
+          "expr": "sum(increase(velero_backup_deletion_failure_total{schedule=~\"velero-hellman-cluster-backup\"}[1h]))",
+          "interval": "",
           "legendFormat": "Backup deletion failure",
           "refId": "E"
         }
       ],
-      "thresholds": [],
+      "thresholds": [
+        {
+          "$$hashKey": "object:2629",
+          "colorMode": "critical",
+          "fill": true,
+          "line": true,
+          "op": "gt",
+          "value": 0,
+          "yaxis": "left"
+        }
+      ],
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
@@ -401,7 +451,7 @@
           "refId": "A"
         },
         {
-          "expr": "velero_backup_active_total{schedule=~\"$schedule\"}",
+          "expr": "velero_backup_active_total{schedule=~\"velero-hellman-cluster-backup\"}",
           "legendFormat": "Backup {{schedule}}",
           "refId": "D"
         }
@@ -499,7 +549,8 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "histogram_quantile(0.99, sum(rate(velero_backup_duration_seconds_bucket{schedule=~\"$schedule\"}[15m])) by (le))",
+          "expr": "histogram_quantile(0.99, sum(rate(velero_backup_duration_seconds_bucket{schedule=\"velero-hellman-cluster-backup\"}[15m])) by (le))",
+          "interval": "",
           "legendFormat": "Scheduled: 0.99",
           "refId": "A"
         },
@@ -509,7 +560,8 @@
           "refId": "F"
         },
         {
-          "expr": "histogram_quantile(0.95, sum(rate(velero_backup_duration_seconds_bucket{schedule=~\"$schedule\"}[15m])) by (le))",
+          "expr": "histogram_quantile(0.95, sum(rate(velero_backup_duration_seconds_bucket{schedule=~\"velero-hellman-cluster-backup\"}[15m])) by (le))",
+          "interval": "",
           "legendFormat": "Scheduled: 0.95",
           "refId": "B"
         },
@@ -519,7 +571,8 @@
           "refId": "E"
         },
         {
-          "expr": "histogram_quantile(0.50, sum(rate(velero_backup_duration_seconds_bucket{schedule=~\"$schedule\"}[15m])) by (le))",
+          "expr": "histogram_quantile(0.50, sum(rate(velero_backup_duration_seconds_bucket{schedule=~\"velero-hellman-cluster-backup\"}[15m])) by (le))",
+          "interval": "",
           "legendFormat": "Scheduled: 0.50",
           "refId": "C"
         },
@@ -622,7 +675,8 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "avg_over_time(velero_backup_tarball_size_bytes{schedule=~\"$schedule\"}[15m])",
+          "expr": "avg_over_time(velero_backup_tarball_size_bytes{schedule=~\"velero-hellman-cluster-backup\"}[15m])",
+          "interval": "",
           "legendFormat": "{{schedule}}",
           "refId": "A"
         },
@@ -678,6 +732,7 @@
     {
       "columns": [
         {
+          "$$hashKey": "object:1833",
           "text": "Current",
           "value": "current"
         }
@@ -912,7 +967,8 @@
           "refId": "A"
         },
         {
-          "expr": "sum(rate(velero_restore_success_total{schedule=~\"$schedule\"}[15m])) / sum(rate(velero_restore_attempt_total{schedule=~\"$schedule\"}[15m]))",
+          "expr": "sum(rate(velero_restore_success_total{schedule=~\"velero-hellman-cluster-backup\"}[15m])) / sum(rate(velero_restore_attempt_total{schedule=~\"velero-hellman-cluster-backup\"}[15m]))",
+          "interval": "",
           "legendFormat": "Backup success rate {{schedule}}",
           "refId": "B"
         }
@@ -1017,7 +1073,8 @@
           "refId": "A"
         },
         {
-          "expr": "avg_over_time(velero_restore_success_total{schedule=~\"$schedule\"}[15m])",
+          "expr": "avg_over_time(velero_restore_success_total{schedule=~\"velero-hellman-cluster-backup\"}[15m])",
+          "interval": "",
           "legendFormat": "Restore Success Total {{schedule}}",
           "refId": "D"
         },
@@ -1027,7 +1084,8 @@
           "refId": "G"
         },
         {
-          "expr": "avg_over_time(velero_restore_partial_failure_total{schedule=~\"$schedule\"}[15m])",
+          "expr": "avg_over_time(velero_restore_partial_failure_total{schedule=~\"velero-hellman-cluster-backup\"}[15m])",
+          "interval": "",
           "legendFormat": " Restore Partial Failure Total {{schedule}}",
           "refId": "C"
         },
@@ -1037,7 +1095,8 @@
           "refId": "F"
         },
         {
-          "expr": "avg_over_time(velero_restore_failed_total{schedule=~\"$schedule\"}[15m])",
+          "expr": "avg_over_time(velero_restore_failed_total{schedule=~\"velero-hellman-cluster-backup\"}[15m])",
+          "interval": "",
           "legendFormat": "Restore Failure Total {{schedule}}",
           "refId": "B"
         },
@@ -1047,7 +1106,8 @@
           "refId": "E"
         },
         {
-          "expr": "avg_over_time(velero_restore_validation_failed_total{schedule=~\"$schedule\"}[15m])",
+          "expr": "avg_over_time(velero_restore_validation_failed_total{schedule=~\"velero-hellman-cluster-backup\"}[15m])",
+          "interval": "",
           "legendFormat": "Restore Validation Failed {{schedule}}",
           "refId": "I"
         },
@@ -1125,41 +1185,11 @@
         "regex": "",
         "skipUrlSync": false,
         "type": "datasource"
-      },
-      {
-        "allValue": null,
-        "current": {
-          "selected": true,
-          "text": [
-            "All"
-          ],
-          "value": [
-            "$__all"
-          ]
-        },
-        "datasource": "$datasource",
-        "definition": "label_values(velero_backup_attempt_total, schedule)",
-        "hide": 0,
-        "includeAll": true,
-        "label": null,
-        "multi": true,
-        "name": "schedule",
-        "options": [],
-        "query": "label_values(velero_backup_attempt_total, schedule)",
-        "refresh": 1,
-        "regex": "",
-        "skipUrlSync": false,
-        "sort": 0,
-        "tagValuesQuery": "",
-        "tags": [],
-        "tagsQuery": "",
-        "type": "query",
-        "useTags": false
       }
     ]
   },
   "time": {
-    "from": "now-1h",
+    "from": "now-24h",
     "to": "now"
   },
   "timepicker": {
@@ -1180,5 +1210,5 @@
   "timezone": "",
   "title": "Kubernetes / Addons / Velero Stats",
   "uid": "YAniUGC",
-  "version": 1
+  "version": 3
 }
