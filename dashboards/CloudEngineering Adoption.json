@@ -760,7 +760,7 @@
           "refId": "A"
         },
         {
-          "expr": "count(kube_pod_info{priority_class=~\"service-critical\",namespace!~\"kube-system\"}) OR on() vector(0)",
+          "expr": "count(kube_pod_info{priority_class=~\"service-critical\",namespace!~\"kube-system|velero\"}) OR on() vector(0)",
           "format": "time_series",
           "hide": false,
           "interval": "",
