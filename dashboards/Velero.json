@@ -16,7 +16,7 @@
   "editable": true,
   "gnetId": 11055,
   "graphTooltip": 1,
-  "iteration": 1619620522964,
+  "iteration": 1620638235936,
   "links": [],
   "panels": [
     {
@@ -241,6 +241,29 @@
               "type": "avg"
             },
             "type": "query"
+          },
+          {
+            "evaluator": {
+              "params": [
+                0
+              ],
+              "type": "gt"
+            },
+            "operator": {
+              "type": "or"
+            },
+            "query": {
+              "params": [
+                "C",
+                "5m",
+                "now"
+              ]
+            },
+            "reducer": {
+              "params": [],
+              "type": "avg"
+            },
+            "type": "query"
           }
         ],
         "executionErrorState": "alerting",
@@ -342,13 +365,11 @@
       ],
       "thresholds": [
         {
-          "$$hashKey": "object:2629",
           "colorMode": "critical",
           "fill": true,
           "line": true,
           "op": "gt",
-          "value": 0,
-          "yaxis": "left"
+          "value": 0
         }
       ],
       "timeFrom": null,
@@ -1189,7 +1210,7 @@
     ]
   },
   "time": {
-    "from": "now-24h",
+    "from": "now-5m",
     "to": "now"
   },
   "timepicker": {
@@ -1210,5 +1231,5 @@
   "timezone": "",
   "title": "Kubernetes / Addons / Velero Stats",
   "uid": "YAniUGC",
-  "version": 3
+  "version": 1
 }
