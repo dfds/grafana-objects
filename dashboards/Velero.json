@@ -16,178 +16,89 @@
   "editable": true,
   "gnetId": 11055,
   "graphTooltip": 1,
-  "iteration": 1620897362037,
+  "iteration": 1620897651823,
   "links": [],
   "panels": [
     {
-      "alert": {
-        "alertRuleTags": {},
-        "conditions": [
-          {
-            "evaluator": {
-              "params": [
-                0
-              ],
-              "type": "gt"
-            },
-            "operator": {
-              "type": "and"
-            },
-            "query": {
-              "params": [
-                "A",
-                "5m",
-                "now"
-              ]
-            },
-            "reducer": {
-              "params": [],
-              "type": "last"
-            },
-            "type": "query"
-          },
-          {
-            "evaluator": {
-              "params": [
-                0
-              ],
-              "type": "gt"
-            },
-            "operator": {
-              "type": "or"
-            },
-            "query": {
-              "params": [
-                "B",
-                "5m",
-                "now"
-              ]
-            },
-            "reducer": {
-              "params": [],
-              "type": "last"
-            },
-            "type": "query"
-          }
-        ],
-        "executionErrorState": "alerting",
-        "for": "5m",
-        "frequency": "1m",
-        "handler": 1,
-        "message": "Backup is broken!!",
-        "name": "Panel Title alert",
-        "noDataState": "no_data",
-        "notifications": []
+      "collapsed": false,
+      "datasource": null,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 0
       },
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
+      "id": 26,
+      "panels": [],
+      "title": "Alert Sources",
+      "type": "row"
+    },
+    {
       "datasource": null,
       "fieldConfig": {
         "defaults": {
-          "custom": {}
+          "custom": {},
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
         },
         "overrides": []
       },
-      "fill": 1,
-      "fillGradient": 0,
       "gridPos": {
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 0
+        "y": 1
       },
-      "hiddenSeries": false,
       "id": 24,
-      "legend": {
-        "avg": false,
-        "current": false,
-        "max": false,
-        "min": false,
-        "show": true,
-        "total": false,
-        "values": false
-      },
-      "lines": true,
-      "linewidth": 1,
-      "nullPointMode": "null",
       "options": {
-        "alertThreshold": true
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "mean"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
       },
-      "percentage": false,
       "pluginVersion": "7.2.0",
-      "pointradius": 2,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
       "targets": [
         {
-          "expr": "irate(velero_backup_failure_total{schedule=~\"velero-hellman-cluster-backup\"}[5m])",
-          "format": "table",
+          "expr": "(velero_backup_failure_total{schedule=~\"velero-hellman-cluster-backup\"})",
+          "format": "time_series",
+          "instant": true,
           "interval": "",
           "legendFormat": "Backup Failure Total",
           "refId": "A"
         },
         {
-          "expr": "irate(velero_backup_partial_failure_total{schedule=~\"velero-hellman-cluster-backup\"}[5m])",
-          "format": "table",
+          "expr": "(velero_backup_partial_failure_total{schedule=~\"velero-hellman-cluster-backup\"})",
+          "format": "time_series",
+          "instant": true,
           "interval": "",
           "legendFormat": "Backup Partial Failure Total",
           "refId": "B"
         }
       ],
-      "thresholds": [
-        {
-          "colorMode": "critical",
-          "fill": true,
-          "line": true,
-          "op": "gt",
-          "value": 0
-        }
-      ],
       "timeFrom": null,
-      "timeRegions": [],
       "timeShift": null,
-      "title": "Panel Title",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        },
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
+      "title": "Failed Backup Counts",
+      "type": "stat"
     },
     {
       "collapsed": false,
@@ -196,7 +107,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 8
+        "y": 9
       },
       "id": 15,
       "panels": [],
@@ -231,7 +142,7 @@
         "h": 9,
         "w": 5,
         "x": 0,
-        "y": 9
+        "y": 10
       },
       "id": 4,
       "interval": null,
@@ -323,7 +234,7 @@
         "h": 9,
         "w": 4,
         "x": 5,
-        "y": 9
+        "y": 10
       },
       "id": 22,
       "interval": null,
@@ -465,7 +376,7 @@
         "h": 9,
         "w": 15,
         "x": 9,
-        "y": 9
+        "y": 10
       },
       "hiddenSeries": false,
       "id": 8,
@@ -603,7 +514,7 @@
         "h": 7,
         "w": 24,
         "x": 0,
-        "y": 18
+        "y": 19
       },
       "hiddenSeries": false,
       "id": 2,
@@ -708,7 +619,7 @@
         "h": 6,
         "w": 24,
         "x": 0,
-        "y": 25
+        "y": 26
       },
       "hiddenSeries": false,
       "id": 11,
@@ -834,7 +745,7 @@
         "h": 6,
         "w": 24,
         "x": 0,
-        "y": 31
+        "y": 32
       },
       "hiddenSeries": false,
       "id": 18,
@@ -940,7 +851,7 @@
         "h": 8,
         "w": 24,
         "x": 0,
-        "y": 37
+        "y": 38
       },
       "id": 13,
       "pageSize": null,
@@ -997,7 +908,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 45
+        "y": 46
       },
       "id": 17,
       "panels": [],
@@ -1032,7 +943,7 @@
         "h": 9,
         "w": 5,
         "x": 0,
-        "y": 46
+        "y": 47
       },
       "id": 5,
       "interval": null,
@@ -1117,7 +1028,7 @@
         "h": 9,
         "w": 19,
         "x": 5,
-        "y": 46
+        "y": 47
       },
       "hiddenSeries": false,
       "id": 19,
@@ -1226,7 +1137,7 @@
         "h": 8,
         "w": 24,
         "x": 0,
-        "y": 55
+        "y": 56
       },
       "hiddenSeries": false,
       "id": 20,
@@ -1380,7 +1291,7 @@
     ]
   },
   "time": {
-    "from": "now-5m",
+    "from": "now-15m",
     "to": "now"
   },
   "timepicker": {
@@ -1401,5 +1312,5 @@
   "timezone": "",
   "title": "Kubernetes / Addons / Velero Stats",
   "uid": "YAniUGC",
-  "version": 2
+  "version": 3
 }
