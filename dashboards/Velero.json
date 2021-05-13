@@ -16,212 +16,9 @@
   "editable": true,
   "gnetId": 11055,
   "graphTooltip": 1,
-  "iteration": 1620906375809,
+  "iteration": 1620906929094,
   "links": [],
   "panels": [
-    {
-      "collapsed": true,
-      "datasource": null,
-      "gridPos": {
-        "h": 1,
-        "w": 24,
-        "x": 0,
-        "y": 0
-      },
-      "id": 26,
-      "panels": [],
-      "title": "Alert Sources",
-      "type": "row"
-    },
-    {
-      "alert": {
-        "alertRuleTags": {},
-        "conditions": [
-          {
-            "evaluator": {
-              "params": [
-                0
-              ],
-              "type": "gt"
-            },
-            "operator": {
-              "type": "and"
-            },
-            "query": {
-              "params": [
-                "A",
-                "5m",
-                "now"
-              ]
-            },
-            "reducer": {
-              "params": [],
-              "type": "last"
-            },
-            "type": "query"
-          },
-          {
-            "evaluator": {
-              "params": [
-                0
-              ],
-              "type": "gt"
-            },
-            "operator": {
-              "type": "or"
-            },
-            "query": {
-              "params": [
-                "B",
-                "5m",
-                "now"
-              ]
-            },
-            "reducer": {
-              "params": [],
-              "type": "last"
-            },
-            "type": "query"
-          }
-        ],
-        "executionErrorState": "alerting",
-        "for": "5m",
-        "frequency": "1m",
-        "handler": 1,
-        "message": "A Velero backup of the cluster has failed.  Please use the Velero CLI to retrieve the backup logs to assist in investigation of the issue.\n\nThis alert will not clear until the failed or partially failed backup is removed.",
-        "name": "Failed Backup Alert",
-        "noDataState": "no_data",
-        "notifications": []
-      },
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": null,
-      "fieldConfig": {
-        "defaults": {
-          "custom": {
-            "align": null,
-            "filterable": false
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
-      "fill": 1,
-      "fillGradient": 0,
-      "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 0,
-        "y": 1
-      },
-      "hiddenSeries": false,
-      "id": 24,
-      "legend": {
-        "avg": false,
-        "current": false,
-        "max": false,
-        "min": false,
-        "show": true,
-        "total": false,
-        "values": false
-      },
-      "lines": true,
-      "linewidth": 1,
-      "nullPointMode": "null",
-      "options": {
-        "alertThreshold": true
-      },
-      "percentage": false,
-      "pluginVersion": "7.2.0",
-      "pointradius": 2,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "expr": "(velero_backup_failure_total{schedule=~\"velero-hellman-cluster-backup\"})",
-          "format": "time_series",
-          "instant": true,
-          "interval": "",
-          "legendFormat": "Backup Failure Total",
-          "refId": "A"
-        },
-        {
-          "expr": "(velero_backup_partial_failure_total{schedule=~\"velero-hellman-cluster-backup\"})",
-          "format": "time_series",
-          "instant": true,
-          "interval": "",
-          "legendFormat": "Backup Partial Failure Total",
-          "refId": "B"
-        }
-      ],
-      "thresholds": [
-        {
-          "colorMode": "critical",
-          "fill": true,
-          "line": true,
-          "op": "gt",
-          "value": 0
-        }
-      ],
-      "timeFrom": null,
-      "timeRegions": [],
-      "timeShift": null,
-      "title": "Failed Backup Counts",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        },
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
-    },
     {
       "collapsed": false,
       "datasource": null,
@@ -229,7 +26,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 9
+        "y": 0
       },
       "id": 15,
       "panels": [],
@@ -264,7 +61,7 @@
         "h": 9,
         "w": 5,
         "x": 0,
-        "y": 10
+        "y": 1
       },
       "id": 4,
       "interval": null,
@@ -356,7 +153,7 @@
         "h": 9,
         "w": 4,
         "x": 5,
-        "y": 10
+        "y": 1
       },
       "id": 22,
       "interval": null,
@@ -439,7 +236,7 @@
         "h": 9,
         "w": 15,
         "x": 9,
-        "y": 10
+        "y": 1
       },
       "hiddenSeries": false,
       "id": 8,
@@ -569,7 +366,7 @@
         "h": 7,
         "w": 24,
         "x": 0,
-        "y": 19
+        "y": 10
       },
       "hiddenSeries": false,
       "id": 2,
@@ -674,7 +471,7 @@
         "h": 6,
         "w": 24,
         "x": 0,
-        "y": 26
+        "y": 17
       },
       "hiddenSeries": false,
       "id": 11,
@@ -800,7 +597,7 @@
         "h": 6,
         "w": 24,
         "x": 0,
-        "y": 32
+        "y": 23
       },
       "hiddenSeries": false,
       "id": 18,
@@ -906,7 +703,7 @@
         "h": 8,
         "w": 24,
         "x": 0,
-        "y": 38
+        "y": 29
       },
       "id": 13,
       "pageSize": null,
@@ -963,7 +760,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 46
+        "y": 37
       },
       "id": 17,
       "panels": [],
@@ -998,7 +795,7 @@
         "h": 9,
         "w": 5,
         "x": 0,
-        "y": 47
+        "y": 38
       },
       "id": 5,
       "interval": null,
@@ -1083,7 +880,7 @@
         "h": 9,
         "w": 19,
         "x": 5,
-        "y": 47
+        "y": 38
       },
       "hiddenSeries": false,
       "id": 19,
@@ -1192,7 +989,7 @@
         "h": 8,
         "w": 24,
         "x": 0,
-        "y": 56
+        "y": 47
       },
       "hiddenSeries": false,
       "id": 20,
@@ -1315,6 +1112,210 @@
         "align": false,
         "alignLevel": null
       }
+    },
+    {
+      "collapsed": true,
+      "datasource": null,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 55
+      },
+      "id": 26,
+      "panels": [
+        {
+          "alert": {
+            "alertRuleTags": {},
+            "conditions": [
+              {
+                "evaluator": {
+                  "params": [
+                    0
+                  ],
+                  "type": "gt"
+                },
+                "operator": {
+                  "type": "and"
+                },
+                "query": {
+                  "params": [
+                    "A",
+                    "5m",
+                    "now"
+                  ]
+                },
+                "reducer": {
+                  "params": [],
+                  "type": "last"
+                },
+                "type": "query"
+              },
+              {
+                "evaluator": {
+                  "params": [
+                    0
+                  ],
+                  "type": "gt"
+                },
+                "operator": {
+                  "type": "or"
+                },
+                "query": {
+                  "params": [
+                    "B",
+                    "5m",
+                    "now"
+                  ]
+                },
+                "reducer": {
+                  "params": [],
+                  "type": "last"
+                },
+                "type": "query"
+              }
+            ],
+            "executionErrorState": "alerting",
+            "for": "5m",
+            "frequency": "1m",
+            "handler": 1,
+            "message": "A Velero backup of the cluster has failed.  Please use the Velero CLI to retrieve the backup logs to assist in investigation of the issue.",
+            "name": "Failed Backup Alert",
+            "noDataState": "no_data",
+            "notifications": []
+          },
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": null,
+          "fieldConfig": {
+            "defaults": {
+              "custom": {
+                "align": null,
+                "filterable": false
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "fill": 1,
+          "fillGradient": 0,
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 0,
+            "y": 1
+          },
+          "hiddenSeries": false,
+          "id": 24,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 1,
+          "nullPointMode": "null",
+          "options": {
+            "alertThreshold": true
+          },
+          "percentage": false,
+          "pluginVersion": "7.2.0",
+          "pointradius": 2,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "expr": "rate(velero_backup_failure_total{schedule=~\"velero-hellman-cluster-backup\"}[24h:])  ",
+              "format": "time_series",
+              "instant": false,
+              "interval": "",
+              "legendFormat": "Backup Failure Total",
+              "refId": "A"
+            },
+            {
+              "expr": "rate(velero_backup_partial_failure_total{schedule=~\"velero-hellman-cluster-backup\"}[24h:])",
+              "format": "time_series",
+              "instant": true,
+              "interval": "",
+              "legendFormat": "Backup Partial Failure Total",
+              "refId": "B"
+            }
+          ],
+          "thresholds": [
+            {
+              "colorMode": "critical",
+              "fill": true,
+              "line": true,
+              "op": "gt",
+              "value": 0
+            }
+          ],
+          "timeFrom": null,
+          "timeRegions": [],
+          "timeShift": null,
+          "title": "Failed Backup Counts",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ],
+          "yaxis": {
+            "align": false,
+            "alignLevel": null
+          }
+        }
+      ],
+      "title": "Alert Sources",
+      "type": "row"
     }
   ],
   "refresh": false,
@@ -1367,5 +1368,5 @@
   "timezone": "",
   "title": "Kubernetes / Addons / Velero Stats",
   "uid": "YAniUGC",
-  "version": 6
+  "version": 7
 }
