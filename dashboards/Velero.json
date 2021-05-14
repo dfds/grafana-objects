@@ -16,7 +16,7 @@
   "editable": true,
   "gnetId": 11055,
   "graphTooltip": 1,
-  "iteration": 1620917933067,
+  "iteration": 1620980250799,
   "links": [],
   "panels": [
     {
@@ -1423,7 +1423,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "rate(velero_restore_failure_total{schedule=~\"velero-hellman-cluster-backup\"}[24h:])  ",
+          "expr": "rate(velero_restore_failed_total{schedule=~\"velero-hellman-cluster-backup\"}[24h:])  ",
           "interval": "",
           "legendFormat": "",
           "refId": "A"
@@ -1437,11 +1437,13 @@
       ],
       "thresholds": [
         {
+          "$$hashKey": "object:294",
           "colorMode": "critical",
           "fill": true,
           "line": true,
           "op": "gt",
-          "value": 0
+          "value": 0,
+          "yaxis": "left"
         }
       ],
       "timeFrom": null,
@@ -1952,5 +1954,5 @@
   "timezone": "",
   "title": "Kubernetes / Addons / Velero Stats",
   "uid": "YAniUGC",
-  "version": 8
+  "version": 9
 }
