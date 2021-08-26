@@ -1,62 +1,22 @@
 {
-  "__inputs": [
-    {
-      "name": "DS_PROMETHEUS",
-      "label": "Prometheus",
-      "description": "",
-      "type": "datasource",
-      "pluginId": "prometheus",
-      "pluginName": "Prometheus"
-    }
-  ],
-  "__requires": [
-    {
-      "type": "grafana",
-      "id": "grafana",
-      "name": "Grafana",
-      "version": "8.0.3"
-    },
-    {
-      "type": "panel",
-      "id": "graph",
-      "name": "Graph (old)",
-      "version": ""
-    },
-    {
-      "type": "datasource",
-      "id": "prometheus",
-      "name": "Prometheus",
-      "version": "1.0.0"
-    },
-    {
-      "type": "panel",
-      "id": "stat",
-      "name": "Stat",
-      "version": ""
-    }
-  ],
   "annotations": {
-    "list": [
-      {
-        "builtIn": 1,
-        "datasource": "-- Grafana --",
-        "enable": true,
-        "hide": true,
-        "iconColor": "rgba(0, 211, 255, 1)",
-        "name": "Annotations & Alerts",
-        "type": "dashboard"
-      }
-    ]
+    "list": [{
+      "builtIn": 1,
+      "datasource": "-- Grafana --",
+      "enable": true,
+      "hide": true,
+      "iconColor": "rgba(0, 211, 255, 1)",
+      "name": "Annotations & Alerts",
+      "type": "dashboard"
+    }]
   },
   "description": "Simple dashboard for Traefik 2",
   "editable": true,
   "gnetId": 11462,
   "graphTooltip": 0,
-  "id": null,
-  "iteration": 1629445679935,
+  "iteration": 1629966321228,
   "links": [],
-  "panels": [
-    {
+  "panels": [{
       "cacheTimeout": null,
       "datasource": "${DS_PROMETHEUS}",
       "fieldConfig": {
@@ -64,21 +24,18 @@
           "color": {
             "mode": "thresholds"
           },
-          "mappings": [
-            {
-              "options": {
-                "match": "null",
-                "result": {
-                  "text": "N/A"
-                }
-              },
-              "type": "special"
-            }
-          ],
+          "mappings": [{
+            "options": {
+              "match": "null",
+              "result": {
+                "text": "N/A"
+              }
+            },
+            "type": "special"
+          }],
           "thresholds": {
             "mode": "absolute",
-            "steps": [
-              {
+            "steps": [{
                 "color": "green",
                 "value": null
               },
@@ -118,14 +75,12 @@
         "textMode": "auto"
       },
       "pluginVersion": "8.0.3",
-      "targets": [
-        {
-          "expr": "time() - process_start_time_seconds{job=\"$job\"}",
-          "format": "time_series",
-          "intervalFactor": 2,
-          "refId": "A"
-        }
-      ],
+      "targets": [{
+        "expr": "time() - process_start_time_seconds{job=\"$job\"}",
+        "format": "time_series",
+        "intervalFactor": 2,
+        "refId": "A"
+      }],
       "title": "Uptime",
       "type": "stat"
     },
@@ -138,21 +93,18 @@
             "mode": "thresholds"
           },
           "decimals": 0,
-          "mappings": [
-            {
-              "options": {
-                "match": "null",
-                "result": {
-                  "text": "N/A"
-                }
-              },
-              "type": "special"
-            }
-          ],
+          "mappings": [{
+            "options": {
+              "match": "null",
+              "result": {
+                "text": "N/A"
+              }
+            },
+            "type": "special"
+          }],
           "thresholds": {
             "mode": "absolute",
-            "steps": [
-              {
+            "steps": [{
                 "color": "#37872D",
                 "value": null
               },
@@ -196,17 +148,15 @@
         "textMode": "auto"
       },
       "pluginVersion": "8.0.3",
-      "targets": [
-        {
-          "expr": "sum(increase(traefik_service_requests_total{code=\"404\",protocol=~\"$protocol\"}[$interval]))",
-          "format": "time_series",
-          "intervalFactor": 2,
-          "legendFormat": "",
-          "metric": "traefik_requests_total",
-          "refId": "A",
-          "step": 60
-        }
-      ],
+      "targets": [{
+        "expr": "sum(increase(traefik_service_requests_total{code=\"404\",protocol=~\"$protocol\"}[$interval]))",
+        "format": "time_series",
+        "intervalFactor": 2,
+        "legendFormat": "",
+        "metric": "traefik_requests_total",
+        "refId": "A",
+        "step": 60
+      }],
       "title": "404 Error Count",
       "type": "stat"
     },
@@ -219,21 +169,18 @@
             "mode": "thresholds"
           },
           "decimals": 0,
-          "mappings": [
-            {
-              "options": {
-                "match": "null",
-                "result": {
-                  "text": "N/A"
-                }
-              },
-              "type": "special"
-            }
-          ],
+          "mappings": [{
+            "options": {
+              "match": "null",
+              "result": {
+                "text": "N/A"
+              }
+            },
+            "type": "special"
+          }],
           "thresholds": {
             "mode": "absolute",
-            "steps": [
-              {
+            "steps": [{
                 "color": "#37872D",
                 "value": null
               },
@@ -277,12 +224,10 @@
         "textMode": "auto"
       },
       "pluginVersion": "8.0.3",
-      "targets": [
-        {
-          "expr": "sum(increase(traefik_service_requests_total{code=\"503\",protocol=~\"$protocol\"}[$interval]))",
-          "refId": "A"
-        }
-      ],
+      "targets": [{
+        "expr": "sum(increase(traefik_service_requests_total{code=\"503\",protocol=~\"$protocol\"}[$interval]))",
+        "refId": "A"
+      }],
       "timeFrom": null,
       "timeShift": null,
       "title": "503 Error count",
@@ -297,21 +242,18 @@
             "fixedColor": "rgb(31, 120, 193)",
             "mode": "fixed"
           },
-          "mappings": [
-            {
-              "options": {
-                "match": "null",
-                "result": {
-                  "text": "N/A"
-                }
-              },
-              "type": "special"
-            }
-          ],
+          "mappings": [{
+            "options": {
+              "match": "null",
+              "result": {
+                "text": "N/A"
+              }
+            },
+            "type": "special"
+          }],
           "thresholds": {
             "mode": "absolute",
-            "steps": [
-              {
+            "steps": [{
                 "color": "green",
                 "value": null
               },
@@ -351,14 +293,12 @@
         "textMode": "auto"
       },
       "pluginVersion": "8.0.3",
-      "targets": [
-        {
-          "expr": "sum(traefik_entrypoint_request_duration_seconds_sum) / sum(traefik_entrypoint_requests_total) * 1000",
-          "format": "time_series",
-          "intervalFactor": 2,
-          "refId": "A"
-        }
-      ],
+      "targets": [{
+        "expr": "sum(traefik_entrypoint_request_duration_seconds_sum) / sum(traefik_entrypoint_requests_total) * 1000",
+        "format": "time_series",
+        "intervalFactor": 2,
+        "refId": "A"
+      }],
       "title": "Average response time",
       "type": "stat"
     },
@@ -409,16 +349,14 @@
       "spaceLength": 10,
       "stack": false,
       "steppedLine": false,
-      "targets": [
-        {
-          "expr": "sum(traefik_service_request_duration_seconds_sum{protocol=~\"$protocol\"}) / sum(traefik_entrypoint_requests_total{protocol=~\"$protocol\"}) * 1000",
-          "format": "time_series",
-          "intervalFactor": 2,
-          "legendFormat": "Average response time (ms)",
-          "refId": "A",
-          "step": 240
-        }
-      ],
+      "targets": [{
+        "expr": "sum(traefik_service_request_duration_seconds_sum{protocol=~\"$protocol\"}) / sum(traefik_entrypoint_requests_total{protocol=~\"$protocol\"}) * 1000",
+        "format": "time_series",
+        "intervalFactor": 2,
+        "legendFormat": "Average response time (ms)",
+        "refId": "A",
+        "step": 240
+      }],
       "thresholds": [],
       "timeFrom": null,
       "timeRegions": [],
@@ -437,8 +375,7 @@
         "show": true,
         "values": []
       },
-      "yaxes": [
-        {
+      "yaxes": [{
           "format": "ms",
           "label": null,
           "logBase": 10,
@@ -510,17 +447,15 @@
       "spaceLength": 10,
       "stack": false,
       "steppedLine": false,
-      "targets": [
-        {
-          "expr": "sum(increase(traefik_service_requests_total{code=\"404\",method=\"GET\",protocol=~\"$protocol\"}[$interval])) by (service)",
-          "format": "time_series",
-          "interval": "",
-          "intervalFactor": 2,
-          "legendFormat": "{{service}} ",
-          "refId": "A",
-          "step": 240
-        }
-      ],
+      "targets": [{
+        "expr": "sum(increase(traefik_service_requests_total{code=\"404\",method=\"GET\",protocol=~\"$protocol\"}[$interval])) by (service)",
+        "format": "time_series",
+        "interval": "",
+        "intervalFactor": 2,
+        "legendFormat": "{{service}} ",
+        "refId": "A",
+        "step": 240
+      }],
       "thresholds": [],
       "timeFrom": null,
       "timeRegions": [],
@@ -539,8 +474,7 @@
         "show": true,
         "values": []
       },
-      "yaxes": [
-        {
+      "yaxes": [{
           "decimals": 0,
           "format": "short",
           "label": null,
@@ -613,15 +547,13 @@
       "spaceLength": 10,
       "stack": false,
       "steppedLine": false,
-      "targets": [
-        {
-          "expr": "sum(rate(traefik_service_requests_total[$interval]))",
-          "format": "time_series",
-          "intervalFactor": 2,
-          "legendFormat": "Total requests",
-          "refId": "A"
-        }
-      ],
+      "targets": [{
+        "expr": "sum(rate(traefik_service_requests_total[$interval]))",
+        "format": "time_series",
+        "intervalFactor": 2,
+        "legendFormat": "Total requests",
+        "refId": "A"
+      }],
       "thresholds": [],
       "timeFrom": null,
       "timeRegions": [],
@@ -640,8 +572,7 @@
         "show": true,
         "values": []
       },
-      "yaxes": [
-        {
+      "yaxes": [{
           "decimals": 0,
           "format": "short",
           "label": null,
@@ -712,17 +643,15 @@
       "spaceLength": 10,
       "stack": true,
       "steppedLine": false,
-      "targets": [
-        {
-          "expr": "process_open_fds{job=~\"$job\"}",
-          "format": "time_series",
-          "interval": "",
-          "intervalFactor": 2,
-          "legendFormat": "{{ instance }}",
-          "refId": "A",
-          "step": 240
-        }
-      ],
+      "targets": [{
+        "expr": "process_open_fds{job=~\"$job\"}",
+        "format": "time_series",
+        "interval": "",
+        "intervalFactor": 2,
+        "legendFormat": "{{ instance }}",
+        "refId": "A",
+        "step": 240
+      }],
       "thresholds": [],
       "timeFrom": null,
       "timeRegions": [],
@@ -741,8 +670,7 @@
         "show": true,
         "values": []
       },
-      "yaxes": [
-        {
+      "yaxes": [{
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -814,17 +742,15 @@
       "spaceLength": 10,
       "stack": false,
       "steppedLine": false,
-      "targets": [
-        {
-          "expr": "sum(rate(traefik_service_requests_total{protocol=~\"http|https\"}[$interval])) by (service)",
-          "format": "time_series",
-          "interval": "",
-          "intervalFactor": 2,
-          "legendFormat": "{{service}} ",
-          "refId": "A",
-          "step": 240
-        }
-      ],
+      "targets": [{
+        "expr": "sum(rate(traefik_service_requests_total{protocol=~\"http|https\"}[$interval])) by (service)",
+        "format": "time_series",
+        "interval": "",
+        "intervalFactor": 2,
+        "legendFormat": "{{service}} ",
+        "refId": "A",
+        "step": 240
+      }],
       "thresholds": [],
       "timeFrom": null,
       "timeRegions": [],
@@ -843,8 +769,7 @@
         "show": true,
         "values": []
       },
-      "yaxes": [
-        {
+      "yaxes": [{
           "decimals": 0,
           "format": "short",
           "label": null,
@@ -918,15 +843,13 @@
       "spaceLength": 10,
       "stack": true,
       "steppedLine": false,
-      "targets": [
-        {
-          "expr": "sum(traefik_entrypoint_open_connections) by (method)",
-          "format": "time_series",
-          "intervalFactor": 1,
-          "legendFormat": "{{ method }}",
-          "refId": "A"
-        }
-      ],
+      "targets": [{
+        "expr": "sum(traefik_entrypoint_open_connections) by (method)",
+        "format": "time_series",
+        "intervalFactor": 1,
+        "legendFormat": "{{ method }}",
+        "refId": "A"
+      }],
       "thresholds": [],
       "timeFrom": null,
       "timeRegions": [],
@@ -945,8 +868,7 @@
         "show": true,
         "values": []
       },
-      "yaxes": [
-        {
+      "yaxes": [{
           "decimals": 0,
           "format": "short",
           "label": null,
@@ -1020,15 +942,13 @@
       "spaceLength": 10,
       "stack": true,
       "steppedLine": false,
-      "targets": [
-        {
-          "expr": "sum(traefik_service_open_connections) by (method)",
-          "format": "time_series",
-          "intervalFactor": 1,
-          "legendFormat": "{{ method }}",
-          "refId": "A"
-        }
-      ],
+      "targets": [{
+        "expr": "sum(traefik_service_open_connections) by (method)",
+        "format": "time_series",
+        "intervalFactor": 1,
+        "legendFormat": "{{ method }}",
+        "refId": "A"
+      }],
       "thresholds": [],
       "timeFrom": null,
       "timeRegions": [],
@@ -1047,8 +967,7 @@
         "show": true,
         "values": []
       },
-      "yaxes": [
-        {
+      "yaxes": [{
           "decimals": 0,
           "format": "short",
           "label": null,
@@ -1117,25 +1036,21 @@
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
-      "seriesOverrides": [
-        {
-          "alias": "/^[^234].*/",
-          "transform": "negative-Y"
-        }
-      ],
+      "seriesOverrides": [{
+        "alias": "/^[^234].*/",
+        "transform": "negative-Y"
+      }],
       "spaceLength": 10,
       "stack": false,
       "steppedLine": false,
-      "targets": [
-        {
-          "expr": "sum(increase(traefik_service_requests_total{protocol=~\"$protocol\"}[$interval])) by (code)",
-          "format": "time_series",
-          "intervalFactor": 2,
-          "legendFormat": "{{code}}",
-          "refId": "A",
-          "step": 120
-        }
-      ],
+      "targets": [{
+        "expr": "sum(increase(traefik_service_requests_total{protocol=~\"$protocol\"}[$interval])) by (code)",
+        "format": "time_series",
+        "intervalFactor": 2,
+        "legendFormat": "{{code}}",
+        "refId": "A",
+        "step": 120
+      }],
       "thresholds": [],
       "timeFrom": null,
       "timeRegions": [],
@@ -1154,8 +1069,7 @@
         "show": true,
         "values": []
       },
-      "yaxes": [
-        {
+      "yaxes": [{
           "decimals": 0,
           "format": "short",
           "label": "",
@@ -1189,10 +1103,13 @@
     "prometheus"
   ],
   "templating": {
-    "list": [
-      {
+    "list": [{
         "allValue": null,
-        "current": {},
+        "current": {
+          "selected": false,
+          "text": "your-cool-service-dev",
+          "value": "your-cool-service-dev"
+        },
         "datasource": "${DS_PROMETHEUS}",
         "definition": "",
         "description": null,
@@ -1218,7 +1135,11 @@
       },
       {
         "allValue": null,
-        "current": {},
+        "current": {
+          "selected": false,
+          "text": "All",
+          "value": "$__all"
+        },
         "datasource": "${DS_PROMETHEUS}",
         "definition": "label_values(traefik_service_requests_total, protocol)",
         "description": null,
@@ -1256,8 +1177,7 @@
         "hide": 0,
         "label": "Interval",
         "name": "interval",
-        "options": [
-          {
+        "options": [{
             "selected": true,
             "text": "auto",
             "value": "$__auto_interval_interval"
@@ -1317,6 +1237,26 @@
         "refresh": 2,
         "skipUrlSync": false,
         "type": "interval"
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": "Prometheus",
+          "value": "Prometheus"
+        },
+        "description": null,
+        "error": null,
+        "hide": 0,
+        "includeAll": false,
+        "label": null,
+        "multi": false,
+        "name": "DS_PROMETHEUS",
+        "options": [],
+        "query": "prometheus",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "type": "datasource"
       }
     ]
   },
@@ -1350,7 +1290,6 @@
     ]
   },
   "timezone": "",
-  "title": "Traefik 2",
-  "uid": "v7X-gf77k",
-  "version": 2
+  "title": "Traefik 2 for DFDS",
+  "version": 1
 }
