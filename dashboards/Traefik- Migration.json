@@ -15,7 +15,7 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "iteration": 1629966698886,
+  "iteration": 1630322225457,
   "links": [],
   "panels": [
     {
@@ -422,14 +422,14 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "sum(increase(traefik_service_requests_total{protocol!=\"websocket\", code=~\"4..\"}[$interval])) by (code)",
+          "expr": "sum(rate(traefik_service_requests_total{protocol!=\"websocket\", code=~\"4..\"}[$interval])) by (code)",
           "interval": "",
           "legendFormat": "{{code}}",
           "refId": "A"
         },
         {
           "exemplar": true,
-          "expr": "sum(increase(traefik_service_requests_total{protocol!=\"websocket\", code=~\"5..\"}[$interval])) by (code)",
+          "expr": "sum(rate(traefik_service_requests_total{protocol!=\"websocket\", code=~\"5..\"}[$interval])) by (code)",
           "hide": false,
           "interval": "",
           "legendFormat": "{{code}}",
@@ -747,7 +747,7 @@
       }
     }
   ],
-  "refresh": "",
+  "refresh": "10s",
   "schemaVersion": 30,
   "style": "dark",
   "tags": [],
@@ -759,8 +759,8 @@
         "auto_min": "10s",
         "current": {
           "selected": false,
-          "text": "5m",
-          "value": "5m"
+          "text": "1m",
+          "value": "1m"
         },
         "description": null,
         "error": null,
@@ -769,12 +769,12 @@
         "name": "interval",
         "options": [
           {
-            "selected": false,
+            "selected": true,
             "text": "1m",
             "value": "1m"
           },
           {
-            "selected": true,
+            "selected": false,
             "text": "5m",
             "value": "5m"
           },
