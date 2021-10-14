@@ -1,26 +1,28 @@
 {
   "annotations": {
-    "list": [
-      {
-        "builtIn": 1,
-        "datasource": "-- Grafana --",
-        "enable": true,
-        "hide": true,
-        "iconColor": "rgba(0, 211, 255, 1)",
-        "name": "Annotations & Alerts",
+    "list": [{
+      "builtIn": 1,
+      "datasource": "-- Grafana --",
+      "enable": true,
+      "hide": true,
+      "iconColor": "rgba(0, 211, 255, 1)",
+      "name": "Annotations & Alerts",
+      "target": {
+        "limit": 100,
+        "matchAny": false,
+        "tags": [],
         "type": "dashboard"
-      }
-    ]
+      },
+      "type": "dashboard"
+    }]
   },
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
   "links": [],
-  "panels": [
-    {
+  "panels": [{
       "alert": {
-        "conditions": [
-          {
+        "conditions": [{
             "evaluator": {
               "params": [
                 0.2
@@ -81,12 +83,6 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": null,
-      "fieldConfig": {
-        "defaults": {
-          "custom": {}
-        },
-        "overrides": []
-      },
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
@@ -115,7 +111,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.2.0",
+      "pluginVersion": "8.1.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -123,8 +119,7 @@
       "spaceLength": 10,
       "stack": false,
       "steppedLine": false,
-      "targets": [
-        {
+      "targets": [{
           "expr": "sum(rate(traefik_backend_requests_total{code=~\"5..\"}[5m]))",
           "format": "time_series",
           "intervalFactor": 1,
@@ -140,15 +135,14 @@
           "refId": "B"
         }
       ],
-      "thresholds": [
-        {
-          "colorMode": "critical",
-          "fill": true,
-          "line": true,
-          "op": "gt",
-          "value": 0.2
-        }
-      ],
+      "thresholds": [{
+        "colorMode": "critical",
+        "fill": true,
+        "line": true,
+        "op": "gt",
+        "value": 0.2,
+        "visible": true
+      }],
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
@@ -166,8 +160,7 @@
         "show": true,
         "values": []
       },
-      "yaxes": [
-        {
+      "yaxes": [{
           "format": "reqps",
           "label": null,
           "logBase": 1,
@@ -195,12 +188,6 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": null,
-      "fieldConfig": {
-        "defaults": {
-          "custom": {}
-        },
-        "overrides": []
-      },
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
@@ -234,7 +221,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.2.0",
+      "pluginVersion": "8.1.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -242,15 +229,13 @@
       "spaceLength": 10,
       "stack": false,
       "steppedLine": false,
-      "targets": [
-        {
-          "expr": "sum(rate(traefik_backend_requests_total{code=~\"5..\"}[5m])) by (backend)",
-          "format": "time_series",
-          "intervalFactor": 1,
-          "legendFormat": "5XX : {{backend}}",
-          "refId": "A"
-        }
-      ],
+      "targets": [{
+        "expr": "sum(rate(traefik_backend_requests_total{code=~\"5..\"}[5m])) by (backend)",
+        "format": "time_series",
+        "intervalFactor": 1,
+        "legendFormat": "5XX : {{backend}}",
+        "refId": "A"
+      }],
       "thresholds": [],
       "timeFrom": null,
       "timeRegions": [],
@@ -269,8 +254,7 @@
         "show": true,
         "values": []
       },
-      "yaxes": [
-        {
+      "yaxes": [{
           "format": "reqps",
           "label": null,
           "logBase": 1,
@@ -293,76 +277,11 @@
       }
     },
     {
-      "alert": {
-        "alertRuleTags": {},
-        "conditions": [
-          {
-            "evaluator": {
-              "params": [
-                2
-              ],
-              "type": "gt"
-            },
-            "operator": {
-              "type": "and"
-            },
-            "query": {
-              "params": [
-                "A",
-                "10m",
-                "now"
-              ]
-            },
-            "reducer": {
-              "params": [],
-              "type": "avg"
-            },
-            "type": "query"
-          },
-          {
-            "evaluator": {
-              "params": [
-                10
-              ],
-              "type": "gt"
-            },
-            "operator": {
-              "type": "and"
-            },
-            "query": {
-              "params": [
-                "A",
-                "10m",
-                "now"
-              ]
-            },
-            "reducer": {
-              "params": [],
-              "type": "avg"
-            },
-            "type": "query"
-          }
-        ],
-        "executionErrorState": "alerting",
-        "for": "5m",
-        "frequency": "1m",
-        "handler": 1,
-        "message": "Too high traefik request duration",
-        "name": "Traefik request duration alert",
-        "noDataState": "no_data",
-        "notifications": []
-      },
       "aliasColors": {},
       "bars": false,
       "dashLength": 10,
       "dashes": false,
       "datasource": "Prometheus",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {}
-        },
-        "overrides": []
-      },
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
@@ -392,7 +311,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.2.0",
+      "pluginVersion": "8.1.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -400,8 +319,7 @@
       "spaceLength": 10,
       "stack": false,
       "steppedLine": false,
-      "targets": [
-        {
+      "targets": [{
           "expr": "sum(rate(traefik_backend_request_duration_seconds_sum{protocol!=\"websocket\"}[5m])) / sum(rate(traefik_backend_request_duration_seconds_count{protocol!=\"websocket\"}[5m]))",
           "format": "time_series",
           "hide": false,
@@ -424,15 +342,7 @@
           "refId": "C"
         }
       ],
-      "thresholds": [
-        {
-          "colorMode": "critical",
-          "fill": true,
-          "line": true,
-          "op": "gt",
-          "value": 2
-        }
-      ],
+      "thresholds": [],
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
@@ -450,8 +360,7 @@
         "show": true,
         "values": []
       },
-      "yaxes": [
-        {
+      "yaxes": [{
           "format": "s",
           "label": null,
           "logBase": 1,
@@ -479,12 +388,6 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": "Prometheus",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {}
-        },
-        "overrides": []
-      },
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
@@ -518,7 +421,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.2.0",
+      "pluginVersion": "8.1.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -526,15 +429,13 @@
       "spaceLength": 10,
       "stack": false,
       "steppedLine": false,
-      "targets": [
-        {
-          "expr": "sum(rate(traefik_backend_request_duration_seconds_sum{protocol!=\"websocket\"}[5m])) by (backend) / sum(rate(traefik_backend_request_duration_seconds_count{protocol!=\"websocket\"}[5m])) by (backend)",
-          "format": "time_series",
-          "intervalFactor": 1,
-          "legendFormat": "Traefik request duration :  {{backend}}",
-          "refId": "A"
-        }
-      ],
+      "targets": [{
+        "expr": "sum(rate(traefik_backend_request_duration_seconds_sum{protocol!=\"websocket\"}[5m])) by (backend) / sum(rate(traefik_backend_request_duration_seconds_count{protocol!=\"websocket\"}[5m])) by (backend)",
+        "format": "time_series",
+        "intervalFactor": 1,
+        "legendFormat": "Traefik request duration :  {{backend}}",
+        "refId": "A"
+      }],
       "thresholds": [],
       "timeFrom": null,
       "timeRegions": [],
@@ -553,8 +454,7 @@
         "show": true,
         "values": []
       },
-      "yaxes": [
-        {
+      "yaxes": [{
           "format": "s",
           "label": null,
           "logBase": 1,
@@ -578,7 +478,7 @@
     }
   ],
   "refresh": false,
-  "schemaVersion": 26,
+  "schemaVersion": 30,
   "style": "dark",
   "tags": [],
   "templating": {
