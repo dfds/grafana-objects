@@ -138,7 +138,7 @@
           "expr": "sum(rate(traefik_backend_request_duration_seconds_sum{protocol!=\"websocket\"}[5m])) by (backend) / sum(rate(traefik_backend_request_duration_seconds_count{protocol!=\"websocket\"}[5m])) by (backend)",
           "format": "time_series",
           "intervalFactor": 1,
-          "legendFormat": "Traefik request duration :  {{backend}}",
+          "legendFormat": "{{backend}}",
           "refId": "A"
         }
       ],
