@@ -508,7 +508,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(rate(traefik_backend_requests_total[5m]))",
+          "expr": "sum(rate(traefik_entrypoint_requests_total{entrypoint=\"web\"}[5m]))",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 1,
@@ -518,7 +518,7 @@
       ],
       "thresholds": [],
       "timeRegions": [],
-      "title": "Traefik Backend Requests",
+      "title": "Traefik Entrypoint Requests",
       "tooltip": {
         "shared": true,
         "sort": 0,
