@@ -8,18 +8,26 @@
         "hide": true,
         "iconColor": "rgba(0, 211, 255, 1)",
         "name": "Annotations & Alerts",
+        "target": {
+          "limit": 100,
+          "matchAny": false,
+          "tags": [],
+          "type": "dashboard"
+        },
         "type": "dashboard"
       }
     ]
   },
   "editable": true,
-  "gnetId": null,
+  "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "iteration": 1591872002911,
+  "iteration": 1644998255812,
   "links": [],
+  "liveNow": false,
   "panels": [
     {
       "alert": {
+        "alertRuleTags": {},
         "conditions": [
           {
             "evaluator": {
@@ -81,14 +89,15 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "Prometheus",
       "fill": 1,
+      "fillGradient": 0,
       "gridPos": {
         "h": 13,
         "w": 19,
         "x": 0,
         "y": 0
       },
+      "hiddenSeries": false,
       "id": 2,
       "legend": {
         "avg": false,
@@ -103,8 +112,11 @@
       "linewidth": 2,
       "links": [],
       "nullPointMode": "null",
-      "options": {},
+      "options": {
+        "alertThreshold": true
+      },
       "percentage": false,
+      "pluginVersion": "8.3.4",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -132,6 +144,10 @@
       "steppedLine": true,
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
           "expr": "count(kube_pod_info)",
           "format": "time_series",
           "hide": false,
@@ -141,22 +157,38 @@
           "refId": "A"
         },
         {
-          "expr": "sum(kube_node_status_capacity_pods)",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "exemplar": true,
+          "expr": "sum(kube_node_status_capacity{resource=\"pods\"})",
           "format": "time_series",
           "hide": false,
+          "interval": "",
           "intervalFactor": 2,
           "legendFormat": "Pod capacity",
           "refId": "B"
         },
         {
-          "expr": "count(kube_node_info) - ceil(count(kube_pod_info{created_by_kind!='DaemonSet'})/((2*min(kube_node_status_capacity_pods))/3-count(kube_daemonset_created)))",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "exemplar": true,
+          "expr": "count(kube_node_info) - ceil(count(kube_pod_info{created_by_kind!='DaemonSet'})/((2*min(kube_node_status_capacity{resource=\"pods\"}))/3-count(kube_daemonset_created)))",
           "format": "time_series",
           "hide": false,
+          "interval": "",
           "intervalFactor": 2,
           "legendFormat": "AZ N+1 node balance",
           "refId": "C"
         },
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
           "expr": "count(kube_pod_info{created_by_kind!='DaemonSet'})",
           "format": "time_series",
           "hide": true,
@@ -165,6 +197,10 @@
           "refId": "E"
         },
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
           "expr": "count(kube_node_info)",
           "format": "time_series",
           "hide": true,
@@ -173,9 +209,15 @@
           "refId": "D"
         },
         {
-          "expr": "ceil(count(kube_pod_info{created_by_kind!='DaemonSet'})/((2*min(kube_node_status_capacity_pods))/3-count(kube_daemonset_created)))",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "exemplar": true,
+          "expr": "ceil(count(kube_pod_info{created_by_kind!='DaemonSet'})/((2*min(kube_node_status_capacity{resource=\"pods\"}))/3-count(kube_daemonset_created)))",
           "format": "time_series",
           "hide": true,
+          "interval": "",
           "intervalFactor": 2,
           "legendFormat": "Debug: Ideal node count",
           "refId": "F"
@@ -187,12 +229,11 @@
           "fill": true,
           "line": true,
           "op": "lt",
-          "value": 0
+          "value": 0,
+          "visible": true
         }
       ],
-      "timeFrom": null,
       "timeRegions": [],
-      "timeShift": null,
       "title": "Pod Capacity",
       "tooltip": {
         "shared": true,
@@ -201,38 +242,57 @@
       },
       "type": "graph",
       "xaxis": {
-        "buckets": null,
         "mode": "time",
-        "name": null,
         "show": true,
         "values": []
       },
       "yaxes": [
         {
-          "decimals": null,
           "format": "short",
-          "label": null,
           "logBase": 1,
-          "max": null,
           "min": "0",
           "show": true
         },
         {
           "format": "short",
-          "label": null,
           "logBase": 1,
-          "max": null,
           "min": "0",
           "show": true
         }
       ],
       "yaxis": {
-        "align": false,
-        "alignLevel": null
+        "align": false
       }
     },
     {
-      "cacheTimeout": null,
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "displayName": "",
+          "mappings": [],
+          "max": 100,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "light-blue",
+                "index": 0,
+                "value": null
+              },
+              {
+                "color": "light-blue",
+                "index": 1,
+                "value": 80
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
       "gridPos": {
         "h": 13,
         "w": 5,
@@ -243,52 +303,51 @@
       "links": [],
       "options": {
         "displayMode": "lcd",
-        "fieldOptions": {
+        "orientation": "horizontal",
+        "reduceOptions": {
           "calcs": [
             "last"
           ],
-          "defaults": {
-            "max": 100,
-            "min": 0,
-            "title": "",
-            "unit": "none"
-          },
-          "mappings": [],
-          "override": {},
-          "thresholds": [
-            {
-              "color": "light-blue",
-              "index": 0,
-              "value": null
-            },
-            {
-              "color": "light-blue",
-              "index": 1,
-              "value": 80
-            }
-          ],
+          "fields": "",
           "values": false
         },
-        "orientation": "horizontal"
+        "showUnfilled": true
       },
-      "pluginVersion": "6.2.5",
+      "pluginVersion": "8.3.4",
       "targets": [
         {
-          "expr": "sum(kube_node_status_capacity_pods)",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "exemplar": true,
+          "expr": "sum(kube_node_status_capacity{resource=\"pods\"})",
           "format": "time_series",
+          "interval": "",
           "intervalFactor": 1,
           "legendFormat": "Pod capacity",
           "refId": "A"
         },
         {
-          "expr": "100 * sum(kube_pod_info) / sum(kube_node_status_capacity_pods)",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "exemplar": true,
+          "expr": "100 * sum(kube_pod_info) / sum(kube_node_status_capacity{resource=\"pods\"})",
           "format": "time_series",
+          "interval": "",
           "intervalFactor": 1,
           "legendFormat": "Running [%]",
           "refId": "B"
         },
         {
-          "expr": "100 * (sum(kube_node_status_capacity_pods) - sum(kube_pod_info))/ sum(kube_node_status_capacity_pods)",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "exemplar": true,
+          "expr": "100 * (sum(kube_node_status_capacity{resource=\"pods\"}) - sum(kube_pod_info))/ sum(kube_node_status_capacity{resource=\"pods\"})",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 1,
@@ -296,27 +355,25 @@
           "refId": "C"
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
       "title": "Current Capacity",
       "transparent": true,
       "type": "bargauge"
     }
   ],
   "refresh": "1m",
-  "schemaVersion": 18,
+  "schemaVersion": 34,
   "style": "dark",
   "tags": [],
   "templating": {
     "list": [
       {
         "current": {
+          "selected": false,
           "text": "Prometheus",
           "value": "Prometheus"
         },
         "hide": 0,
         "includeAll": false,
-        "label": null,
         "multi": false,
         "name": "datasource",
         "options": [],
@@ -360,5 +417,6 @@
   "timezone": "",
   "title": "Node Capacity",
   "uid": "nE2_Z-IWk",
-  "version": 1
+  "version": 1,
+  "weekStart": ""
 }
