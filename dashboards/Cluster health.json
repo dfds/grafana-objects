@@ -31,7 +31,7 @@
           {
             "evaluator": {
               "params": [
-                5
+                25
               ],
               "type": "gt"
             },
@@ -41,7 +41,7 @@
             "query": {
               "params": [
                 "B",
-                "5m",
+                "10m",
                 "now"
               ]
             },
@@ -133,7 +133,7 @@
           "fill": true,
           "line": true,
           "op": "gt",
-          "value": 5,
+          "value": 25,
           "visible": true
         }
       ],
