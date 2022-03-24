@@ -22,7 +22,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 45,
+  "id": 35,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -33,7 +33,7 @@
           {
             "evaluator": {
               "params": [
-                50
+                150
               ],
               "type": "gt"
             },
@@ -148,7 +148,7 @@
         {
           "colorMode": "critical",
           "op": "gt",
-          "value": 50,
+          "value": 150,
           "visible": true
         }
       ],
@@ -299,6 +299,6 @@
   "timezone": "",
   "title": "Kafka-exporter",
   "uid": "CoYn_3-nk",
-  "version": 5,
+  "version": 1,
   "weekStart": ""
 }
