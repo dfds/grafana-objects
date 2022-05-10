@@ -697,7 +697,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "count(kube_pod_info{priority_class=~\"system.*\",namespace!~\"kube-system\"}) OR on() vector(0)",
+          "expr": "count(kube_pod_info{priority_class=~\"system.*\",namespace!~\"kube-system|monitoring\"}) OR on() vector(0)",
           "format": "time_series",
           "hide": false,
           "intervalFactor": 2,
@@ -714,7 +714,7 @@
           "refId": "B"
         },
         {
-          "expr": "count(kube_pod_info{priority_class=~\"cluster-monitoring\",namespace!~\"alcide|kube-system|monitoring|fluentd\"}) OR on() vector(0)",
+          "expr": "count(kube_pod_info{priority_class=~\"cluster-monitoring\",namespace!~\"kube-system|monitoring|fluentd\"}) OR on() vector(0)",
           "format": "time_series",
           "hide": false,
           "interval": "",
