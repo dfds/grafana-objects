@@ -21,7 +21,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 46,
+  "id": 48,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -136,6 +136,9 @@
       },
       "id": 10,
       "options": {
+        "displayLabels": [
+          "value"
+        ],
         "legend": {
           "displayMode": "list",
           "placement": "bottom"
@@ -478,6 +481,6 @@
   "timezone": "",
   "title": "KIAM to IRSA tracking",
   "uid": "WFUciPjnk",
-  "version": 20,
+  "version": 1,
   "weekStart": ""
 }
