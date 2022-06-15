@@ -169,7 +169,7 @@
           "refId": "A"
         }
       ],
-      "title": "Main offenders",
+      "title": "Namespaces with most pods that needs to be migrated",
       "transformations": [],
       "type": "piechart"
     },
