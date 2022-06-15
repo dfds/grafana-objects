@@ -378,7 +378,7 @@
           "refId": "A"
         }
       ],
-      "title": "Count of namespaces with KIAM annotations",
+      "title": "Total number of namespaces with KIAM annotations over time",
       "type": "timeseries"
     },
     {
@@ -462,7 +462,7 @@
           "refId": "A"
         }
       ],
-      "title": "Number of pods with KIAM annotations",
+      "title": "Total number of pods with KIAM annotations over time",
       "type": "timeseries"
     }
   ],
