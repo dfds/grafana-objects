@@ -107,7 +107,7 @@
           "refId": "A"
         }
       ],
-      "title": "Namespaces with KIAM pod annotations",
+      "title": "Number of pods with KIAM pod annotations by namespace",
       "type": "timeseries"
     },
     {
