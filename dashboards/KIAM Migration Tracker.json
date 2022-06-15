@@ -163,7 +163,7 @@
             "uid": "PBFA97CFB590B2093"
           },
           "exemplar": true,
-          "expr": "count(kube_pod_annotations{annotation_iam_amazonaws_com_role=~\"arn:aws:iam::.+:role/.+\"}) by (namespace, annotation_iam_amazonaws_com_role) > 5",
+          "expr": "count(kube_pod_annotations{annotation_iam_amazonaws_com_role=~\"arn:aws:iam::.+:role/.+\"}) by (namespace, annotation_iam_amazonaws_com_role) >= 5",
           "interval": "",
           "legendFormat": "{{namespace}}",
           "refId": "A"
@@ -474,13 +474,13 @@
     "list": []
   },
   "time": {
-    "from": "now-7d",
+    "from": "now-15m",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "",
   "title": "KIAM to IRSA tracking",
   "uid": "WFUciPjnk",
-  "version": 1,
+  "version": 2,
   "weekStart": ""
 }
