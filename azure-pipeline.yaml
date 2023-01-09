@@ -48,6 +48,15 @@ stages:
         errorActionPreference: 'stop'
         pwsh: true
 
+    - task: Kubernetes@1
+      displayName: kubectl delete configmaps
+      inputs:
+        connectionType: Kubernetes Service Connection
+        kubernetesServiceEndpoint: $(k8s-service-connection)
+        namespace: $(kubernetes-namespace)
+        command: delete
+        arguments: -l grafana_objects="1"
+
     # Deploy configmaps to k8s
     - task: Kubernetes@1
       displayName: kubectl apply configmaps
