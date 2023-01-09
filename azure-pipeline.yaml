@@ -55,7 +55,7 @@ stages:
         kubernetesServiceEndpoint: $(k8s-service-connection)
         namespace: $(kubernetes-namespace)
         command: delete
-        arguments: -l grafana_objects="1"
+        arguments: configmaps -l grafana_objects="1"
 
     # Deploy configmaps to k8s
     - task: Kubernetes@1
