@@ -67,6 +67,16 @@ stages:
         command: apply
         arguments: -f configmaps/
 
+    # Restart Grafana deployment
+    - task: Kubernetes@1
+      displayName: kubectl rollout restart deployment monitoring-grafana
+      inputs:
+        connectionType: Kubernetes Service Connection
+        kubernetesServiceEndpoint: $(k8s-service-connection)
+        namespace: $(kubernetes-namespace)
+        command: rollout
+        arguments: restart deployment monitoring-grafana
+
   - job: Datasources
     displayName: 'Deploy Datasources to Kubernetes'
     pool:
