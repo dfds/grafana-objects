@@ -1,0 +1,67 @@
+name: $(Build.BuildId)
+
+# Triggers Pipeline only on Master
+trigger:
+  branches:
+    include:
+    - main
+  paths:
+    include:
+    - values.yaml
+    - dashboards/*
+    - datasources/*
+    exclude:
+    - README.md
+    - LICENSE
+
+# Disables triggering Pipeline run at creation of every Pull Request
+pr: none
+
+# Global variables for the pipeline
+variables:
+- name: vmImage
+  value: 'ubuntu-latest'
+- name: k8s-service-connection
+  value: 'Kubernetes-emcla-sandbox-pmyxn'
+- name: kubernetes-namespace
+  value: 'sandbox-emcla-pmyxn'
+
+stages:
+# Continuous Deployment steps
+- stage: CD
+  displayName: 'Continuous Deployment'
+
+  jobs:
+  - job: Dashboards
+    displayName: 'Deploy Dashboards to Kubernetes'
+    pool:
+      vmImage: $(vmImage)
+
+    steps:
+    # Convert Dashboards to k8s configmaps
+    - task: PowerShell@2
+      displayName: Converting json dashboards to configmaps
+      inputs:
+        targetType: 'filePath'
+        filePath: Convert-JSONToConfigmap.ps1
+        errorActionPreference: 'stop'
+        pwsh: true
+
+    - task: Kubernetes@1
+      displayName: kubectl delete configmaps
+      inputs:
+        connectionType: Kubernetes Service Connection
+        kubernetesServiceEndpoint: $(k8s-service-connection)
+        namespace: $(kubernetes-namespace)
+        command: delete
+        arguments: configmaps -l grafana_objects="1"
+
+    # Deploy configmaps to k8s
+    - task: Kubernetes@1
+      displayName: kubectl apply configmaps
+      inputs:
+        connectionType: Kubernetes Service Connection
+        kubernetesServiceEndpoint: $(k8s-service-connection)
+        namespace: $(kubernetes-namespace)
+        command: apply
+        arguments: -f configmaps/
