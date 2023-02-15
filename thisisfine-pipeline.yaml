@@ -22,7 +22,7 @@ variables:
 - name: vmImage
   value: 'ubuntu-latest'
 - name: k8s-service-connection
-  value: 'Kubernetes-emcla-sandbox-pmyxn'
+  value: 'Kubernetes-sandbox-emcla-pmyxn'
 - name: kubernetes-namespace
   value: 'sandbox-emcla-pmyxn'
 
