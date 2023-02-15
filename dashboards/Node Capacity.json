@@ -4,9 +4,9 @@
       {
         "builtIn": 1,
         "datasource": {
-                    "type": "datasource",
-                    "uid": "Prometheus"
-                },
+          "type": "datasource",
+          "uid": "Prometheus"
+        },
         "enable": true,
         "hide": true,
         "iconColor": "rgba(0, 211, 255, 1)",
@@ -24,7 +24,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "iteration": 1644998255812,
+  "id": 45,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -92,6 +92,10 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
@@ -119,7 +123,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "8.3.4",
+      "pluginVersion": "9.3.1",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -149,8 +153,9 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "prometheus"
           },
+          "editorMode": "code",
           "expr": "count(kube_pod_info)",
           "format": "time_series",
           "hide": false,
@@ -162,7 +167,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "prometheus"
           },
           "exemplar": true,
           "expr": "sum(kube_node_status_capacity{resource=\"pods\"})",
@@ -176,7 +181,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "prometheus"
           },
           "exemplar": true,
           "expr": "count(kube_node_info) - ceil(count(kube_pod_info{created_by_kind!='DaemonSet'})/((2*min(kube_node_status_capacity{resource=\"pods\"}))/3-count(kube_daemonset_created)))",
@@ -190,7 +195,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "prometheus"
           },
           "expr": "count(kube_pod_info{created_by_kind!='DaemonSet'})",
           "format": "time_series",
@@ -202,7 +207,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "prometheus"
           },
           "expr": "count(kube_node_info)",
           "format": "time_series",
@@ -214,7 +219,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "prometheus"
           },
           "exemplar": true,
           "expr": "ceil(count(kube_pod_info{created_by_kind!='DaemonSet'})/((2*min(kube_node_status_capacity{resource=\"pods\"}))/3-count(kube_daemonset_created)))",
@@ -268,6 +273,10 @@
       }
     },
     {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PBFA97CFB590B2093"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -306,6 +315,8 @@
       "links": [],
       "options": {
         "displayMode": "lcd",
+        "minVizHeight": 10,
+        "minVizWidth": 0,
         "orientation": "horizontal",
         "reduceOptions": {
           "calcs": [
@@ -316,7 +327,7 @@
         },
         "showUnfilled": true
       },
-      "pluginVersion": "8.3.4",
+      "pluginVersion": "9.3.1",
       "targets": [
         {
           "datasource": {
@@ -364,14 +375,14 @@
     }
   ],
   "refresh": "1m",
-  "schemaVersion": 34,
+  "schemaVersion": 37,
   "style": "dark",
   "tags": [],
   "templating": {
     "list": [
       {
         "current": {
-          "selected": false,
+          "selected": true,
           "text": "Prometheus",
           "value": "Prometheus"
         },
@@ -381,6 +392,7 @@
         "name": "datasource",
         "options": [],
         "query": "prometheus",
+        "queryValue": "",
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
@@ -420,6 +432,6 @@
   "timezone": "",
   "title": "Node Capacity",
   "uid": "nE2_Z-IWk",
-  "version": 1,
+  "version": 2,
   "weekStart": ""
 }
