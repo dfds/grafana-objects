@@ -4,6 +4,6 @@ metadata:
   labels:
     grafana_dashboard: "1"
     grafana_objects: "1"
-  name: DASHBOARD_NAME
+  name: custom-DASHBOARD_NAME
 data:
   DASHBOARD_NAME.json: |-
