@@ -260,7 +260,7 @@
                 {
                     "datasource": {
                         "type": "prometheus",
-                        "uid": "PBFA97CFB590B2093"
+                        "uid": "prometheus"
                     },
                     "exemplar": true,
                     "expr": "avg_over_time(avg(node_sockstat_sockets_used{})[24h:1m]) + 3 * stddev_over_time(avg(node_sockstat_sockets_used{})[24h:1m])",
@@ -272,7 +272,7 @@
                 {
                     "datasource": {
                         "type": "prometheus",
-                        "uid": "PBFA97CFB590B2093"
+                        "uid": "prometheus"
                     },
                     "exemplar": true,
                     "expr": "avg_over_time(avg(node_sockstat_sockets_used{})[24h:1m])",
@@ -285,7 +285,7 @@
                 {
                     "datasource": {
                         "type": "prometheus",
-                        "uid": "PBFA97CFB590B2093"
+                        "uid": "prometheus"
                     },
                     "exemplar": true,
                     "expr": "avg(node_sockstat_sockets_used{})",
@@ -298,7 +298,7 @@
                 {
                     "datasource": {
                         "type": "prometheus",
-                        "uid": "PBFA97CFB590B2093"
+                        "uid": "prometheus"
                     },
                     "exemplar": true,
                     "expr": "avg_over_time(avg(node_sockstat_sockets_used{})[24h:1m]) - 3 * stddev_over_time(avg(node_sockstat_sockets_used{})[24h:1m])",

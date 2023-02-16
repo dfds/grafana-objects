@@ -72,7 +72,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "prometheus"
           },
           "exemplar": true,
           "expr": "count(kube_namespace_labels{namespace!=\"\"})",
@@ -85,7 +85,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "prometheus"
           },
           "exemplar": true,
           "expr": "count(kube_deployment_labels{namespace=~\"$capNS\"})",
@@ -98,7 +98,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "prometheus"
           },
           "exemplar": true,
           "expr": "count(kube_service_labels{namespace=~\"$capNS\"})",
@@ -111,7 +111,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "prometheus"
           },
           "exemplar": true,
           "expr": "count(kube_ingress_labels{namespace=~\"$capNS\"})",
@@ -408,7 +408,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "prometheus"
           },
           "exemplar": true,
           "expr": "count(kube_service_labels{service=\"grafana\",namespace!=\"monitoring\"})",
@@ -423,7 +423,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "prometheus"
           },
           "exemplar": true,
           "expr": "count(kube_namespace_labels{namespace!=\"kube-system\", namespace!=\"default\", namespace!=\"kube-public\",namespace!=\"fluentd\",namespace!=\"flux-system\",namespace!=\"kube-node-lease\",namespace!=\"monitoring\",namespace!=\"podinfo\",namespace!=\"selfservice\",namespace!=\"traefik\",namespace!=\"velero\",namespace!=\"atlantis\"})",
@@ -789,7 +789,7 @@
         },
         "datasource": {
           "type": "prometheus",
-          "uid": "PBFA97CFB590B2093"
+          "uid": "prometheus"
         },
         "definition": "label_values(kube_pod_info, cluster)",
         "hide": 2,
@@ -819,7 +819,7 @@
         },
         "datasource": {
           "type": "prometheus",
-          "uid": "PBFA97CFB590B2093"
+          "uid": "prometheus"
         },
         "definition": "label_values(kube_namespace_labels{cluster=\"$cluster\",namespace!=\"\"},namespace)",
         "hide": 2,

@@ -127,7 +127,7 @@
                 {
                     "datasource": {
                         "type": "prometheus",
-                        "uid": "PBFA97CFB590B2093"
+                        "uid": "prometheus"
                     },
                     "exemplar": true,
                     "expr": "count(kube_node_status_condition{condition=~\"Ready\"})",
@@ -138,7 +138,7 @@
                 {
                     "datasource": {
                         "type": "prometheus",
-                        "uid": "PBFA97CFB590B2093"
+                        "uid": "prometheus"
                     },
                     "exemplar": true,
                     "expr": "count(kube_node_status_condition{condition=~\"NotReady\"})",
@@ -150,7 +150,7 @@
                 {
                     "datasource": {
                         "type": "prometheus",
-                        "uid": "PBFA97CFB590B2093"
+                        "uid": "prometheus"
                     },
                     "exemplar": true,
                     "expr": "count(kube_node_status_condition{condition=~\"SchedulingDisabled\"})",
@@ -162,7 +162,7 @@
                 {
                     "datasource": {
                         "type": "prometheus",
-                        "uid": "PBFA97CFB590B2093"
+                        "uid": "prometheus"
                     },
                     "exemplar": true,
                     "expr": "count(kube_node_status_condition{condition=~\"Unknown\"})",
@@ -255,7 +255,7 @@
                 {
                     "datasource": {
                         "type": "prometheus",
-                        "uid": "PBFA97CFB590B2093"
+                        "uid": "prometheus"
                     },
                     "exemplar": true,
                     "expr": "count(kube_node_status_condition{condition=~\"MemoryPressure\"})",
@@ -266,7 +266,7 @@
                 {
                     "datasource": {
                         "type": "prometheus",
-                        "uid": "PBFA97CFB590B2093"
+                        "uid": "prometheus"
                     },
                     "exemplar": true,
                     "expr": "count(kube_node_status_condition{condition=~\"DiskPressure\"})",
@@ -278,7 +278,7 @@
                 {
                     "datasource": {
                         "type": "prometheus",
-                        "uid": "PBFA97CFB590B2093"
+                        "uid": "prometheus"
                     },
                     "exemplar": true,
                     "expr": "count(kube_node_status_condition{condition=~\"PIDPressure\"})",
@@ -290,7 +290,7 @@
                 {
                     "datasource": {
                         "type": "prometheus",
-                        "uid": "PBFA97CFB590B2093"
+                        "uid": "prometheus"
                     },
                     "exemplar": true,
                     "expr": "count(kube_node_status_condition{condition=~\"NetworkUnavailable\"})",

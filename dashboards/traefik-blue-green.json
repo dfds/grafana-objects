@@ -133,7 +133,7 @@
                 {
                     "datasource": {
                         "type": "prometheus",
-                        "uid": "PBFA97CFB590B2093"
+                        "uid": "prometheus"
                     },
                     "editorMode": "code",
                     "exemplar": true,
@@ -146,7 +146,7 @@
                 {
                     "datasource": {
                         "type": "prometheus",
-                        "uid": "PBFA97CFB590B2093"
+                        "uid": "prometheus"
                     },
                     "exemplar": true,
                     "expr": "sum(rate(traefik_entrypoint_requests_total{namespace=\"traefik-green-variant\"}[1m]))",
@@ -271,7 +271,7 @@
                 {
                     "datasource": {
                         "type": "prometheus",
-                        "uid": "PBFA97CFB590B2093"
+                        "uid": "prometheus"
                     },
                     "editorMode": "code",
                     "exemplar": true,
@@ -284,7 +284,7 @@
                 {
                     "datasource": {
                         "type": "prometheus",
-                        "uid": "PBFA97CFB590B2093"
+                        "uid": "prometheus"
                     },
                     "editorMode": "code",
                     "exemplar": true,
@@ -371,7 +371,7 @@
                 {
                     "datasource": {
                         "type": "prometheus",
-                        "uid": "PBFA97CFB590B2093"
+                        "uid": "prometheus"
                     },
                     "editorMode": "code",
                     "exemplar": true,
@@ -384,7 +384,7 @@
                 {
                     "datasource": {
                         "type": "prometheus",
-                        "uid": "PBFA97CFB590B2093"
+                        "uid": "prometheus"
                     },
                     "editorMode": "code",
                     "exemplar": true,
