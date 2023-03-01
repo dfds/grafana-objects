@@ -3,7 +3,10 @@
     "list": [
       {
         "builtIn": 1,
-        "datasource": "Prometheus",
+        "datasource": {
+          "type": "prometheus",
+          "uid": "prometheus"
+        },
         "enable": true,
         "hide": true,
         "iconColor": "rgba(0, 211, 255, 1)",
@@ -14,15 +17,18 @@
   },
   "description": "Helm stats exported to prometueus",
   "editable": true,
+  "fiscalYearStartMonth": 0,
   "gnetId": 9367,
   "graphTooltip": 0,
-  "id": 20,
-  "iteration": 1572420218095,
   "links": [],
+  "liveNow": false,
   "panels": [
     {
       "columns": [],
-      "datasource": "Prometheus",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
       "fontSize": "100%",
       "gridPos": {
         "h": 21,
@@ -32,23 +38,24 @@
       },
       "id": 2,
       "links": [],
-      "options": {},
-      "pageSize": null,
       "scroll": true,
       "showHeader": true,
       "sort": {
-        "col": 4,
-        "desc": true
+        "desc": false
       },
       "styles": [
         {
+          "$$hashKey": "object:1065",
           "alias": "Time",
+          "align": "auto",
           "dateFormat": "YYYY-MM-DD HH:mm:ss",
           "pattern": "Time",
           "type": "hidden"
         },
         {
+          "$$hashKey": "object:1066",
           "alias": "",
+          "align": "auto",
           "colorMode": "cell",
           "colors": [
             "rgba(245, 54, 54, 0.9)",
@@ -67,46 +74,56 @@
           "unit": "short",
           "valueMaps": [
             {
+              "$$hashKey": "object:1104",
               "text": "Unknown",
               "value": "0"
             },
             {
+              "$$hashKey": "object:1105",
               "text": "Deployed",
               "value": "1"
             },
             {
+              "$$hashKey": "object:1106",
               "text": "Deleted",
               "value": "2"
             },
             {
+              "$$hashKey": "object:1107",
               "text": "Superseded",
               "value": "3"
             },
             {
+              "$$hashKey": "object:1108",
               "text": "Failed",
               "value": "-1"
             },
             {
+              "$$hashKey": "object:1109",
               "text": "Deleting",
               "value": "5"
             },
             {
+              "$$hashKey": "object:1110",
               "text": "Pending Install",
               "value": "6"
             },
             {
+              "$$hashKey": "object:1111",
               "text": "Pending Upgrade",
               "value": "7"
             },
             {
+              "$$hashKey": "object:1112",
               "text": "Pending Rollback",
               "value": "8"
             }
           ]
         },
         {
+          "$$hashKey": "object:1067",
           "alias": "",
-          "colorMode": null,
+          "align": "auto",
           "colors": [
             "rgba(245, 54, 54, 0.9)",
             "rgba(237, 129, 40, 0.89)",
@@ -121,8 +138,9 @@
           "unit": "short"
         },
         {
+          "$$hashKey": "object:1068",
           "alias": "",
-          "colorMode": null,
+          "align": "auto",
           "colors": [
             "rgba(245, 54, 54, 0.9)",
             "rgba(237, 129, 40, 0.89)",
@@ -139,6 +157,11 @@
       ],
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "editorMode": "code",
           "expr": "min(helm_chart_info{chart=~\"$chart\", namespace=~\"$namespace\", release=~\"$release\"}) by (chart, release, namespace, version, updated, appVersion) !=2",
           "format": "table",
           "instant": true,
@@ -148,11 +171,106 @@
       ],
       "title": "Helm Releases",
       "transform": "table",
+      "type": "table-old"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "filterable": true,
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 21
+      },
+      "id": 4,
+      "options": {
+        "footer": {
+          "countRows": false,
+          "enablePagination": false,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true,
+        "sortBy": [
+          {
+            "desc": true,
+            "displayName": "release"
+          }
+        ]
+      },
+      "pluginVersion": "9.4.0-beta1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "min(helm_chart_outdated{chart=~\"$chart\", namespace=~\"$namespace\", release=~\"$release\"}) by (chart, release, namespace, version, updated, appVersion)",
+          "format": "table",
+          "instant": true,
+          "interval": "",
+          "legendFormat": "",
+          "range": false,
+          "refId": "A"
+        }
+      ],
+      "title": "Outdated helm charts",
+      "transformations": [
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "Time": true,
+              "Value": true
+            },
+            "indexByName": {},
+            "renameByName": {}
+          }
+        }
+      ],
       "type": "table"
     }
   ],
   "refresh": "5s",
-  "schemaVersion": 18,
+  "revision": 1,
+  "schemaVersion": 38,
   "style": "dark",
   "tags": [],
   "templating": {
@@ -160,24 +278,29 @@
       {
         "allValue": ".*",
         "current": {
+          "selected": false,
           "text": "All",
           "value": "$__all"
         },
-        "datasource": "Prometheus",
+        "datasource": {
+          "type": "prometheus",
+          "uid": "prometheus"
+        },
         "definition": "",
         "hide": 0,
         "includeAll": true,
-        "label": null,
         "multi": false,
         "name": "chart",
         "options": [],
-        "query": "label_values(helm_chart_info, chart)",
+        "query": {
+          "query": "label_values(helm_chart_info, chart)",
+          "refId": "Prometheus-chart-Variable-Query"
+        },
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
         "sort": 0,
         "tagValuesQuery": "",
-        "tags": [],
         "tagsQuery": "",
         "type": "query",
         "useTags": false
@@ -185,24 +308,29 @@
       {
         "allValue": ".*",
         "current": {
+          "selected": false,
           "text": "All",
           "value": "$__all"
         },
-        "datasource": "Prometheus",
+        "datasource": {
+          "type": "prometheus",
+          "uid": "prometheus"
+        },
         "definition": "",
         "hide": 0,
         "includeAll": true,
-        "label": null,
         "multi": false,
         "name": "release",
         "options": [],
-        "query": "label_values(helm_chart_info, release)",
+        "query": {
+          "query": "label_values(helm_chart_info, release)",
+          "refId": "Prometheus-release-Variable-Query"
+        },
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
         "sort": 0,
         "tagValuesQuery": "",
-        "tags": [],
         "tagsQuery": "",
         "type": "query",
         "useTags": false
@@ -210,24 +338,29 @@
       {
         "allValue": ".*",
         "current": {
+          "selected": false,
           "text": "All",
           "value": "$__all"
         },
-        "datasource": "Prometheus",
+        "datasource": {
+          "type": "prometheus",
+          "uid": "prometheus"
+        },
         "definition": "",
         "hide": 0,
         "includeAll": true,
-        "label": null,
         "multi": false,
         "name": "namespace",
         "options": [],
-        "query": "label_values(helm_chart_info, namespace)",
+        "query": {
+          "query": "label_values(helm_chart_info, namespace)",
+          "refId": "Prometheus-namespace-Variable-Query"
+        },
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
         "sort": 0,
         "tagValuesQuery": "",
-        "tags": [],
         "tagsQuery": "",
         "type": "query",
         "useTags": false
@@ -266,5 +399,6 @@
   "timezone": "",
   "title": "Helm Exporter",
   "uid": "Gqncyvfmz",
-  "version": 3
+  "version": 1,
+  "weekStart": ""
 }
