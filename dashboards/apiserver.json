@@ -23,13 +23,14 @@
   },
   "editable": true,
   "fiscalYearStartMonth": 0,
-  "id": 1,
   "graphTooltip": 0,
+  "id": 1,
   "links": [],
   "liveNow": false,
   "panels": [
     {
       "datasource": {
+        "type": "prometheus",
         "uid": "prometheus"
       },
       "description": "The SLO (service level objective) and other metrics displayed on this dashboard are for informational purposes only.",
@@ -314,48 +315,11 @@
       "type": "stat"
     },
     {
-      "alert": {
-        "alertRuleTags": {},
-        "conditions": [
-          {
-            "evaluator": {
-              "params": [
-                25
-              ],
-              "type": "gt"
-            },
-            "operator": {
-              "type": "and"
-            },
-            "query": {
-              "params": [
-                "B",
-                "5m",
-                "now"
-              ]
-            },
-            "reducer": {
-              "params": [],
-              "type": "max"
-            },
-            "type": "query"
-          }
-        ],
-        "executionErrorState": "alerting",
-        "for": "5m",
-        "frequency": "1m",
-        "handler": 1,
-        "message": "Total API Server Read requests is above threshold",
-        "name": "Read SLI - Requests alert",
-        "noDataState": "no_data",
-        "notifications": []
-      },
       "aliasColors": {},
       "bars": false,
       "dashLength": 10,
       "dashes": false,
       "datasource": {
-        "type": "prometheus",
         "uid": "$datasource"
       },
       "description": "How many read requests (LIST,GET) per second do the apiservers get by code?",
@@ -419,38 +383,14 @@
           "datasource": {
             "uid": "$datasource"
           },
-          "editorMode": "code",
-          "expr": "sum by (code) (code_resource:apiserver_request_total:rate5m{verb=\"read\"})",
+          "expr": "sum by (code) (code_resource:apiserver_request_total:rate5m{verb=\"read\", cluster=\"$cluster\"})",
           "format": "time_series",
-          "hide": false,
           "intervalFactor": 2,
           "legendFormat": "{{ code }}",
-          "range": true,
           "refId": "A"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "$datasource"
-          },
-          "editorMode": "code",
-          "expr": "sum (code_resource:apiserver_request_total:rate5m{verb=\"read\"})",
-          "hide": true,
-          "legendFormat": "Total",
-          "range": true,
-          "refId": "B"
         }
       ],
-      "thresholds": [
-        {
-          "colorMode": "critical",
-          "fill": true,
-          "line": true,
-          "op": "gt",
-          "value": 25,
-          "visible": true
-        }
-      ],
+      "thresholds": [],
       "timeRegions": [],
       "title": "Read SLI - Requests",
       "tooltip": {
@@ -466,13 +406,11 @@
       },
       "yaxes": [
         {
-          "$$hashKey": "object:161",
           "format": "reqps",
           "logBase": 1,
           "show": true
         },
         {
-          "$$hashKey": "object:162",
           "format": "reqps",
           "logBase": 1,
           "show": true
@@ -742,48 +680,11 @@
       "type": "stat"
     },
     {
-      "alert": {
-        "alertRuleTags": {},
-        "conditions": [
-          {
-            "evaluator": {
-              "params": [
-                25
-              ],
-              "type": "gt"
-            },
-            "operator": {
-              "type": "and"
-            },
-            "query": {
-              "params": [
-                "B",
-                "5m",
-                "now"
-              ]
-            },
-            "reducer": {
-              "params": [],
-              "type": "max"
-            },
-            "type": "query"
-          }
-        ],
-        "executionErrorState": "alerting",
-        "for": "5m",
-        "frequency": "1m",
-        "handler": 1,
-        "message": "Total API Server Write requests is above threshold",
-        "name": "Write SLI - Requests alert",
-        "noDataState": "no_data",
-        "notifications": []
-      },
       "aliasColors": {},
       "bars": false,
       "dashLength": 10,
       "dashes": false,
       "datasource": {
-        "type": "prometheus",
         "uid": "$datasource"
       },
       "description": "How many write requests (POST|PUT|PATCH|DELETE) per second do the apiservers get by code?",
@@ -847,37 +748,14 @@
           "datasource": {
             "uid": "$datasource"
           },
-          "editorMode": "code",
-          "expr": "sum by (code) (code_resource:apiserver_request_total:rate5m{verb=\"write\"})",
+          "expr": "sum by (code) (code_resource:apiserver_request_total:rate5m{verb=\"write\", cluster=\"$cluster\"})",
           "format": "time_series",
           "intervalFactor": 2,
           "legendFormat": "{{ code }}",
-          "range": true,
           "refId": "A"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "$datasource"
-          },
-          "editorMode": "code",
-          "expr": "sum (code_resource:apiserver_request_total:rate5m{verb=\"write\"})",
-          "hide": true,
-          "legendFormat": "__auto",
-          "range": true,
-          "refId": "B"
         }
       ],
-      "thresholds": [
-        {
-          "colorMode": "critical",
-          "fill": true,
-          "line": true,
-          "op": "gt",
-          "value": 25,
-          "visible": true
-        }
-      ],
+      "thresholds": [],
       "timeRegions": [],
       "title": "Write SLI - Requests",
       "tooltip": {
@@ -893,13 +771,11 @@
       },
       "yaxes": [
         {
-          "$$hashKey": "object:585",
           "format": "reqps",
           "logBase": 1,
           "show": true
         },
         {
-          "$$hashKey": "object:586",
           "format": "reqps",
           "logBase": 1,
           "show": true
