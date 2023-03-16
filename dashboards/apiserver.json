@@ -23,13 +23,13 @@
   },
   "editable": true,
   "fiscalYearStartMonth": 0,
+  "id": 1,
   "graphTooltip": 0,
   "links": [],
   "liveNow": false,
   "panels": [
     {
       "datasource": {
-        "type": "prometheus",
         "uid": "prometheus"
       },
       "description": "The SLO (service level objective) and other metrics displayed on this dashboard are for informational purposes only.",
