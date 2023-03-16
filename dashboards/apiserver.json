@@ -24,7 +24,6 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 1,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -315,11 +314,48 @@
       "type": "stat"
     },
     {
+      "alert": {
+        "alertRuleTags": {},
+        "conditions": [
+          {
+            "evaluator": {
+              "params": [
+                25
+              ],
+              "type": "gt"
+            },
+            "operator": {
+              "type": "and"
+            },
+            "query": {
+              "params": [
+                "B",
+                "5m",
+                "now"
+              ]
+            },
+            "reducer": {
+              "params": [],
+              "type": "max"
+            },
+            "type": "query"
+          }
+        ],
+        "executionErrorState": "alerting",
+        "for": "5m",
+        "frequency": "1m",
+        "handler": 1,
+        "message": "API READ Requests is above threshold",
+        "name": "Read SLI - Requests alert",
+        "noDataState": "no_data",
+        "notifications": []
+      },
       "aliasColors": {},
       "bars": false,
       "dashLength": 10,
       "dashes": false,
       "datasource": {
+        "type": "prometheus",
         "uid": "$datasource"
       },
       "description": "How many read requests (LIST,GET) per second do the apiservers get by code?",
@@ -383,14 +419,38 @@
           "datasource": {
             "uid": "$datasource"
           },
-          "expr": "sum by (code) (code_resource:apiserver_request_total:rate5m{verb=\"read\", cluster=\"$cluster\"})",
+          "editorMode": "code",
+          "expr": "sum by (code) (code_resource:apiserver_request_total:rate5m{verb=\"read\"})",
           "format": "time_series",
+          "hide": false,
           "intervalFactor": 2,
           "legendFormat": "{{ code }}",
+          "range": true,
           "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
+          "editorMode": "code",
+          "expr": "sum (code_resource:apiserver_request_total:rate5m{verb=\"read\"})",
+          "hide": true,
+          "legendFormat": "__auto",
+          "range": true,
+          "refId": "B"
         }
       ],
-      "thresholds": [],
+      "thresholds": [
+        {
+          "colorMode": "critical",
+          "fill": true,
+          "line": true,
+          "op": "gt",
+          "value": 25,
+          "visible": true
+        }
+      ],
       "timeRegions": [],
       "title": "Read SLI - Requests",
       "tooltip": {
@@ -406,11 +466,13 @@
       },
       "yaxes": [
         {
+          "$$hashKey": "object:109",
           "format": "reqps",
           "logBase": 1,
           "show": true
         },
         {
+          "$$hashKey": "object:110",
           "format": "reqps",
           "logBase": 1,
           "show": true
