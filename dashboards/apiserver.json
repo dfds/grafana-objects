@@ -751,6 +751,42 @@
       "type": "stat"
     },
     {
+      "alert": {
+        "alertRuleTags": {},
+        "conditions": [
+          {
+            "evaluator": {
+              "params": [
+                25
+              ],
+              "type": "gt"
+            },
+            "operator": {
+              "type": "and"
+            },
+            "query": {
+              "params": [
+                "B",
+                "5m",
+                "now"
+              ]
+            },
+            "reducer": {
+              "params": [],
+              "type": "avg"
+            },
+            "type": "query"
+          }
+        ],
+        "executionErrorState": "alerting",
+        "for": "5m",
+        "frequency": "1m",
+        "handler": 1,
+        "message": "API WRITE Requests is above threshold",
+        "name": "Write SLI - Requests alert",
+        "noDataState": "no_data",
+        "notifications": []
+      },
       "aliasColors": {},
       "bars": false,
       "dashLength": 10,
@@ -821,14 +857,35 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "sum by (code) (code_resource:apiserver_request_total:rate5m{verb=\"write\", cluster=\"$cluster\"})",
+          "expr": "sum by (code) (code_resource:apiserver_request_total:rate5m{verb=\"write\"})",
           "format": "time_series",
           "intervalFactor": 2,
           "legendFormat": "{{ code }}",
           "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "editorMode": "code",
+          "expr": "sum (code_resource:apiserver_request_total:rate5m{verb=\"write\"})",
+          "hide": true,
+          "legendFormat": "__auto",
+          "range": true,
+          "refId": "B"
         }
       ],
-      "thresholds": [],
+      "thresholds": [
+        {
+          "colorMode": "critical",
+          "fill": true,
+          "line": true,
+          "op": "gt",
+          "value": 25,
+          "visible": true
+        }
+      ],
       "timeRegions": [],
       "title": "Write SLI - Requests",
       "tooltip": {
