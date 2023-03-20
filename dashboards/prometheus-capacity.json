@@ -33,6 +33,126 @@
                 "type": "prometheus",
                 "uid": "prometheus"
             },
+            "description": "",
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "palette-classic"
+                    },
+                    "custom": {
+                        "axisCenteredZero": false,
+                        "axisColorMode": "text",
+                        "axisLabel": "",
+                        "axisPlacement": "auto",
+                        "barAlignment": 0,
+                        "drawStyle": "line",
+                        "fillOpacity": 0,
+                        "gradientMode": "none",
+                        "hideFrom": {
+                            "legend": false,
+                            "tooltip": false,
+                            "viz": false
+                        },
+                        "lineInterpolation": "linear",
+                        "lineWidth": 1,
+                        "pointSize": 5,
+                        "scaleDistribution": {
+                            "type": "linear"
+                        },
+                        "showPoints": "auto",
+                        "spanNulls": false,
+                        "stacking": {
+                            "group": "A",
+                            "mode": "none"
+                        },
+                        "thresholdsStyle": {
+                            "mode": "off"
+                        }
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green",
+                                "value": null
+                            }
+                        ]
+                    },
+                    "unit": "bytes"
+                },
+                "overrides": [
+                    {
+                        "__systemRef": "hideSeriesFrom",
+                        "matcher": {
+                            "id": "byNames",
+                            "options": {
+                                "mode": "exclude",
+                                "names": [
+                                    "{container=\"grafana\", workload=\"monitoring-grafana\", workload_type=\"statefulset\"}",
+                                    "{container=\"grafana-sc-dashboard\", workload=\"monitoring-grafana\", workload_type=\"statefulset\"}",
+                                    "{container=\"grafana-sc-datasources\", workload=\"monitoring-grafana\", workload_type=\"statefulset\"}",
+                                    "{container=\"prometheus\", workload=\"prometheus-monitoring-kube-prometheus-prometheus\", workload_type=\"statefulset\"}",
+                                    "{workload=\"monitoring-grafana\", workload_type=\"statefulset\"}",
+                                    "{workload=\"prometheus-monitoring-kube-prometheus-prometheus\", workload_type=\"statefulset\"}"
+                                ],
+                                "prefix": "All except:",
+                                "readOnly": true
+                            }
+                        },
+                        "properties": [
+                            {
+                                "id": "custom.hideFrom",
+                                "value": {
+                                    "legend": false,
+                                    "tooltip": false,
+                                    "viz": true
+                                }
+                            }
+                        ]
+                    }
+                ]
+            },
+            "gridPos": {
+                "h": 10,
+                "w": 13,
+                "x": 0,
+                "y": 0
+            },
+            "id": 4,
+            "options": {
+                "legend": {
+                    "calcs": [],
+                    "displayMode": "list",
+                    "placement": "bottom",
+                    "showLegend": true
+                },
+                "tooltip": {
+                    "mode": "single",
+                    "sort": "none"
+                }
+            },
+            "targets": [
+                {
+                    "datasource": {
+                        "type": "prometheus",
+                        "uid": "prometheus"
+                    },
+                    "editorMode": "code",
+                    "expr": "sum(\n    container_memory_working_set_bytes{job=\"kubelet\", metrics_path=\"/metrics/cadvisor\", namespace=\"monitoring\", container=\"prometheus\", image!=\"\"}\n  * on(namespace,pod)\n    group_left(workload, workload_type) namespace_workload_pod:kube_pod_owner:relabel{ namespace=\"monitoring\", workload=\"prometheus-monitoring-kube-prometheus-prometheus\", workload_type=\"statefulset\"}\n) by (workload, workload_type, container)",
+                    "legendFormat": "__auto",
+                    "range": true,
+                    "refId": "A"
+                }
+            ],
+            "title": "Prometheus - Memory Usage",
+            "type": "timeseries"
+        },
+        {
+            "datasource": {
+                "type": "prometheus",
+                "uid": "prometheus"
+            },
             "description": "Suggestion from docs:\n\n```\nneeded_disk_space = retention_time_seconds * ingested_samples_per_second * bytes_per_sample\n```",
             "fieldConfig": {
                 "defaults": {
@@ -60,7 +180,7 @@
                 "h": 9,
                 "w": 13,
                 "x": 0,
-                "y": 0
+                "y": 10
             },
             "id": 2,
             "links": [
@@ -116,6 +236,6 @@
     "timezone": "",
     "title": "Prometheus Capacity",
     "uid": "ipAB0iB4z",
-    "version": 1,
+    "version": 2,
     "weekStart": ""
 }
