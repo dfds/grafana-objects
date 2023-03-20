@@ -1525,7 +1525,7 @@
             "query": {
               "params": [
                 "A",
-                "5m",
+                "10m",
                 "now"
               ]
             },
@@ -1537,8 +1537,8 @@
           }
         ],
         "executionErrorState": "alerting",
-        "for": "5m",
-        "frequency": "1m",
+        "for": "10m",
+        "frequency": "5m",
         "handler": 1,
         "message": "API Server CPU usage is above threshold",
         "name": "CPU usage alert",
@@ -1857,6 +1857,6 @@
   "timezone": "utc",
   "title": "Kubernetes / API server Custom",
   "uid": "09ec8aa1e996d6ffcd6817bbaff4db1b",
-  "version": 1,
+  "version": 4938,
   "weekStart": ""
 }
