@@ -28,231 +28,251 @@
     "links": [],
     "liveNow": false,
     "panels": [
-        {
-            "alert": {
-                "alertRuleTags": {},
-                "conditions": [
-                    {
-                        "evaluator": {
-                            "params": [12884901888],
-                            "type": "gt"
-                        },
-                        "operator": {
-                            "type": "and"
-                        },
-                        "query": {
-                            "params": ["A", "5m", "now"]
-                        },
-                        "reducer": {
-                            "params": [],
-                            "type": "avg"
-                        },
-                        "type": "query"
-                    }
+      {
+        "alert": {
+          "alertRuleTags": {},
+          "conditions": [
+            {
+              "evaluator": {
+                "params": [
+                  12884901888
                 ],
-                "executionErrorState": "alerting",
-                "for": "5m",
-                "frequency": "1m",
-                "handler": 1,
-                "name": "Prometheus - Memory Usage alert",
-                "noDataState": "no_data",
-                "notifications": []
-            },
-            "datasource": {
-                "type": "prometheus",
-                "uid": "prometheus"
-            },
-            "description": "",
-            "fieldConfig": {
-                "defaults": {
-                    "color": {
-                        "mode": "palette-classic"
-                    },
-                    "custom": {
-                        "axisCenteredZero": false,
-                        "axisColorMode": "text",
-                        "axisLabel": "",
-                        "axisPlacement": "auto",
-                        "barAlignment": 0,
-                        "drawStyle": "line",
-                        "fillOpacity": 0,
-                        "gradientMode": "none",
-                        "hideFrom": {
-                            "legend": false,
-                            "tooltip": false,
-                            "viz": false
-                        },
-                        "lineInterpolation": "linear",
-                        "lineWidth": 1,
-                        "pointSize": 5,
-                        "scaleDistribution": {
-                            "type": "linear"
-                        },
-                        "showPoints": "auto",
-                        "spanNulls": false,
-                        "stacking": {
-                            "group": "A",
-                            "mode": "none"
-                        },
-                        "thresholdsStyle": {
-                            "mode": "off"
-                        }
-                    },
-                    "mappings": [],
-                    "thresholds": {
-                        "mode": "absolute",
-                        "steps": [
-                            {
-                                "color": "green",
-                                "value": null
-                            }
-                        ]
-                    },
-                    "unit": "bytes"
-                },
-                "overrides": [
-                    {
-                        "__systemRef": "hideSeriesFrom",
-                        "matcher": {
-                            "id": "byNames",
-                            "options": {
-                                "mode": "exclude",
-                                "names": [
-                                    "{container=\"prometheus\", workload=\"prometheus-monitoring-kube-prometheus-prometheus\", workload_type=\"statefulset\"}"
-                                ],
-                                "prefix": "All except:",
-                                "readOnly": true
-                            }
-                        },
-                        "properties": [
-                            {
-                                "id": "custom.hideFrom",
-                                "value": {
-                                    "legend": false,
-                                    "tooltip": false,
-                                    "viz": true
-                                }
-                            }
-                        ]
-                    }
+                "type": "gt"
+              },
+              "operator": {
+                "type": "and"
+              },
+              "query": {
+                "params": [
+                  "A",
+                  "5m",
+                  "now"
                 ]
-            },
-            "gridPos": {
-                "h": 12,
-                "w": 16,
-                "x": 0,
-                "y": 0
-            },
-            "id": 4,
-            "options": {
-                "legend": {
-                    "calcs": [],
-                    "displayMode": "list",
-                    "placement": "bottom",
-                    "showLegend": true
-                },
-                "tooltip": {
-                    "mode": "single",
-                    "sort": "none"
-                }
-            },
-            "targets": [
-                {
-                    "datasource": {
-                        "type": "prometheus",
-                        "uid": "prometheus"
-                    },
-                    "editorMode": "code",
-                    "exemplar": false,
-                    "expr": "sum(\n    container_memory_working_set_bytes{job=\"kubelet\", metrics_path=\"/metrics/cadvisor\", namespace=\"monitoring\", container=\"prometheus\", image!=\"\"}\n  * on(namespace,pod)\n    group_left(workload, workload_type) namespace_workload_pod:kube_pod_owner:relabel{ namespace=\"monitoring\", workload=\"prometheus-monitoring-kube-prometheus-prometheus\", workload_type=\"statefulset\"}\n) by (workload, workload_type, container)",
-                    "legendFormat": "__auto",
-                    "range": true,
-                    "refId": "A"
-                }
-            ],
-            "thresholds": [
-                {
-                    "colorMode": "critical",
-                    "op": "gt",
-                    "value": 12884901888,
-                    "visible": true
-                }
-            ],
-            "title": "Prometheus - Memory Usage",
-            "type": "timeseries"
+              },
+              "reducer": {
+                "params": [],
+                "type": "avg"
+              },
+              "type": "query"
+            }
+          ],
+          "executionErrorState": "alerting",
+          "for": "5m",
+          "frequency": "1m",
+          "handler": 1,
+          "name": "Prometheus - Memory Usage alert",
+          "noDataState": "no_data",
+          "notifications": []
         },
-        {
+        "datasource": {
+          "type": "prometheus",
+          "uid": "prometheus"
+        },
+        "description": "",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "palette-classic"
+            },
+            "custom": {
+              "axisCenteredZero": false,
+              "axisColorMode": "text",
+              "axisLabel": "",
+              "axisPlacement": "auto",
+              "barAlignment": 0,
+              "drawStyle": "line",
+              "fillOpacity": 0,
+              "gradientMode": "none",
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              },
+              "lineInterpolation": "linear",
+              "lineWidth": 1,
+              "pointSize": 5,
+              "scaleDistribution": {
+                "type": "linear"
+              },
+              "showPoints": "auto",
+              "spanNulls": false,
+              "stacking": {
+                "group": "A",
+                "mode": "none"
+              },
+              "thresholdsStyle": {
+                "mode": "off"
+              }
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                }
+              ]
+            },
+            "unit": "bytes"
+          },
+          "overrides": [
+            {
+              "__systemRef": "hideSeriesFrom",
+              "matcher": {
+                "id": "byNames",
+                "options": {
+                  "mode": "exclude",
+                  "names": [
+                    "{container=\"prometheus\", workload=\"prometheus-monitoring-kube-prometheus-prometheus\", workload_type=\"statefulset\"}"
+                  ],
+                  "prefix": "All except:",
+                  "readOnly": true
+                }
+              },
+              "properties": [
+                {
+                  "id": "custom.hideFrom",
+                  "value": {
+                    "legend": false,
+                    "tooltip": false,
+                    "viz": false
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        "gridPos": {
+          "h": 12,
+          "w": 16,
+          "x": 0,
+          "y": 0
+        },
+        "id": 4,
+        "options": {
+          "legend": {
+            "calcs": [],
+            "displayMode": "list",
+            "placement": "bottom",
+            "showLegend": true
+          },
+          "tooltip": {
+            "mode": "single",
+            "sort": "none"
+          }
+        },
+        "targets": [
+          {
             "datasource": {
-                "type": "prometheus",
-                "uid": "prometheus"
+              "type": "prometheus",
+              "uid": "prometheus"
             },
-            "description": "Suggestion from docs:\n\n```\nneeded_disk_space = retention_time_seconds * ingested_samples_per_second * bytes_per_sample\n```",
-            "fieldConfig": {
-                "defaults": {
-                    "color": {
-                        "mode": "thresholds"
-                    },
-                    "mappings": [],
-                    "thresholds": {
-                        "mode": "absolute",
-                        "steps": [
-                            {
-                                "color": "green",
-                                "value": null
-                            },
-                            {
-                                "color": "red",
-                                "value": 80
-                            }
-                        ]
-                    },
-                    "unit": "bytes"
-                },
-                "overrides": []
+            "editorMode": "code",
+            "exemplar": false,
+            "expr": "sum(\n    container_memory_working_set_bytes{job=\"kubelet\", metrics_path=\"/metrics/cadvisor\", namespace=\"monitoring\", container=\"prometheus\", image!=\"\"}\n  * on(namespace,pod)\n    group_left(workload, workload_type) namespace_workload_pod:kube_pod_owner:relabel{ namespace=\"monitoring\", workload=\"prometheus-monitoring-kube-prometheus-prometheus\", workload_type=\"statefulset\"}\n) by (workload, workload_type, container)",
+            "legendFormat": "__auto",
+            "range": true,
+            "refId": "A"
+          },
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "prometheus"
             },
-            "gridPos": {
-                "h": 12,
-                "w": 8,
-                "x": 16,
-                "y": 0
+            "editorMode": "code",
+            "expr": "container_spec_memory_limit_bytes{ namespace=\"monitoring\",pod=\"prometheus-monitoring-kube-prometheus-prometheus-0\",container=\"prometheus\"}",
+            "hide": false,
+            "legendFormat": "Limit",
+            "range": true,
+            "refId": "B"
+          }
+        ],
+        "thresholds": [
+          {
+            "colorMode": "critical",
+            "op": "gt",
+            "value": 12884901888,
+            "visible": true
+          }
+        ],
+        "title": "Prometheus - Memory Usage",
+        "type": "timeseries"
+      },
+      {
+        "datasource": {
+          "type": "prometheus",
+          "uid": "prometheus"
+        },
+        "description": "Suggestion from docs:\n\n```\nneeded_disk_space = retention_time_seconds * ingested_samples_per_second * bytes_per_sample\n```",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
             },
-            "id": 2,
-            "links": [
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
                 {
-                    "targetBlank": true,
-                    "title": "Suggestion source",
-                    "url": "https://prometheus.io/docs/prometheus/latest/storage/#operational-aspects"
-                }
-            ],
-            "options": {
-                "colorMode": "value",
-                "graphMode": "area",
-                "justifyMode": "auto",
-                "orientation": "auto",
-                "reduceOptions": {
-                    "calcs": ["lastNotNull"],
-                    "fields": "",
-                    "values": false
+                  "color": "green",
+                  "value": null
                 },
-                "textMode": "auto"
-            },
-            "pluginVersion": "9.4.3",
-            "targets": [
                 {
-                    "datasource": {
-                        "type": "prometheus",
-                        "uid": "prometheus"
-                    },
-                    "editorMode": "code",
-                    "expr": "avg_over_time(sum(rate(scrape_samples_scraped{}[1h]))[30d:1d])*60*60*24*30*2",
-                    "legendFormat": "__auto",
-                    "range": true,
-                    "refId": "A"
+                  "color": "red",
+                  "value": 80
                 }
+              ]
+            },
+            "unit": "bytes"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 12,
+          "w": 8,
+          "x": 16,
+          "y": 0
+        },
+        "id": 2,
+        "links": [
+          {
+            "targetBlank": true,
+            "title": "Suggestion source",
+            "url": "https://prometheus.io/docs/prometheus/latest/storage/#operational-aspects"
+          }
+        ],
+        "options": {
+          "colorMode": "value",
+          "graphMode": "area",
+          "justifyMode": "auto",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
             ],
-            "title": "Suggested disk space allocation for Prometheus in GiB",
-            "type": "stat"
-        }
+            "fields": "",
+            "values": false
+          },
+          "textMode": "auto"
+        },
+        "pluginVersion": "9.4.3",
+        "targets": [
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "prometheus"
+            },
+            "editorMode": "code",
+            "expr": "avg_over_time(sum(rate(scrape_samples_scraped{}[1h]))[30d:1d])*60*60*24*30*2",
+            "legendFormat": "__auto",
+            "range": true,
+            "refId": "A"
+          }
+        ],
+        "title": "Suggested disk space allocation for Prometheus in GiB",
+        "type": "stat"
+      }
     ],
     "refresh": "",
     "revision": 1,
