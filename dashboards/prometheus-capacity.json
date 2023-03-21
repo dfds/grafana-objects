@@ -29,6 +29,35 @@
     "liveNow": false,
     "panels": [
         {
+            "alert": {
+                "alertRuleTags": {},
+                "conditions": [
+                    {
+                        "evaluator": {
+                            "params": [12884901888],
+                            "type": "gt"
+                        },
+                        "operator": {
+                            "type": "and"
+                        },
+                        "query": {
+                            "params": ["A", "5m", "now"]
+                        },
+                        "reducer": {
+                            "params": [],
+                            "type": "avg"
+                        },
+                        "type": "query"
+                    }
+                ],
+                "executionErrorState": "alerting",
+                "for": "5m",
+                "frequency": "1m",
+                "handler": 1,
+                "name": "Prometheus - Memory Usage alert",
+                "noDataState": "no_data",
+                "notifications": []
+            },
             "datasource": {
                 "type": "prometheus",
                 "uid": "prometheus"
@@ -89,12 +118,7 @@
                             "options": {
                                 "mode": "exclude",
                                 "names": [
-                                    "{container=\"grafana\", workload=\"monitoring-grafana\", workload_type=\"statefulset\"}",
-                                    "{container=\"grafana-sc-dashboard\", workload=\"monitoring-grafana\", workload_type=\"statefulset\"}",
-                                    "{container=\"grafana-sc-datasources\", workload=\"monitoring-grafana\", workload_type=\"statefulset\"}",
-                                    "{container=\"prometheus\", workload=\"prometheus-monitoring-kube-prometheus-prometheus\", workload_type=\"statefulset\"}",
-                                    "{workload=\"monitoring-grafana\", workload_type=\"statefulset\"}",
-                                    "{workload=\"prometheus-monitoring-kube-prometheus-prometheus\", workload_type=\"statefulset\"}"
+                                    "{container=\"prometheus\", workload=\"prometheus-monitoring-kube-prometheus-prometheus\", workload_type=\"statefulset\"}"
                                 ],
                                 "prefix": "All except:",
                                 "readOnly": true
@@ -114,8 +138,8 @@
                 ]
             },
             "gridPos": {
-                "h": 10,
-                "w": 13,
+                "h": 12,
+                "w": 16,
                 "x": 0,
                 "y": 0
             },
@@ -139,10 +163,19 @@
                         "uid": "prometheus"
                     },
                     "editorMode": "code",
+                    "exemplar": false,
                     "expr": "sum(\n    container_memory_working_set_bytes{job=\"kubelet\", metrics_path=\"/metrics/cadvisor\", namespace=\"monitoring\", container=\"prometheus\", image!=\"\"}\n  * on(namespace,pod)\n    group_left(workload, workload_type) namespace_workload_pod:kube_pod_owner:relabel{ namespace=\"monitoring\", workload=\"prometheus-monitoring-kube-prometheus-prometheus\", workload_type=\"statefulset\"}\n) by (workload, workload_type, container)",
                     "legendFormat": "__auto",
                     "range": true,
                     "refId": "A"
+                }
+            ],
+            "thresholds": [
+                {
+                    "colorMode": "critical",
+                    "op": "gt",
+                    "value": 12884901888,
+                    "visible": true
                 }
             ],
             "title": "Prometheus - Memory Usage",
@@ -172,15 +205,16 @@
                                 "value": 80
                             }
                         ]
-                    }
+                    },
+                    "unit": "bytes"
                 },
                 "overrides": []
             },
             "gridPos": {
-                "h": 9,
-                "w": 13,
-                "x": 0,
-                "y": 10
+                "h": 12,
+                "w": 8,
+                "x": 16,
+                "y": 0
             },
             "id": 2,
             "links": [
@@ -210,13 +244,13 @@
                         "uid": "prometheus"
                     },
                     "editorMode": "code",
-                    "expr": "avg_over_time(sum(rate(scrape_samples_scraped{}[1h]))[30d:1d])*60*60*24*30*2/1024/1024/1024",
+                    "expr": "avg_over_time(sum(rate(scrape_samples_scraped{}[1h]))[30d:1d])*60*60*24*30*2",
                     "legendFormat": "__auto",
                     "range": true,
                     "refId": "A"
                 }
             ],
-            "title": "Expected disk space for Prometheus in GiB",
+            "title": "Suggested disk space allocation for Prometheus in GiB",
             "type": "stat"
         }
     ],
@@ -229,13 +263,13 @@
         "list": []
     },
     "time": {
-        "from": "now-7d",
+        "from": "now-2d",
         "to": "now"
     },
     "timepicker": {},
     "timezone": "",
     "title": "Prometheus Capacity",
     "uid": "ipAB0iB4z",
-    "version": 2,
+    "version": 9,
     "weekStart": ""
 }
