@@ -171,7 +171,7 @@
           "editorMode": "code",
           "exemplar": false,
           "expr": "sum(\n    container_memory_working_set_bytes{job=\"kubelet\", metrics_path=\"/metrics/cadvisor\", namespace=\"monitoring\", container=\"prometheus\", image!=\"\"}\n  * on(namespace,pod)\n    group_left(workload, workload_type) namespace_workload_pod:kube_pod_owner:relabel{ namespace=\"monitoring\", workload=\"prometheus-monitoring-kube-prometheus-prometheus\", workload_type=\"statefulset\"}\n) by (workload, workload_type, container)",
-          "legendFormat": "__auto",
+          "legendFormat": "Usage",
           "range": true,
           "refId": "A"
         },
