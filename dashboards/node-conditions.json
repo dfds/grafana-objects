@@ -102,8 +102,7 @@
                         "mode": "absolute",
                         "steps": [
                             {
-                                "color": "green",
-                                "value": null
+                                "color": "green"
                             },
                             {
                                 "color": "red",
@@ -202,6 +201,42 @@
             "type": "timeseries"
         },
         {
+            "alert": {
+                "alertRuleTags": {},
+                "conditions": [
+                    {
+                        "evaluator": {
+                            "params": [
+                                0
+                            ],
+                            "type": "gt"
+                        },
+                        "operator": {
+                            "type": "and"
+                        },
+                        "query": {
+                            "params": [
+                                "E",
+                                "5m",
+                                "now"
+                            ]
+                        },
+                        "reducer": {
+                            "params": [],
+                            "type": "avg"
+                        },
+                        "type": "query"
+                    }
+                ],
+                "executionErrorState": "alerting",
+                "for": "1m",
+                "frequency": "1m",
+                "handler": 1,
+                "message": "One or more nodes are in a NotReady state",
+                "name": "NodeNotReady",
+                "noDataState": "no_data",
+                "notifications": []
+            },
             "datasource": {
                 "type": "prometheus",
                 "uid": "prometheus"
@@ -285,6 +320,7 @@
                     "editorMode": "code",
                     "exemplar": true,
                     "expr": "sum(kube_node_status_condition{condition=~\"MemoryPressure\"})",
+                    "hide": true,
                     "interval": "",
                     "legendFormat": "Memory Pressure",
                     "range": true,
@@ -331,6 +367,26 @@
                     "legendFormat": "Network Unavailable",
                     "range": true,
                     "refId": "D"
+                },
+                {
+                    "datasource": {
+                        "type": "prometheus",
+                        "uid": "prometheus"
+                    },
+                    "editorMode": "code",
+                    "expr": "sum(kube_node_status_condition{condition=\"Ready\",status!=\"true\"})",
+                    "hide": false,
+                    "legendFormat": "__auto",
+                    "range": true,
+                    "refId": "E"
+                }
+            ],
+            "thresholds": [
+                {
+                    "colorMode": "critical",
+                    "op": "gt",
+                    "value": 0,
+                    "visible": true
                 }
             ],
             "title": "Nodes by condition",
