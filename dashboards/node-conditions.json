@@ -337,7 +337,7 @@
                         "uid": "prometheus"
                     },
                     "editorMode": "code",
-                    "expr": "kube_node_status_condition{condition=\"Ready\",status!=\"true\"} > 0",
+                    "expr": "sum(kube_node_status_condition{condition=\"Ready\",status!=\"true\"})",
                     "hide": false,
                     "legendFormat": "__auto",
                     "range": true,
