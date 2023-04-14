@@ -102,8 +102,7 @@
                         "mode": "absolute",
                         "steps": [
                             {
-                                "color": "green",
-                                "value": null
+                                "color": "green"
                             },
                             {
                                 "color": "red",
@@ -331,6 +330,18 @@
                     "legendFormat": "Network Unavailable",
                     "range": true,
                     "refId": "D"
+                },
+                {
+                    "datasource": {
+                        "type": "prometheus",
+                        "uid": "prometheus"
+                    },
+                    "editorMode": "code",
+                    "expr": "kube_node_status_condition{condition=\"Ready\",status!=\"true\"} > 0",
+                    "hide": false,
+                    "legendFormat": "__auto",
+                    "range": true,
+                    "refId": "E"
                 }
             ],
             "title": "Nodes by condition",
