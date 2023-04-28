@@ -4,113 +4,200 @@ name: $(Build.BuildId)
 trigger:
   branches:
     include:
-    - main
+      - main
   paths:
     include:
-    - values.yaml
-    - dashboards/*
-    - datasources/*
+      - values.yaml
+      - dashboards/*
+      - datasources/*
     exclude:
-    - README.md
-    - LICENSE
+      - README.md
+      - LICENSE
 
 # Disables triggering Pipeline run at creation of every Pull Request
 pr: none
 
 # Global variables for the pipeline
 variables:
-- group: grafana-cloudwatch-reader-credentials
-- name: vmImage
-  value: 'ubuntu-latest'
-- name: k8s-service-connection
-  value: 'Kubernetes-Hellman-ops-deploy'
-- name: kubernetes-namespace
-  value: 'monitoring'
+  - group: grafana-cloudwatch-reader-credentials
+  - name: vmImage
+    value: "ubuntu-latest"
+  - name: k8s-service-connection
+    value: "Kubernetes-Hellman-ops-deploy"
+  - name: k8s-staging-service-connection
+    value: "Kubernetes-Hellman-ops-staging-deploy"
+  - name: kubernetes-namespace
+    value: "monitoring"
 
 stages:
-# Continuous Deployment steps
-- stage: CD
-  displayName: 'Continuous Deployment'
+  - stage: Staging
+    displayName: "Continuous deployment to staging Hellman"
 
-  jobs:
-  - job: Dashboards
-    displayName: 'Deploy Dashboards to Kubernetes'
-    pool:
-      vmImage: $(vmImage)
+    jobs:
+      - job: Dashboards
+        displayName: "Deploy Dashboards to Kubernetes"
+        pool:
+          vmImage: $(vmImage)
 
-    steps:
-    # Convert Dashboards to k8s configmaps
-    - task: PowerShell@2
-      displayName: Converting json dashboards to configmaps
-      inputs:
-        targetType: 'filePath'
-        filePath: Convert-JSONToConfigmap.ps1
-        errorActionPreference: 'stop'
-        pwsh: true
+        steps:
+          # Convert Dashboards to k8s configmaps
+          - task: PowerShell@2
+            displayName: Converting json dashboards to configmaps
+            inputs:
+              targetType: "filePath"
+              filePath: Convert-JSONToConfigmap.ps1
+              errorActionPreference: "stop"
+              pwsh: true
 
-    - task: Kubernetes@1
-      displayName: kubectl delete configmaps
-      inputs:
-        connectionType: Kubernetes Service Connection
-        kubernetesServiceEndpoint: $(k8s-service-connection)
-        namespace: $(kubernetes-namespace)
-        command: delete
-        arguments: configmaps -l grafana_objects="1"
+          - task: Kubernetes@1
+            displayName: kubectl delete configmaps
+            inputs:
+              connectionType: Kubernetes Service Connection
+              kubernetesServiceEndpoint: $(k8s-staging-service-connection)
+              namespace: $(kubernetes-namespace)
+              command: delete
+              arguments: configmaps -l grafana_objects="1"
 
-    # Deploy configmaps to k8s
-    - task: Kubernetes@1
-      displayName: kubectl apply configmaps
-      inputs:
-        connectionType: Kubernetes Service Connection
-        kubernetesServiceEndpoint: $(k8s-service-connection)
-        namespace: $(kubernetes-namespace)
-        command: apply
-        arguments: -f configmaps/
+          # Deploy configmaps to k8s
+          - task: Kubernetes@1
+            displayName: kubectl apply configmaps
+            inputs:
+              connectionType: Kubernetes Service Connection
+              kubernetesServiceEndpoint: $(k8s-staging-service-connection)
+              namespace: $(kubernetes-namespace)
+              command: apply
+              arguments: -f configmaps/
 
-    # Restart Grafana deployment
-    - task: Kubernetes@1
-      displayName: kubectl rollout restart deployment monitoring-grafana
-      inputs:
-        connectionType: Kubernetes Service Connection
-        kubernetesServiceEndpoint: $(k8s-service-connection)
-        namespace: $(kubernetes-namespace)
-        command: rollout
-        arguments: restart deployment monitoring-grafana
+          # Restart Grafana deployment
+          - task: Kubernetes@1
+            displayName: kubectl rollout restart deployment monitoring-grafana
+            inputs:
+              connectionType: Kubernetes Service Connection
+              kubernetesServiceEndpoint: $(k8s-staging-service-connection)
+              namespace: $(kubernetes-namespace)
+              command: rollout
+              arguments: restart deployment monitoring-grafana
 
-  - job: Datasources
-    displayName: 'Deploy Datasources to Kubernetes'
-    pool:
-      vmImage: $(vmImage)
+      - job: Datasources
+        displayName: "Deploy Datasources to Kubernetes"
+        pool:
+          vmImage: $(vmImage)
 
-    steps:
-    # Replace Datasource secrets tokens with variable values
-    - task: replacetokens@3
-      inputs:
-        rootDirectory: 'datasources'
-        targetFiles: '*.yaml'
-        encoding: 'auto'
-        writeBOM: true
-        actionOnMissing: 'warn'
-        keepToken: false
-        tokenPrefix: '$('
-        tokenSuffix: ')'
-        useLegacyPattern: false
-        enableTelemetry: false
-    # Convert Datasources to k8s secrets
-    - task: PowerShell@2
-      displayName: Converting yaml datasources to secrets
-      inputs:
-        targetType: 'filePath'
-        filePath: Convert-DatasourceToSecret.ps1
-        errorActionPreference: 'stop'
-        pwsh: true
+        steps:
+          # Replace Datasource secrets tokens with variable values
+          - task: replacetokens@3
+            inputs:
+              rootDirectory: "datasources"
+              targetFiles: "*.yaml"
+              encoding: "auto"
+              writeBOM: true
+              actionOnMissing: "warn"
+              keepToken: false
+              tokenPrefix: "$("
+              tokenSuffix: ")"
+              useLegacyPattern: false
+              enableTelemetry: false
+          # Convert Datasources to k8s secrets
+          - task: PowerShell@2
+            displayName: Converting yaml datasources to secrets
+            inputs:
+              targetType: "filePath"
+              filePath: Convert-DatasourceToSecret.ps1
+              errorActionPreference: "stop"
+              pwsh: true
 
-    # Deploy secrets to k8s
-    - task: Kubernetes@1
-      displayName: kubectl apply secrets
-      inputs:
-        connectionType: Kubernetes Service Connection
-        kubernetesServiceEndpoint: $(k8s-service-connection)
-        namespace: $(kubernetes-namespace)
-        command: apply
-        arguments: -f secrets/
+          # Deploy secrets to k8s
+          - task: Kubernetes@1
+            displayName: kubectl apply secrets
+            inputs:
+              connectionType: Kubernetes Service Connection
+              kubernetesServiceEndpoint: $(k8s-staging-service-connection)
+              namespace: $(kubernetes-namespace)
+              command: apply
+              arguments: -f secrets/
+
+  - stage: Production
+    displayName: "Continuous deployment to Hellman"
+
+    jobs:
+      - job: Dashboards
+        displayName: "Deploy Dashboards to Kubernetes"
+        pool:
+          vmImage: $(vmImage)
+
+        steps:
+          # Convert Dashboards to k8s configmaps
+          - task: PowerShell@2
+            displayName: Converting json dashboards to configmaps
+            inputs:
+              targetType: "filePath"
+              filePath: Convert-JSONToConfigmap.ps1
+              errorActionPreference: "stop"
+              pwsh: true
+
+          - task: Kubernetes@1
+            displayName: kubectl delete configmaps
+            inputs:
+              connectionType: Kubernetes Service Connection
+              kubernetesServiceEndpoint: $(k8s-service-connection)
+              namespace: $(kubernetes-namespace)
+              command: delete
+              arguments: configmaps -l grafana_objects="1"
+
+          # Deploy configmaps to k8s
+          - task: Kubernetes@1
+            displayName: kubectl apply configmaps
+            inputs:
+              connectionType: Kubernetes Service Connection
+              kubernetesServiceEndpoint: $(k8s-service-connection)
+              namespace: $(kubernetes-namespace)
+              command: apply
+              arguments: -f configmaps/
+
+          # Restart Grafana deployment
+          - task: Kubernetes@1
+            displayName: kubectl rollout restart deployment monitoring-grafana
+            inputs:
+              connectionType: Kubernetes Service Connection
+              kubernetesServiceEndpoint: $(k8s-service-connection)
+              namespace: $(kubernetes-namespace)
+              command: rollout
+              arguments: restart deployment monitoring-grafana
+
+      - job: Datasources
+        displayName: "Deploy Datasources to Kubernetes"
+        pool:
+          vmImage: $(vmImage)
+
+        steps:
+          # Replace Datasource secrets tokens with variable values
+          - task: replacetokens@3
+            inputs:
+              rootDirectory: "datasources"
+              targetFiles: "*.yaml"
+              encoding: "auto"
+              writeBOM: true
+              actionOnMissing: "warn"
+              keepToken: false
+              tokenPrefix: "$("
+              tokenSuffix: ")"
+              useLegacyPattern: false
+              enableTelemetry: false
+          # Convert Datasources to k8s secrets
+          - task: PowerShell@2
+            displayName: Converting yaml datasources to secrets
+            inputs:
+              targetType: "filePath"
+              filePath: Convert-DatasourceToSecret.ps1
+              errorActionPreference: "stop"
+              pwsh: true
+
+          # Deploy secrets to k8s
+          - task: Kubernetes@1
+            displayName: kubectl apply secrets
+            inputs:
+              connectionType: Kubernetes Service Connection
+              kubernetesServiceEndpoint: $(k8s-service-connection)
+              namespace: $(kubernetes-namespace)
+              command: apply
+              arguments: -f secrets/
