@@ -18,7 +18,6 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 1687,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -78,7 +77,8 @@
                 "value": 80
               }
             ]
-          }
+          },
+          "unit": "percentunit"
         },
         "overrides": []
       },
@@ -110,13 +110,13 @@
             "uid": "prometheus"
           },
           "editorMode": "code",
-          "expr": "sum(k8s_readiness_probe_exists) by (exported_namespace)",
+          "expr": "(count(k8s_readiness_probe_exists) by (exported_namespace) - sum(k8s_readiness_probe_exists) by (exported_namespace)) / count(k8s_readiness_probe_exists) by (exported_namespace) ",
           "legendFormat": "__auto",
           "range": true,
           "refId": "A"
         }
       ],
-      "title": "readiness probes that exists by namespace",
+      "title": "% of deployments in a namespace that are missing readiness probes",
       "transparent": true,
       "type": "timeseries"
     },
@@ -176,7 +176,8 @@
                 "value": 80
               }
             ]
-          }
+          },
+          "unit": "percentunit"
         },
         "overrides": []
       },
@@ -186,7 +187,7 @@
         "x": 12,
         "y": 0
       },
-      "id": 2,
+      "id": 9,
       "options": {
         "legend": {
           "calcs": [
@@ -208,13 +209,13 @@
             "uid": "prometheus"
           },
           "editorMode": "code",
-          "expr": "sum(k8s_liveness_probe_exists) by (exported_namespace)",
+          "expr": "(count(k8s_liveness_probe_exists) by (exported_namespace) - sum(k8s_liveness_probe_exists) by (exported_namespace)) / count(k8s_liveness_probe_exists) by (exported_namespace) ",
           "legendFormat": "__auto",
           "range": true,
           "refId": "A"
         }
       ],
-      "title": "readiness probes that exists by namespace",
+      "title": "% of deployments in a namespace that are missing liveness probes",
       "transparent": true,
       "type": "timeseries"
     },
@@ -738,6 +739,6 @@
   "timezone": "",
   "title": "readiness / liveness probes",
   "uid": "ad9f701f-2796-43d2-bbf9-5ff1002118e9",
-  "version": 25,
+  "version": 1,
   "weekStart": ""
 }
