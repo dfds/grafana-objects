@@ -281,7 +281,7 @@
           },
           "editorMode": "code",
           "expr": "count(k8s_readiness_probe_exists) - sum(k8s_readiness_probe_exists)",
-          "legendFormat": "Has probes",
+          "legendFormat": "No probes",
           "range": true,
           "refId": "A"
         },
@@ -293,7 +293,7 @@
           "editorMode": "code",
           "expr": "sum(k8s_readiness_probe_exists)",
           "hide": false,
-          "legendFormat": "No probes",
+          "legendFormat": "Has probes",
           "range": true,
           "refId": "B"
         }
@@ -364,7 +364,7 @@
           },
           "editorMode": "code",
           "expr": "count(k8s_liveness_probe_exists) - sum(k8s_liveness_probe_exists)",
-          "legendFormat": "Has probes",
+          "legendFormat": "No probes",
           "range": true,
           "refId": "A"
         },
@@ -376,7 +376,7 @@
           "editorMode": "code",
           "expr": "sum(k8s_liveness_probe_exists)",
           "hide": false,
-          "legendFormat": "No probes",
+          "legendFormat": "Has probes",
           "range": true,
           "refId": "B"
         }
@@ -442,7 +442,7 @@
             "uid": "prometheus"
           },
           "editorMode": "code",
-          "expr": "(count(k8s_readiness_probe_exists) - sum(k8s_readiness_probe_exists)) / count(k8s_readiness_probe_exists)",
+          "expr": "(sum(k8s_readiness_probe_exists)) / count(k8s_readiness_probe_exists)",
           "legendFormat": "Has probes",
           "range": true,
           "refId": "A"
@@ -509,7 +509,7 @@
             "uid": "prometheus"
           },
           "editorMode": "code",
-          "expr": "(count(k8s_liveness_probe_exists) - sum(k8s_liveness_probe_exists)) / count(k8s_liveness_probe_exists)",
+          "expr": "(sum(k8s_liveness_probe_exists)) / count(k8s_liveness_probe_exists)",
           "legendFormat": "Has probes",
           "range": true,
           "refId": "A"
