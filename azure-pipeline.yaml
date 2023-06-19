@@ -13,6 +13,7 @@ trigger:
     exclude:
       - README.md
       - LICENSE
+      - .gitignore
 
 # Disables triggering Pipeline run at creation of every Pull Request
 pr: none
