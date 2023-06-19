@@ -83,7 +83,7 @@
           },
           "editorMode": "code",
           "expr": "sum(k8s_readiness_probe_exists{exported_namespace=\"[[namespace]]\"})",
-          "legendFormat": "No probes",
+          "legendFormat": "Has probes",
           "range": true,
           "refId": "A"
         },
@@ -95,7 +95,7 @@
           "editorMode": "code",
           "expr": "count(k8s_readiness_probe_exists{exported_namespace=\"[[namespace]]\"}) - sum(k8s_readiness_probe_exists{exported_namespace=\"[[namespace]]\"})",
           "hide": false,
-          "legendFormat": "Has probes",
+          "legendFormat": "No probes",
           "range": true,
           "refId": "B"
         }
@@ -166,7 +166,7 @@
           },
           "editorMode": "code",
           "expr": "sum(k8s_liveness_probe_exists{exported_namespace=\"[[namespace]]\"})",
-          "legendFormat": "No probes",
+          "legendFormat": "Has probes",
           "range": true,
           "refId": "A"
         },
@@ -178,7 +178,7 @@
           "editorMode": "code",
           "expr": "count(k8s_liveness_probe_exists{exported_namespace=\"[[namespace]]\"}) - sum(k8s_liveness_probe_exists{exported_namespace=\"[[namespace]]\"})",
           "hide": false,
-          "legendFormat": "Has probes",
+          "legendFormat": "No probes",
           "range": true,
           "refId": "B"
         }
