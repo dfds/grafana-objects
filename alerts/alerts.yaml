@@ -1,0 +1,1761 @@
+apiVersion: 1
+groups:
+    - orgId: 1
+      name: API server 5xx errors alert
+      folder: General Alerting
+      interval: 1m
+      rules:
+        - uid: cbeff883-8f55-4d33-8295-5f6e1b0e3fc8
+          title: API server 5xx errors alert
+          condition: A
+          data:
+            - refId: A
+              datasourceUid: __expr__
+              model:
+                conditions:
+                    - evaluator:
+                        params:
+                            - 25
+                        type: gt
+                      operator:
+                        type: and
+                      query:
+                        params:
+                            - B
+                      reducer:
+                        type: avg
+                refId: A
+                type: classic_conditions
+            - refId: B
+              relativeTimeRange:
+                from: 600
+                to: 0
+              datasourceUid: prometheus
+              model:
+                expr: (sum by (code) (code_resource:apiserver_request_total:rate5m{code=~"5.."}) / sum by (code) (code_resource:apiserver_request_total:rate5m)) * 100
+                interval: ""
+                legendFormat: Rel {{code}}
+                refId: B
+          dashboardUid: 4IxKHWtMz
+          panelId: 7
+          noDataState: OK
+          execErrState: Alerting
+          for: 5m
+          annotations:
+            __alertId__: "159"
+            __dashboardUid__: 4IxKHWtMz
+            __panelId__: "7"
+            message: Too many Kubernetes API requests returned  5xx errors in the last 5 minutes.
+          labels:
+            rule_uid: cbeff883-8f55-4d33-8295-5f6e1b0e3fc8
+          isPaused: false
+    - orgId: 1
+      name: Backup Validation Failure alert
+      folder: General Alerting
+      interval: 1m
+      rules:
+        - uid: d80bb8e3-3dd8-44ad-8357-572318f92b84
+          title: Backup Validation Failure alert
+          condition: B
+          data:
+            - refId: A
+              relativeTimeRange:
+                from: 300
+                to: 0
+              datasourceUid: prometheus
+              model:
+                expr: 'rate(velero_backup_validation_failure_total{schedule=~"velero-hellman-cluster-backup"}[24h:])  '
+                interval: ""
+                legendFormat: ""
+                refId: A
+            - refId: B
+              datasourceUid: __expr__
+              model:
+                conditions:
+                    - evaluator:
+                        params:
+                            - 0
+                        type: gt
+                      operator:
+                        type: and
+                      query:
+                        params:
+                            - A
+                      reducer:
+                        type: last
+                refId: B
+                type: classic_conditions
+          dashboardUid: YAniUGC
+          panelId: 32
+          noDataState: NoData
+          execErrState: Alerting
+          for: 5m
+          annotations:
+            __alertId__: "181"
+            __dashboardUid__: YAniUGC
+            __panelId__: "32"
+            message: Validation of a velero backup has failed.  Please use the Velero CLI to retrieve the logs to assist in investigation of the issue.
+          labels:
+            rule_uid: d80bb8e3-3dd8-44ad-8357-572318f92b84
+          isPaused: false
+    - orgId: 1
+      name: Blackbox probe target is down
+      folder: General Alerting
+      interval: 1m
+      rules:
+        - uid: c2b67b94-5272-4421-9bcc-b72ea73ec41d
+          title: Blackbox probe target is down
+          condition: B
+          data:
+            - refId: A
+              relativeTimeRange:
+                from: 300
+                to: 0
+              datasourceUid: prometheus
+              model:
+                exemplar: true
+                expr: probe_success
+                interval: ""
+                legendFormat: '{{  instance }}'
+                refId: A
+            - refId: B
+              datasourceUid: __expr__
+              model:
+                conditions:
+                    - evaluator:
+                        params:
+                            - 0.5
+                        type: lt
+                      operator:
+                        type: and
+                      query:
+                        params:
+                            - A
+                      reducer:
+                        type: avg
+                refId: B
+                type: classic_conditions
+          dashboardUid: bXDq_ZNnz
+          panelId: 190
+          noDataState: Alerting
+          execErrState: Alerting
+          for: 1m
+          annotations:
+            __alertId__: "176"
+            __dashboardUid__: bXDq_ZNnz
+            __panelId__: "190"
+            message: ""
+          labels:
+            rule_uid: c2b67b94-5272-4421-9bcc-b72ea73ec41d
+          isPaused: false
+    - orgId: 1
+      name: CPU Capacity Utilization Alert
+      folder: General Alerting
+      interval: 1m
+      rules:
+        - uid: c5640cc0-039e-4b6e-870a-dd5091acd6ac
+          title: CPU Capacity Utilization Alert
+          condition: A
+          data:
+            - refId: A
+              datasourceUid: __expr__
+              model:
+                conditions:
+                    - evaluator:
+                        params:
+                            - 0.85
+                        type: gt
+                      operator:
+                        type: and
+                      query:
+                        params:
+                            - C
+                      reducer:
+                        type: avg
+                refId: A
+                type: classic_conditions
+            - refId: C
+              relativeTimeRange:
+                from: 300
+                to: 0
+              datasourceUid: prometheus
+              model:
+                datasource:
+                    type: prometheus
+                    uid: prometheus
+                editorMode: code
+                expr: sum(namespace_cpu:kube_pod_container_resource_requests:sum{}) / sum(kube_node_status_allocatable{job="kube-state-metrics",resource="cpu"})
+                legendFormat: CPU Capacity Utilization
+                range: true
+                refId: C
+          dashboardUid: s_zMzas4z
+          panelId: 4
+          noDataState: NoData
+          execErrState: Alerting
+          for: 5m
+          annotations:
+            __alertId__: "157"
+            __dashboardUid__: s_zMzas4z
+            __panelId__: "4"
+            message: Elevated CPU capacity utilization
+          labels:
+            rule_uid: c5640cc0-039e-4b6e-870a-dd5091acd6ac
+          isPaused: false
+    - orgId: 1
+      name: Components version bump alerts alert
+      folder: General Alerting
+      interval: 1m
+      rules:
+        - uid: c72667d9-c358-4f9f-9dac-1bf29ee5e8d8
+          title: Components version bump alerts alert
+          condition: E
+          data:
+            - refId: A
+              relativeTimeRange:
+                from: 10
+                to: 0
+              datasourceUid: prometheus
+              model:
+                expr: count(count by (image) (kube_pod_container_info{namespace="kube-system", container="aws-node"})) - 1
+                format: time_series
+                intervalFactor: 1
+                legendFormat: cni
+                refId: A
+            - refId: B
+              relativeTimeRange:
+                from: 10
+                to: 0
+              datasourceUid: prometheus
+              model:
+                expr: count(count by (image) (kube_pod_container_info{namespace="kube-system", container="kube-proxy"})) - 1
+                format: time_series
+                intervalFactor: 1
+                legendFormat: kube-proxy
+                refId: B
+            - refId: C
+              relativeTimeRange:
+                from: 10
+                to: 0
+              datasourceUid: prometheus
+              model:
+                expr: count(count by (image) (kube_pod_container_info{namespace="kube-system", container="coredns"})) - 1
+                format: time_series
+                intervalFactor: 1
+                legendFormat: coredns
+                refId: C
+            - refId: D
+              relativeTimeRange:
+                from: 10
+                to: 0
+              datasourceUid: prometheus
+              model:
+                expr: count(count by (kubelet_version) (kube_node_info)) - 1
+                format: time_series
+                intervalFactor: 1
+                legendFormat: kubelet
+                refId: D
+            - refId: E
+              datasourceUid: __expr__
+              model:
+                conditions:
+                    - evaluator:
+                        params:
+                            - 0.1
+                        type: gt
+                      operator:
+                        type: and
+                      query:
+                        params:
+                            - A
+                      reducer:
+                        type: avg
+                    - evaluator:
+                        params:
+                            - 0.1
+                        type: gt
+                      operator:
+                        type: or
+                      query:
+                        params:
+                            - B
+                      reducer:
+                        type: avg
+                    - evaluator:
+                        params:
+                            - 0.1
+                        type: gt
+                      operator:
+                        type: or
+                      query:
+                        params:
+                            - C
+                      reducer:
+                        type: avg
+                    - evaluator:
+                        params:
+                            - 0.1
+                        type: gt
+                      operator:
+                        type: or
+                      query:
+                        params:
+                            - D
+                      reducer:
+                        type: avg
+                refId: E
+                type: classic_conditions
+          dashboardUid: bj5-ZEhWk
+          panelId: 7
+          noDataState: OK
+          execErrState: Alerting
+          for: 5m
+          annotations:
+            __alertId__: "171"
+            __dashboardUid__: bj5-ZEhWk
+            __panelId__: "7"
+            message: Kubernetes version bump detected. Please see "Kubernetes Components" dashboard for more details
+          labels:
+            rule_uid: c72667d9-c358-4f9f-9dac-1bf29ee5e8d8
+          isPaused: false
+    - orgId: 1
+      name: Container Restarts (5m) alert
+      folder: General Alerting
+      interval: 1m
+      rules:
+        - uid: eecbadc3-04e9-49ea-9f9c-d9cda5d3773b
+          title: Container Restarts (5m) alert
+          condition: B
+          data:
+            - refId: A
+              relativeTimeRange:
+                from: 300
+                to: 0
+              datasourceUid: prometheus
+              model:
+                expr: sum (rate(kube_pod_container_status_restarts_total{namespace="logcollect", container="cloudwatchlogs-collector"}[5m]) * 60 * 5) by (container)
+                format: time_series
+                instant: false
+                interval: ""
+                intervalFactor: 1
+                legendFormat: '{{ container }}'
+                refId: A
+            - refId: B
+              datasourceUid: __expr__
+              model:
+                conditions:
+                    - evaluator:
+                        params:
+                            - 2
+                        type: gt
+                      operator:
+                        type: and
+                      query:
+                        params:
+                            - A
+                      reducer:
+                        type: max
+                refId: B
+                type: classic_conditions
+          dashboardUid: fxisR13Zz
+          panelId: 4
+          noDataState: NoData
+          execErrState: Alerting
+          for: 5m
+          annotations:
+            __alertId__: "155"
+            __dashboardUid__: fxisR13Zz
+            __panelId__: "4"
+            message: ""
+          labels:
+            rule_uid: eecbadc3-04e9-49ea-9f9c-d9cda5d3773b
+          isPaused: false
+    - orgId: 1
+      name: CoreDNS unavailable alert
+      folder: General Alerting
+      interval: 1m
+      rules:
+        - uid: be4b444e-c0f1-49f5-b91b-8ab88b846e40
+          title: CoreDNS unavailable alert
+          condition: A
+          data:
+            - refId: A
+              datasourceUid: __expr__
+              model:
+                conditions:
+                    - evaluator:
+                        params:
+                            - 0.5
+                        type: gt
+                      operator:
+                        type: and
+                      query:
+                        params:
+                            - B
+                      reducer:
+                        type: avg
+                refId: A
+                type: classic_conditions
+            - refId: B
+              relativeTimeRange:
+                from: 300
+                to: 0
+              datasourceUid: prometheus
+              model:
+                expr: sum by (deployment) (kube_deployment_spec_replicas{namespace="kube-system", deployment="coredns"}) - sum by (deployment) (kube_deployment_status_replicas_available{namespace="kube-system", deployment="coredns"})
+                format: time_series
+                intervalFactor: 2
+                legendFormat: Unavailable
+                refId: B
+          dashboardUid: bj5-ZEhWk
+          panelId: 3
+          noDataState: NoData
+          execErrState: Alerting
+          for: 1m
+          annotations:
+            __alertId__: "169"
+            __dashboardUid__: bj5-ZEhWk
+            __panelId__: "3"
+            message: One more instances of CoreDNS are unavailable! Please see "Kubernetes Components" dashboard for more details.
+          labels:
+            rule_uid: be4b444e-c0f1-49f5-b91b-8ab88b846e40
+          isPaused: false
+    - orgId: 1
+      name: EC2 Worker Node Credit Balance alert
+      folder: General Alerting
+      interval: 5m
+      rules:
+        - uid: f06c1563-dd85-46a9-8755-f25b37521fdf
+          title: EC2 Worker Node Credit Balance alert
+          condition: B
+          data:
+            - refId: A
+              relativeTimeRange:
+                from: 300
+                to: 0
+              datasourceUid: P034F075C744B399F
+              model:
+                alias: ""
+                dimensions:
+                    InstanceId: '*'
+                expression: ""
+                id: ""
+                matchExact: true
+                metricName: CPUCreditBalance
+                namespace: AWS/EC2
+                period: "300"
+                refId: A
+                region: default
+                statistics:
+                    - Average
+            - refId: B
+              datasourceUid: __expr__
+              model:
+                conditions:
+                    - evaluator:
+                        params:
+                            - 1
+                        type: lt
+                      operator:
+                        type: and
+                      query:
+                        params:
+                            - A
+                      reducer:
+                        type: last
+                refId: B
+                type: classic_conditions
+          dashboardUid: GUakfOpMk
+          panelId: 16
+          noDataState: OK
+          execErrState: Alerting
+          for: 5m
+          annotations:
+            __alertId__: "160"
+            __dashboardUid__: GUakfOpMk
+            __panelId__: "16"
+            message: An EC2 instance has used its CPU Credit Balance. Performance issues may be encountered on this Kubernetes node, please check node CPU usage and take action to resolve or consider upgrading or changing the node instance type.
+          labels:
+            rule_uid: f06c1563-dd85-46a9-8755-f25b37521fdf
+          isPaused: false
+    - orgId: 1
+      name: Failed Restore Counts alert
+      folder: General Alerting
+      interval: 1m
+      rules:
+        - uid: d489cd0d-896c-4d16-9abb-355d37f2c4a6
+          title: Failed Restore Counts alert
+          condition: C
+          data:
+            - refId: A
+              relativeTimeRange:
+                from: 300
+                to: 0
+              datasourceUid: prometheus
+              model:
+                expr: 'rate(velero_restore_failed_total{schedule=~"velero-hellman-cluster-backup"}[24h:])  '
+                interval: ""
+                legendFormat: ""
+                refId: A
+            - refId: B
+              relativeTimeRange:
+                from: 300
+                to: 0
+              datasourceUid: prometheus
+              model:
+                expr: 'rate(velero_restore_partial_failure_total{schedule=~"velero-hellman-cluster-backup"}[24h:])  '
+                interval: ""
+                legendFormat: ""
+                refId: B
+            - refId: C
+              datasourceUid: __expr__
+              model:
+                conditions:
+                    - evaluator:
+                        params:
+                            - 0
+                        type: gt
+                      operator:
+                        type: and
+                      query:
+                        params:
+                            - A
+                      reducer:
+                        type: last
+                    - evaluator:
+                        params:
+                            - 0
+                        type: gt
+                      operator:
+                        type: or
+                      query:
+                        params:
+                            - B
+                      reducer:
+                        type: last
+                refId: C
+                type: classic_conditions
+          dashboardUid: YAniUGC
+          panelId: 28
+          noDataState: NoData
+          execErrState: Alerting
+          for: 5m
+          annotations:
+            __alertId__: "180"
+            __dashboardUid__: YAniUGC
+            __panelId__: "28"
+            message: A Velero restore to the cluster has failed.  Please use the Velero CLI to retrieve the backup logs to assist in investigation of the issue.
+          labels:
+            rule_uid: d489cd0d-896c-4d16-9abb-355d37f2c4a6
+          isPaused: false
+    - orgId: 1
+      name: Fluentd  daemonset running timeseries alert
+      folder: General Alerting
+      interval: 1m
+      rules:
+        - uid: cff9b7b0-449a-4f0c-9a3c-08bbf47ef925
+          title: Fluentd  daemonset running timeseries alert
+          condition: A
+          data:
+            - refId: A
+              datasourceUid: __expr__
+              model:
+                conditions:
+                    - evaluator:
+                        params:
+                            - 1
+                        type: gt
+                      operator:
+                        type: and
+                      query:
+                        params:
+                            - B
+                      reducer:
+                        type: avg
+                refId: A
+                type: classic_conditions
+            - refId: B
+              relativeTimeRange:
+                from: 300
+                to: 0
+              datasourceUid: prometheus
+              model:
+                expr: count(up{pod=~"fluentd.*"}) by (service) - sum(up{pod=~"fluentd.*"}) by (service)
+                format: time_series
+                intervalFactor: 1
+                legendFormat: '{{service}}'
+                refId: B
+          dashboardUid: 70pnQaxZz
+          panelId: 16
+          noDataState: NoData
+          execErrState: Alerting
+          for: 5m
+          annotations:
+            __alertId__: "163"
+            __dashboardUid__: 70pnQaxZz
+            __panelId__: "16"
+            message: One or more fluentd pods are not running
+          labels:
+            rule_uid: cff9b7b0-449a-4f0c-9a3c-08bbf47ef925
+          isPaused: false
+    - orgId: 1
+      name: Fluentd available buffer space ratio alert
+      folder: General Alerting
+      interval: 1m
+      rules:
+        - uid: e3f65059-6c23-4670-b2b8-f812a008cad5
+          title: Fluentd available buffer space ratio alert
+          condition: A
+          data:
+            - refId: A
+              datasourceUid: __expr__
+              model:
+                conditions:
+                    - evaluator:
+                        params:
+                            - 25
+                        type: lt
+                      operator:
+                        type: and
+                      query:
+                        params:
+                            - B
+                      reducer:
+                        type: avg
+                refId: A
+                type: classic_conditions
+            - refId: B
+              relativeTimeRange:
+                from: 300
+                to: 0
+              datasourceUid: prometheus
+              model:
+                expr: fluentd_output_status_buffer_available_space_ratio
+                format: time_series
+                intervalFactor: 1
+                legendFormat: '{{pod}}'
+                refId: B
+          dashboardUid: 70pnQaxZz
+          panelId: 10
+          noDataState: NoData
+          execErrState: Alerting
+          for: 5m
+          annotations:
+            __alertId__: "164"
+            __dashboardUid__: 70pnQaxZz
+            __panelId__: "10"
+            message: Available buffer space is below 25% for at least one fluentd pod.
+          labels:
+            rule_uid: e3f65059-6c23-4670-b2b8-f812a008cad5
+          isPaused: false
+    - orgId: 1
+      name: Goldpinger alert
+      folder: General Alerting
+      interval: 1m
+      rules:
+        - uid: ddc49fdf-cf2b-40a3-b121-2f60bddbfe23
+          title: Goldpinger alert
+          condition: B
+          data:
+            - refId: A
+              relativeTimeRange:
+                from: 300
+                to: 0
+              datasourceUid: prometheus
+              model:
+                expr: sum(goldpinger_nodes_health_total{status="unhealthy"}) by (goldpinger_instance)
+                format: time_series
+                intervalFactor: 1
+                legendFormat: '{{ goldpinger_instance }}'
+                refId: A
+            - refId: B
+              datasourceUid: __expr__
+              model:
+                conditions:
+                    - evaluator:
+                        params:
+                            - 0.5
+                        type: gt
+                      operator:
+                        type: and
+                      query:
+                        params:
+                            - A
+                      reducer:
+                        type: avg
+                refId: B
+                type: classic_conditions
+          dashboardUid: D4EyPQTWk
+          panelId: 25
+          noDataState: OK
+          execErrState: Alerting
+          for: 5m
+          annotations:
+            __alertId__: "165"
+            __dashboardUid__: D4EyPQTWk
+            __panelId__: "25"
+            message: Goldpinger instance has been reporting unhealthy nodes for at least 5 minutes.
+          labels:
+            rule_uid: ddc49fdf-cf2b-40a3-b121-2f60bddbfe23
+          isPaused: false
+    - orgId: 1
+      name: Is cluster version past EOL
+      folder: General Alerting
+      interval: 1m
+      rules:
+        - uid: ebdbc94a-a7e2-44ed-8bca-60dcc7f9e988
+          title: Is cluster version past EOL
+          condition: B
+          data:
+            - refId: A
+              relativeTimeRange:
+                from: 60
+                to: 0
+              datasourceUid: prometheus
+              model:
+                datasource:
+                    type: prometheus
+                    uid: prometheus
+                expr: eks_version_exporter_is_past_eol
+                format: time_series
+                instant: false
+                intervalFactor: 1
+                legendFormat: is_outdated
+                refId: A
+            - refId: B
+              datasourceUid: __expr__
+              model:
+                conditions:
+                    - evaluator:
+                        params:
+                            - 0.9
+                        type: gt
+                      operator:
+                        type: and
+                      query:
+                        params:
+                            - A
+                      reducer:
+                        type: last
+                refId: B
+                type: classic_conditions
+          dashboardUid: YMBzktpGz
+          panelId: 16
+          noDataState: NoData
+          execErrState: Alerting
+          for: 5m
+          annotations:
+            __alertId__: "162"
+            __dashboardUid__: YMBzktpGz
+            __panelId__: "16"
+            message: Current cluster version is past EOL
+          labels:
+            rule_uid: ebdbc94a-a7e2-44ed-8bca-60dcc7f9e988
+          isPaused: false
+    - orgId: 1
+      name: Kafka-exporter up alert
+      folder: General Alerting
+      interval: 1m
+      rules:
+        - uid: e64ff644-e9ac-4077-8337-4a56bf57097f
+          title: Kafka-exporter up alert
+          condition: B
+          data:
+            - refId: A
+              relativeTimeRange:
+                from: 300
+                to: 0
+              datasourceUid: prometheus
+              model:
+                datasource:
+                    type: prometheus
+                    uid: prometheus
+                exemplar: true
+                expr: up{job="kafka-exporter"}
+                interval: ""
+                legendFormat: '{{job}}'
+                refId: A
+            - refId: B
+              datasourceUid: __expr__
+              model:
+                conditions:
+                    - evaluator:
+                        params:
+                            - 0.5
+                        type: lt
+                      operator:
+                        type: and
+                      query:
+                        params:
+                            - A
+                      reducer:
+                        type: avg
+                refId: B
+                type: classic_conditions
+          dashboardUid: CoYn_3-nk
+          panelId: 2
+          noDataState: NoData
+          execErrState: Alerting
+          for: 5m
+          annotations:
+            __alertId__: "167"
+            __dashboardUid__: CoYn_3-nk
+            __panelId__: "2"
+            message: Kafka-exporter metrics cannot be scraped either because it is down or the scrape timeout is excided
+          labels:
+            rule_uid: e64ff644-e9ac-4077-8337-4a56bf57097f
+          isPaused: false
+    - orgId: 1
+      name: Kube-Proxy unavailable alert
+      folder: General Alerting
+      interval: 1m
+      rules:
+        - uid: ac76e773-f347-4e27-b67a-e3308cfe1395
+          title: Kube-Proxy unavailable alert
+          condition: A
+          data:
+            - refId: A
+              datasourceUid: __expr__
+              model:
+                conditions:
+                    - evaluator:
+                        params:
+                            - 0.5
+                        type: gt
+                      operator:
+                        type: and
+                      query:
+                        params:
+                            - B
+                      reducer:
+                        type: avg
+                refId: A
+                type: classic_conditions
+            - refId: B
+              relativeTimeRange:
+                from: 300
+                to: 0
+              datasourceUid: prometheus
+              model:
+                expr: sum by (daemonset) (kube_daemonset_status_desired_number_scheduled{namespace="kube-system", daemonset="kube-proxy"}) - sum by (daemonset) (kube_daemonset_status_number_available{namespace="kube-system", daemonset="kube-proxy"})
+                format: time_series
+                intervalFactor: 2
+                legendFormat: Unavailable
+                refId: B
+          dashboardUid: bj5-ZEhWk
+          panelId: 2
+          noDataState: NoData
+          execErrState: Alerting
+          for: 1m
+          annotations:
+            __alertId__: "168"
+            __dashboardUid__: bj5-ZEhWk
+            __panelId__: "2"
+            message: One more instances of kube-proxy are unavailable! Please see "Kubernetes Components" dashboard for more details.
+          labels:
+            rule_uid: ac76e773-f347-4e27-b67a-e3308cfe1395
+          isPaused: false
+    - orgId: 1
+      name: Memory Capacity Utilization Alert
+      folder: General Alerting
+      interval: 1m
+      rules:
+        - uid: ce530e1d-3432-4807-8f29-5e3c984c542c
+          title: Memory Capacity Utilization Alert
+          condition: A
+          data:
+            - refId: A
+              datasourceUid: __expr__
+              model:
+                conditions:
+                    - evaluator:
+                        params:
+                            - 0.85
+                        type: gt
+                      operator:
+                        type: and
+                      query:
+                        params:
+                            - C
+                      reducer:
+                        type: avg
+                refId: A
+                type: classic_conditions
+            - refId: C
+              relativeTimeRange:
+                from: 300
+                to: 0
+              datasourceUid: prometheus
+              model:
+                datasource:
+                    type: prometheus
+                    uid: prometheus
+                editorMode: code
+                expr: sum(namespace_memory:kube_pod_container_resource_requests:sum{}) / sum(kube_node_status_allocatable{job="kube-state-metrics",resource="memory"})
+                legendFormat: Memory Capacity Utilization
+                range: true
+                refId: C
+          dashboardUid: s_zMzas4z
+          panelId: 6
+          noDataState: NoData
+          execErrState: Alerting
+          for: 5m
+          annotations:
+            __alertId__: "158"
+            __dashboardUid__: s_zMzas4z
+            __panelId__: "6"
+            message: Elevated memory capacity utilization
+          labels:
+            rule_uid: ce530e1d-3432-4807-8f29-5e3c984c542c
+          isPaused: false
+    - orgId: 1
+      name: Misuse of priority classes
+      folder: General Alerting
+      interval: 1m
+      rules:
+        - uid: add33528-1eaa-4d5d-af5b-3de4b93f5a42
+          title: Misuse of priority classes
+          condition: B
+          data:
+            - refId: A
+              relativeTimeRange:
+                from: 3600
+                to: 0
+              datasourceUid: prometheus
+              model:
+                expr: count(kube_pod_info{priority_class="selfservice", namespace!="selfservice", namespace!="selfservice-herald-vbqkr", namespace!="developerautomation-xavgy", namespace!="velero"}) by (pririty_class, namespace)
+                format: time_series
+                interval: ""
+                intervalFactor: 1
+                legendFormat: Selfservice priority class
+                refId: A
+            - refId: B
+              datasourceUid: __expr__
+              model:
+                conditions:
+                    - evaluator:
+                        params:
+                            - 0.5
+                        type: gt
+                      operator:
+                        type: and
+                      query:
+                        params:
+                            - A
+                      reducer:
+                        type: avg
+                refId: B
+                type: classic_conditions
+          dashboardUid: W8nct6zGz
+          panelId: 6
+          noDataState: OK
+          execErrState: Alerting
+          for: 5m
+          annotations:
+            __alertId__: "175"
+            __dashboardUid__: W8nct6zGz
+            __panelId__: "6"
+            message: Misuse of priority classes detected
+          labels:
+            rule_uid: add33528-1eaa-4d5d-af5b-3de4b93f5a42
+          isPaused: false
+    - orgId: 1
+      name: NodeNotReady
+      folder: General Alerting
+      interval: 1m
+      rules:
+        - uid: c9a6b483-1488-4fe5-a790-1ff7445436bb
+          title: NodeNotReady
+          condition: A
+          data:
+            - refId: A
+              datasourceUid: __expr__
+              model:
+                conditions:
+                    - evaluator:
+                        params:
+                            - 0
+                        type: gt
+                      operator:
+                        type: and
+                      query:
+                        params:
+                            - E
+                      reducer:
+                        type: avg
+                refId: A
+                type: classic_conditions
+            - refId: E
+              relativeTimeRange:
+                from: 300
+                to: 0
+              datasourceUid: prometheus
+              model:
+                datasource:
+                    type: prometheus
+                    uid: prometheus
+                editorMode: code
+                expr: sum(kube_node_status_condition{condition="Ready",status!="true"})
+                legendFormat: __auto
+                range: true
+                refId: E
+          dashboardUid: KbpocXAVk
+          panelId: 3
+          noDataState: NoData
+          execErrState: Alerting
+          for: 1m
+          annotations:
+            __alertId__: "173"
+            __dashboardUid__: KbpocXAVk
+            __panelId__: "3"
+            message: One or more nodes are in a NotReady state
+          labels:
+            rule_uid: c9a6b483-1488-4fe5-a790-1ff7445436bb
+          isPaused: false
+    - orgId: 1
+      name: Nodes by state alert
+      folder: General Alerting
+      interval: 1m
+      rules:
+        - uid: ba0847b8-e010-4877-a43e-d64b9ec085dc
+          title: Nodes by state alert
+          condition: A
+          data:
+            - refId: A
+              datasourceUid: __expr__
+              model:
+                conditions:
+                    - evaluator:
+                        params:
+                            - 0
+                        type: gt
+                      operator:
+                        type: and
+                      query:
+                        params:
+                            - B
+                      reducer:
+                        type: last
+                refId: A
+                type: classic_conditions
+            - refId: B
+              relativeTimeRange:
+                from: 300
+                to: 0
+              datasourceUid: prometheus
+              model:
+                datasource:
+                    type: prometheus
+                    uid: prometheus
+                editorMode: code
+                exemplar: true
+                expr: sum(kube_node_status_condition{condition=~"NotReady"})
+                interval: ""
+                legendFormat: Not Ready
+                range: true
+                refId: B
+          dashboardUid: KbpocXAVk
+          panelId: 2
+          noDataState: OK
+          execErrState: Alerting
+          for: 5m
+          annotations:
+            __alertId__: "172"
+            __dashboardUid__: KbpocXAVk
+            __panelId__: "2"
+            message: Nodes found in the "not ready" state.
+          labels:
+            rule_uid: ba0847b8-e010-4877-a43e-d64b9ec085dc
+          isPaused: false
+    - orgId: 1
+      name: Pod Capacity Utilization Alert
+      folder: General Alerting
+      interval: 1m
+      rules:
+        - uid: f1593d7d-79b2-4542-9944-a7f65411bf5b
+          title: Pod Capacity Utilization Alert
+          condition: A
+          data:
+            - refId: A
+              datasourceUid: __expr__
+              model:
+                conditions:
+                    - evaluator:
+                        params:
+                            - 0.85
+                        type: gt
+                      operator:
+                        type: and
+                      query:
+                        params:
+                            - C
+                      reducer:
+                        type: last
+                refId: A
+                type: classic_conditions
+            - refId: C
+              relativeTimeRange:
+                from: 300
+                to: 0
+              datasourceUid: prometheus
+              model:
+                datasource:
+                    type: prometheus
+                    uid: prometheus
+                editorMode: code
+                expr: count(kube_pod_info)/sum(kube_node_status_capacity{resource="pods"})
+                legendFormat: Pod Capacity Utilization
+                range: true
+                refId: C
+          dashboardUid: s_zMzas4z
+          panelId: 2
+          noDataState: NoData
+          execErrState: Alerting
+          for: 5m
+          annotations:
+            __alertId__: "156"
+            __dashboardUid__: s_zMzas4z
+            __panelId__: "2"
+            message: Elevated pod capacity utilization
+          labels:
+            rule_uid: f1593d7d-79b2-4542-9944-a7f65411bf5b
+          isPaused: false
+    - orgId: 1
+      name: Priority Classes alert
+      folder: General Alerting
+      interval: 1m
+      rules:
+        - uid: eecf4258-4c13-4ff6-a614-24254d8fb5af
+          title: Priority Classes alert
+          condition: E
+          data:
+            - refId: A
+              relativeTimeRange:
+                from: 300
+                to: 0
+              datasourceUid: prometheus
+              model:
+                expr: count(kube_pod_info{priority_class=~"system.*",namespace!~"kube-system|monitoring"}) OR on() vector(0)
+                format: time_series
+                intervalFactor: 2
+                legendFormat: system*
+                refId: A
+            - refId: B
+              relativeTimeRange:
+                from: 300
+                to: 0
+              datasourceUid: prometheus
+              model:
+                expr: count(kube_pod_info{priority_class=~"service-critical",namespace!~"kube-system|velero"}) OR on() vector(0)
+                format: time_series
+                interval: ""
+                intervalFactor: 2
+                legendFormat: service-critical
+                refId: B
+            - refId: C
+              relativeTimeRange:
+                from: 300
+                to: 0
+              datasourceUid: prometheus
+              model:
+                expr: count(kube_pod_info{priority_class=~"cluster-monitoring",namespace!~"kube-system|monitoring|fluentd"}) OR on() vector(0)
+                format: time_series
+                interval: ""
+                intervalFactor: 2
+                legendFormat: cluster-monitoring
+                refId: C
+            - refId: D
+              relativeTimeRange:
+                from: 300
+                to: 0
+              datasourceUid: prometheus
+              model:
+                expr: count(kube_pod_info{priority_class=~"selfservice",namespace!~"selfservice|selfservice-herald-vbqkr|developerautomation-xavgy"}) OR on() vector(0)
+                format: time_series
+                interval: ""
+                intervalFactor: 2
+                legendFormat: selfservice
+                refId: D
+            - refId: E
+              datasourceUid: __expr__
+              model:
+                conditions:
+                    - evaluator:
+                        params:
+                            - 0
+                        type: gt
+                      operator:
+                        type: and
+                      query:
+                        params:
+                            - A
+                      reducer:
+                        type: last
+                    - evaluator:
+                        params:
+                            - 0
+                        type: gt
+                      operator:
+                        type: or
+                      query:
+                        params:
+                            - B
+                      reducer:
+                        type: last
+                    - evaluator:
+                        params:
+                            - 0
+                        type: gt
+                      operator:
+                        type: or
+                      query:
+                        params:
+                            - C
+                      reducer:
+                        type: last
+                    - evaluator:
+                        params:
+                            - 0
+                        type: gt
+                      operator:
+                        type: or
+                      query:
+                        params:
+                            - D
+                      reducer:
+                        type: last
+                refId: E
+                type: classic_conditions
+          dashboardUid: axdphXDZz
+          panelId: 10
+          noDataState: NoData
+          execErrState: Alerting
+          for: 5m
+          annotations:
+            __alertId__: "154"
+            __dashboardUid__: axdphXDZz
+            __panelId__: "10"
+            message: Unauthorised Use of Reserved Priority Classes
+          labels:
+            rule_uid: eecf4258-4c13-4ff6-a614-24254d8fb5af
+          isPaused: false
+    - orgId: 1
+      name: Prometheus - Disk Usage alert
+      folder: General Alerting
+      interval: 1m
+      rules:
+        - uid: f2f1253d-615b-4fe9-9330-531bc5c4e031
+          title: Prometheus - Disk Usage alert
+          condition: A
+          data:
+            - refId: A
+              datasourceUid: __expr__
+              model:
+                conditions:
+                    - evaluator:
+                        params:
+                            - 4.294967296e+11
+                        type: gt
+                      operator:
+                        type: and
+                      query:
+                        params:
+                            - B
+                      reducer:
+                        type: last
+                refId: A
+                type: classic_conditions
+            - refId: B
+              relativeTimeRange:
+                from: 300
+                to: 0
+              datasourceUid: prometheus
+              model:
+                datasource:
+                    type: prometheus
+                    uid: prometheus
+                editorMode: code
+                expr: kubelet_volume_stats_capacity_bytes{persistentvolumeclaim="prometheus-monitoring-kube-prometheus-prometheus-db-prometheus-monitoring-kube-prometheus-prometheus-0"}-kubelet_volume_stats_available_bytes{persistentvolumeclaim="prometheus-monitoring-kube-prometheus-prometheus-db-prometheus-monitoring-kube-prometheus-prometheus-0"}
+                legendFormat: Usage
+                range: true
+                refId: B
+          dashboardUid: ipAB0iB4z
+          panelId: 6
+          noDataState: NoData
+          execErrState: Alerting
+          for: 5m
+          annotations:
+            __alertId__: "179"
+            __dashboardUid__: ipAB0iB4z
+            __panelId__: "6"
+            message: Prometheus disk usage reaching capacity.
+          labels:
+            rule_uid: f2f1253d-615b-4fe9-9330-531bc5c4e031
+          isPaused: false
+    - orgId: 1
+      name: Prometheus - Memory Usage alert
+      folder: General Alerting
+      interval: 1m
+      rules:
+        - uid: ca375888-cecf-4cf3-b855-f7701cefd05c
+          title: Prometheus - Memory Usage alert
+          condition: B
+          data:
+            - refId: A
+              relativeTimeRange:
+                from: 300
+                to: 0
+              datasourceUid: prometheus
+              model:
+                datasource:
+                    type: prometheus
+                    uid: prometheus
+                editorMode: code
+                exemplar: false
+                expr: |-
+                    sum(
+                        container_memory_working_set_bytes{job="kubelet", metrics_path="/metrics/cadvisor", namespace="monitoring", container="prometheus", image!=""}
+                      * on(namespace,pod)
+                        group_left(workload, workload_type) namespace_workload_pod:kube_pod_owner:relabel{ namespace="monitoring", workload="prometheus-monitoring-kube-prometheus-prometheus", workload_type="statefulset"}
+                    ) by (workload, workload_type, container)
+                legendFormat: Usage
+                range: true
+                refId: A
+            - refId: B
+              datasourceUid: __expr__
+              model:
+                conditions:
+                    - evaluator:
+                        params:
+                            - 1.2884901888e+10
+                        type: gt
+                      operator:
+                        type: and
+                      query:
+                        params:
+                            - A
+                      reducer:
+                        type: avg
+                refId: B
+                type: classic_conditions
+          dashboardUid: ipAB0iB4z
+          panelId: 4
+          noDataState: NoData
+          execErrState: Alerting
+          for: 5m
+          annotations:
+            __alertId__: "178"
+            __dashboardUid__: ipAB0iB4z
+            __panelId__: "4"
+            message: ""
+          labels:
+            rule_uid: ca375888-cecf-4cf3-b855-f7701cefd05c
+          isPaused: false
+    - orgId: 1
+      name: Restore Validation Failure alert
+      folder: General Alerting
+      interval: 1m
+      rules:
+        - uid: a7ee5231-ac93-4e57-8991-8a18a8abe37f
+          title: Restore Validation Failure alert
+          condition: B
+          data:
+            - refId: A
+              relativeTimeRange:
+                from: 300
+                to: 0
+              datasourceUid: prometheus
+              model:
+                expr: 'rate(velero_restore_validation_failed_total{schedule=~"velero-hellman-cluster-backup"}[24h:])  '
+                interval: ""
+                legendFormat: ""
+                refId: A
+            - refId: B
+              datasourceUid: __expr__
+              model:
+                conditions:
+                    - evaluator:
+                        params:
+                            - 0
+                        type: gt
+                      operator:
+                        type: and
+                      query:
+                        params:
+                            - A
+                      reducer:
+                        type: last
+                refId: B
+                type: classic_conditions
+          dashboardUid: YAniUGC
+          panelId: 33
+          noDataState: NoData
+          execErrState: Alerting
+          for: 5m
+          annotations:
+            __alertId__: "182"
+            __dashboardUid__: YAniUGC
+            __panelId__: "33"
+            message: Validation of a velero restore has failed.  Please use the Velero CLI to retrieve the logs to assist in investigation of the issue.
+          labels:
+            rule_uid: a7ee5231-ac93-4e57-8991-8a18a8abe37f
+          isPaused: false
+    - orgId: 1
+      name: SSL expiry alert
+      folder: General Alerting
+      interval: 1h
+      rules:
+        - uid: ed7bcdc2-07d7-4c4e-9cdd-e6580fb69fce
+          title: SSL expiry alert
+          condition: B
+          data:
+            - refId: A
+              relativeTimeRange:
+                from: 3600
+                to: 0
+              datasourceUid: prometheus
+              model:
+                exemplar: true
+                expr: probe_ssl_earliest_cert_expiry{} - time()
+                interval: ""
+                legendFormat: '{{ instance }}'
+                refId: A
+            - refId: B
+              datasourceUid: __expr__
+              model:
+                conditions:
+                    - evaluator:
+                        params:
+                            - 2.592e+06
+                        type: lt
+                      operator:
+                        type: and
+                      query:
+                        params:
+                            - A
+                      reducer:
+                        type: avg
+                refId: B
+                type: classic_conditions
+          dashboardUid: bXDq_ZNnz
+          panelId: 192
+          noDataState: NoData
+          execErrState: Alerting
+          for: 1h
+          annotations:
+            __alertId__: "177"
+            __dashboardUid__: bXDq_ZNnz
+            __panelId__: "192"
+            message: ""
+          labels:
+            rule_uid: ed7bcdc2-07d7-4c4e-9cdd-e6580fb69fce
+          isPaused: false
+    - orgId: 1
+      name: Sockets used per node alert
+      folder: General Alerting
+      interval: 1m
+      rules:
+        - uid: e5600b97-49cc-4daa-9016-5bae3c84a365
+          title: Sockets used per node alert
+          condition: A
+          data:
+            - refId: A
+              datasourceUid: __expr__
+              model:
+                conditions:
+                    - evaluator:
+                        params:
+                            - 0
+                        type: gt
+                      operator:
+                        type: and
+                      query:
+                        params:
+                            - E
+                      reducer:
+                        type: avg
+                refId: A
+                type: classic_conditions
+            - refId: E
+              relativeTimeRange:
+                from: 300
+                to: 0
+              datasourceUid: prometheus
+              model:
+                datasource:
+                    type: prometheus
+                    uid: prometheus
+                editorMode: code
+                exemplar: true
+                expr: avg(node_sockstat_sockets_used{}) - (avg_over_time(avg(node_sockstat_sockets_used{})[24h:1m]) + 3 * stddev_over_time(avg(node_sockstat_sockets_used{})[24h:1m]))
+                instant: false
+                interval: ""
+                legendFormat: alert
+                refId: E
+          dashboardUid: GGodmXAVz
+          panelId: 2
+          noDataState: NoData
+          execErrState: Alerting
+          for: 5m
+          annotations:
+            __alertId__: "174"
+            __dashboardUid__: GGodmXAVz
+            __panelId__: "2"
+            message: Sockets used per node has reached an unusually high level.
+          labels:
+            rule_uid: e5600b97-49cc-4daa-9016-5bae3c84a365
+          isPaused: false
+    - orgId: 1
+      name: Subnet IP usage alert
+      folder: General Alerting
+      interval: 1m
+      rules:
+        - uid: a3f8e90a-b38b-4244-9d38-c70cfe05d477
+          title: Subnet IP usage alert
+          condition: B
+          data:
+            - refId: A
+              relativeTimeRange:
+                from: 3600
+                to: 0
+              datasourceUid: prometheus
+              model:
+                expr: 'sum by(tag, subnetid) (aws_subnet_exporter_available_ip{tag=~".*eu.*"}) '
+                interval: ""
+                legendFormat: availableIP:{{tag}}
+                refId: A
+            - refId: B
+              datasourceUid: __expr__
+              model:
+                conditions:
+                    - evaluator:
+                        params:
+                            - 500
+                        type: lt
+                      operator:
+                        type: and
+                      query:
+                        params:
+                            - A
+                      reducer:
+                        type: avg
+                refId: B
+                type: classic_conditions
+          dashboardUid: 1NxY8ypGk
+          panelId: 2
+          noDataState: OK
+          execErrState: Alerting
+          for: 5m
+          annotations:
+            __alertId__: "153"
+            __dashboardUid__: 1NxY8ypGk
+            __panelId__: "2"
+            message: One or more subnets has a low count of available IP's < 500.
+          labels:
+            rule_uid: a3f8e90a-b38b-4244-9d38-c70cfe05d477
+          isPaused: false
+    - orgId: 1
+      name: Topic has large amount of consumergroups
+      folder: General Alerting
+      interval: 1m
+      rules:
+        - uid: c65dff93-ab8b-4f37-9670-e12fe4f26c75
+          title: Topic has large amount of consumergroups
+          condition: B
+          data:
+            - refId: A
+              relativeTimeRange:
+                from: 300
+                to: 0
+              datasourceUid: prometheus
+              model:
+                datasource:
+                    type: prometheus
+                    uid: prometheus
+                exemplar: true
+                expr: count(kafka_consumergroup_lag) by (topic)
+                interval: ""
+                legendFormat: '{{topic}}'
+                refId: A
+            - refId: B
+              datasourceUid: __expr__
+              model:
+                conditions:
+                    - evaluator:
+                        params:
+                            - 150
+                        type: gt
+                      operator:
+                        type: and
+                      query:
+                        params:
+                            - A
+                      reducer:
+                        type: avg
+                refId: B
+                type: classic_conditions
+          dashboardUid: CoYn_3-nk
+          panelId: 4
+          noDataState: NoData
+          execErrState: Alerting
+          for: 5m
+          annotations:
+            __alertId__: "166"
+            __dashboardUid__: CoYn_3-nk
+            __panelId__: "4"
+            message: A topic has large amount of consumergroups. This might be due to someone creating unique consumergroups and hence eventually taking down the exporter for everybody, due to long request times.
+          labels:
+            rule_uid: c65dff93-ab8b-4f37-9670-e12fe4f26c75
+          isPaused: false
+    - orgId: 1
+      name: VPC CNI unavailable alert
+      folder: General Alerting
+      interval: 1m
+      rules:
+        - uid: c8f6677c-18dc-423a-bc2a-191514348b6f
+          title: VPC CNI unavailable alert
+          condition: A
+          data:
+            - refId: A
+              datasourceUid: __expr__
+              model:
+                conditions:
+                    - evaluator:
+                        params:
+                            - 0.5
+                        type: gt
+                      operator:
+                        type: and
+                      query:
+                        params:
+                            - B
+                      reducer:
+                        type: avg
+                refId: A
+                type: classic_conditions
+            - refId: B
+              relativeTimeRange:
+                from: 300
+                to: 0
+              datasourceUid: prometheus
+              model:
+                expr: sum by (daemonset) (kube_daemonset_status_desired_number_scheduled{namespace="kube-system", daemonset="aws-node"}) - sum by (daemonset) (kube_daemonset_status_number_available{namespace="kube-system", daemonset="aws-node"})
+                format: time_series
+                intervalFactor: 2
+                legendFormat: Unavailable
+                refId: B
+          dashboardUid: bj5-ZEhWk
+          panelId: 4
+          noDataState: NoData
+          execErrState: Alerting
+          for: 1m
+          annotations:
+            __alertId__: "170"
+            __dashboardUid__: bj5-ZEhWk
+            __panelId__: "4"
+            message: One more instances of VPC CNI are unavailable! Please see "Kubernetes Components" dashboard for more details.
+          labels:
+            rule_uid: c8f6677c-18dc-423a-bc2a-191514348b6f
+          isPaused: false
+    - orgId: 1
+      name: Version alerts alert
+      folder: General Alerting
+      interval: 1m
+      rules:
+        - uid: b3144065-3094-4403-93dd-b7037b9f563d
+          title: Version alerts alert
+          condition: B
+          data:
+            - refId: A
+              relativeTimeRange:
+                from: 60
+                to: 0
+              datasourceUid: prometheus
+              model:
+                datasource:
+                    type: prometheus
+                    uid: prometheus
+                expr: eks_version_exporter_is_outdated
+                format: time_series
+                instant: false
+                intervalFactor: 1
+                legendFormat: is_outdated
+                refId: A
+            - refId: B
+              datasourceUid: __expr__
+              model:
+                conditions:
+                    - evaluator:
+                        params:
+                            - 0.9
+                        type: gt
+                      operator:
+                        type: and
+                      query:
+                        params:
+                            - A
+                      reducer:
+                        type: last
+                refId: B
+                type: classic_conditions
+          dashboardUid: YMBzktpGz
+          panelId: 15
+          noDataState: NoData
+          execErrState: Alerting
+          for: 5m
+          annotations:
+            __alertId__: "161"
+            __dashboardUid__: YMBzktpGz
+            __panelId__: "15"
+            message: Current Kubernetes cluster version is outdated
+          labels:
+            rule_uid: b3144065-3094-4403-93dd-b7037b9f563d
+          isPaused: false
+    - orgId: 1
+      name: Volume Snapshot Failure alert
+      folder: General Alerting
+      interval: 1m
+      rules:
+        - uid: b8eaf085-5c81-4d2a-b4a7-f2c6c9998e66
+          title: Volume Snapshot Failure alert
+          condition: B
+          data:
+            - refId: A
+              relativeTimeRange:
+                from: 300
+                to: 0
+              datasourceUid: prometheus
+              model:
+                expr: 'rate(velero_volume_snapshot_failure_total{schedule=~"velero-hellman-cluster-backup"}[24h:])  '
+                interval: ""
+                legendFormat: ""
+                refId: A
+            - refId: B
+              datasourceUid: __expr__
+              model:
+                conditions:
+                    - evaluator:
+                        params:
+                            - 0
+                        type: gt
+                      operator:
+                        type: and
+                      query:
+                        params:
+                            - A
+                      reducer:
+                        type: last
+                refId: B
+                type: classic_conditions
+          dashboardUid: YAniUGC
+          panelId: 34
+          noDataState: NoData
+          execErrState: Alerting
+          for: 5m
+          annotations:
+            __alertId__: "183"
+            __dashboardUid__: YAniUGC
+            __panelId__: "34"
+            message: A volume snapshot using Velero has failed.  Please check Velero to establish the cause of the failure.
+          labels:
+            rule_uid: b8eaf085-5c81-4d2a-b4a7-f2c6c9998e66
+          isPaused: false
