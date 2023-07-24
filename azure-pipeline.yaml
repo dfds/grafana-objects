@@ -50,6 +50,15 @@ stages:
               errorActionPreference: "stop"
               pwsh: true
 
+          # Convert Alerts to k8s configmaps
+          - task: bash@3
+            displayName: "kubectl delete configmaps"
+            inputs:
+              targetType: "filePath"
+              filePath: generate-alert-rules.sh
+              arguments: "configmaps"
+              failOnStderr: true
+
           - task: Kubernetes@1
             displayName: kubectl delete configmaps
             inputs:
