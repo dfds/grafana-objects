@@ -10,6 +10,7 @@ else
         rm -rf configmaps
     fi
     pwsh Convert-JSONToConfigmap.ps1
+    sh ./generate-alert-rules.sh configmaps
     if [[ $? -ne 0 ]]; then
         echo "#---------------------------------- WARNING ----------------------------------#"
         echo "# PowerShell conversion of configmaps failed. Is PowerShell installed?        #"
