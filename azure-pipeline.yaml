@@ -68,6 +68,9 @@ stages:
                   echo "No files found in configmaps folder"
                   exit 1
                 fi
+                echo "Files found in configmaps folder"
+                ls -a
+                echo "==============================="
 
           - task: Kubernetes@1
             displayName: kubectl delete configmaps
