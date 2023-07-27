@@ -52,12 +52,22 @@ stages:
 
           # Convert Alerts to k8s configmaps
           - task: bash@3
-            displayName: "kubectl delete configmaps"
+            displayName: "Create Alert Rules ConfigMaps"
             inputs:
               targetType: "filePath"
               filePath: generate-alert-rules.sh
               arguments: "configmaps"
               failOnStderr: true
+
+          - task: bash@3
+            displayName: "Check files in configmaps folder"
+            inputs:
+              targetType: "inline"
+              script: |
+                if [ -z "$(ls -A configmaps)" ]; then
+                  echo "No files found in configmaps folder"
+                  exit 1
+                fi
 
           - task: Kubernetes@1
             displayName: kubectl delete configmaps
