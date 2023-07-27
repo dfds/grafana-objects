@@ -69,7 +69,7 @@ stages:
                   exit 1
                 fi
                 echo "Files found in configmaps folder"
-                ls -a
+                ls -a configmaps
                 echo "==============================="
 
           - task: Kubernetes@1
