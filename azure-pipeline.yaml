@@ -50,6 +50,15 @@ stages:
               errorActionPreference: "stop"
               pwsh: true
 
+          # Convert Alerts to k8s configmaps
+          - task: bash@3
+            displayName: "Create ConfigMaps for Alert Rules"
+            inputs:
+              targetType: "filePath"
+              filePath: generate-alert-rules.sh
+              arguments: "configmaps"
+              failOnStderr: true
+
           - task: Kubernetes@1
             displayName: kubectl delete configmaps
             inputs:
@@ -135,6 +144,15 @@ stages:
               filePath: Convert-JSONToConfigmap.ps1
               errorActionPreference: "stop"
               pwsh: true
+
+          # Convert Alerts to k8s configmaps
+          - task: bash@3
+            displayName: "Create ConfigMaps for Alert Rules"
+            inputs:
+              targetType: "filePath"
+              filePath: generate-alert-rules.sh
+              arguments: "configmaps"
+              failOnStderr: true
 
           - task: Kubernetes@1
             displayName: kubectl delete configmaps
