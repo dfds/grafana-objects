@@ -1134,7 +1134,7 @@ groups:
               to: 0
             datasourceUid: prometheus
             model:
-              expr: count(kube_pod_info{priority_class=~"system.*",namespace!~"kube-system|monitoring"}) OR on() vector(0)
+              expr: count(kube_pod_info{priority_class=~"system.*",namespace!~"kube-system|monitoring|flux-system"}) OR on() vector(0)
               format: time_series
               intervalFactor: 2
               legendFormat: system*
