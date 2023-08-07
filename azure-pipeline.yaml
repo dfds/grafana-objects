@@ -10,6 +10,7 @@ trigger:
       - values.yaml
       - dashboards/*
       - datasources/*
+      - alerts/*
     exclude:
       - README.md
       - LICENSE
