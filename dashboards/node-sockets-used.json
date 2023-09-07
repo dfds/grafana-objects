@@ -56,7 +56,7 @@
           }
         ],
         "executionErrorState": "alerting",
-        "for": "5m",
+        "for": "15m",
         "frequency": "1m",
         "handler": 1,
         "message": "Sockets used per node has reached an unusually high level.",
