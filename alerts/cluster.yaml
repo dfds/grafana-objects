@@ -1495,7 +1495,7 @@ groups:
         panelId: 2
         noDataState: NoData
         execErrState: Alerting
-        for: 5m
+        for: 15m
         annotations:
           __alertId__: "174"
           __dashboardUid__: GGodmXAVz
