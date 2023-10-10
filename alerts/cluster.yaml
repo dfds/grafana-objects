@@ -1709,6 +1709,7 @@ groups:
           message: Current Kubernetes cluster version is outdated
         labels:
           rule_uid: b3144065-3094-4403-93dd-b7037b9f563d
+          repeat: 24h
         isPaused: false
   - orgId: 1
     name: Volume Snapshot Failure alert
