@@ -13,17 +13,17 @@ groups:
             datasourceUid: __expr__
             model:
               conditions:
-                  - evaluator:
-                      params:
-                          - 25
-                      type: gt
-                    operator:
-                      type: and
-                    query:
-                      params:
-                          - B
-                    reducer:
-                      type: avg
+                - evaluator:
+                    params:
+                      - 25
+                    type: gt
+                  operator:
+                    type: and
+                  query:
+                    params:
+                      - B
+                  reducer:
+                    type: avg
               refId: A
               type: classic_conditions
           - refId: B
@@ -72,17 +72,17 @@ groups:
             datasourceUid: __expr__
             model:
               conditions:
-                  - evaluator:
-                      params:
-                          - 0
-                      type: gt
-                    operator:
-                      type: and
-                    query:
-                      params:
-                          - A
-                    reducer:
-                      type: last
+                - evaluator:
+                    params:
+                      - 0
+                    type: gt
+                  operator:
+                    type: and
+                  query:
+                    params:
+                      - A
+                  reducer:
+                    type: last
               refId: B
               type: classic_conditions
         dashboardUid: YAniUGC
@@ -116,23 +116,23 @@ groups:
               exemplar: true
               expr: probe_success
               interval: ""
-              legendFormat: '{{  instance }}'
+              legendFormat: "{{  instance }}"
               refId: A
           - refId: B
             datasourceUid: __expr__
             model:
               conditions:
-                  - evaluator:
-                      params:
-                          - 0.5
-                      type: lt
-                    operator:
-                      type: and
-                    query:
-                      params:
-                          - A
-                    reducer:
-                      type: avg
+                - evaluator:
+                    params:
+                      - 0.5
+                    type: lt
+                  operator:
+                    type: and
+                  query:
+                    params:
+                      - A
+                  reducer:
+                    type: avg
               refId: B
               type: classic_conditions
         dashboardUid: bXDq_ZNnz
@@ -161,17 +161,17 @@ groups:
             datasourceUid: __expr__
             model:
               conditions:
-                  - evaluator:
-                      params:
-                          - 0.85
-                      type: gt
-                    operator:
-                      type: and
-                    query:
-                      params:
-                          - C
-                    reducer:
-                      type: avg
+                - evaluator:
+                    params:
+                      - 0.85
+                    type: gt
+                  operator:
+                    type: and
+                  query:
+                    params:
+                      - C
+                  reducer:
+                    type: avg
               refId: A
               type: classic_conditions
           - refId: C
@@ -181,8 +181,8 @@ groups:
             datasourceUid: prometheus
             model:
               datasource:
-                  type: prometheus
-                  uid: prometheus
+                type: prometheus
+                uid: prometheus
               editorMode: code
               expr: sum(namespace_cpu:kube_pod_container_resource_requests:sum{}) / sum(kube_node_status_allocatable{job="kube-state-metrics",resource="cpu"})
               legendFormat: CPU Capacity Utilization
@@ -258,50 +258,50 @@ groups:
             datasourceUid: __expr__
             model:
               conditions:
-                  - evaluator:
-                      params:
-                          - 0.1
-                      type: gt
-                    operator:
-                      type: and
-                    query:
-                      params:
-                          - A
-                    reducer:
-                      type: avg
-                  - evaluator:
-                      params:
-                          - 0.1
-                      type: gt
-                    operator:
-                      type: or
-                    query:
-                      params:
-                          - B
-                    reducer:
-                      type: avg
-                  - evaluator:
-                      params:
-                          - 0.1
-                      type: gt
-                    operator:
-                      type: or
-                    query:
-                      params:
-                          - C
-                    reducer:
-                      type: avg
-                  - evaluator:
-                      params:
-                          - 0.1
-                      type: gt
-                    operator:
-                      type: or
-                    query:
-                      params:
-                          - D
-                    reducer:
-                      type: avg
+                - evaluator:
+                    params:
+                      - 0.1
+                    type: gt
+                  operator:
+                    type: and
+                  query:
+                    params:
+                      - A
+                  reducer:
+                    type: avg
+                - evaluator:
+                    params:
+                      - 0.1
+                    type: gt
+                  operator:
+                    type: or
+                  query:
+                    params:
+                      - B
+                  reducer:
+                    type: avg
+                - evaluator:
+                    params:
+                      - 0.1
+                    type: gt
+                  operator:
+                    type: or
+                  query:
+                    params:
+                      - C
+                  reducer:
+                    type: avg
+                - evaluator:
+                    params:
+                      - 0.1
+                    type: gt
+                  operator:
+                    type: or
+                  query:
+                    params:
+                      - D
+                  reducer:
+                    type: avg
               refId: E
               type: classic_conditions
         dashboardUid: bj5-ZEhWk
@@ -337,23 +337,23 @@ groups:
               instant: false
               interval: ""
               intervalFactor: 1
-              legendFormat: '{{ container }}'
+              legendFormat: "{{ container }}"
               refId: A
           - refId: B
             datasourceUid: __expr__
             model:
               conditions:
-                  - evaluator:
-                      params:
-                          - 2
-                      type: gt
-                    operator:
-                      type: and
-                    query:
-                      params:
-                          - A
-                    reducer:
-                      type: max
+                - evaluator:
+                    params:
+                      - 2
+                    type: gt
+                  operator:
+                    type: and
+                  query:
+                    params:
+                      - A
+                  reducer:
+                    type: max
               refId: B
               type: classic_conditions
         dashboardUid: fxisR13Zz
@@ -382,17 +382,17 @@ groups:
             datasourceUid: __expr__
             model:
               conditions:
-                  - evaluator:
-                      params:
-                          - 0.5
-                      type: gt
-                    operator:
-                      type: and
-                    query:
-                      params:
-                          - B
-                    reducer:
-                      type: avg
+                - evaluator:
+                    params:
+                      - 0.5
+                    type: gt
+                  operator:
+                    type: and
+                  query:
+                    params:
+                      - B
+                  reducer:
+                    type: avg
               refId: A
               type: classic_conditions
           - refId: B
@@ -436,7 +436,7 @@ groups:
             model:
               alias: ""
               dimensions:
-                  InstanceId: '*'
+                InstanceId: "*"
               expression: ""
               id: ""
               matchExact: true
@@ -446,22 +446,22 @@ groups:
               refId: A
               region: default
               statistics:
-                  - Average
+                - Average
           - refId: B
             datasourceUid: __expr__
             model:
               conditions:
-                  - evaluator:
-                      params:
-                          - 1
-                      type: lt
-                    operator:
-                      type: and
-                    query:
-                      params:
-                          - A
-                    reducer:
-                      type: last
+                - evaluator:
+                    params:
+                      - 1
+                    type: lt
+                  operator:
+                    type: and
+                  query:
+                    params:
+                      - A
+                  reducer:
+                    type: last
               refId: B
               type: classic_conditions
         dashboardUid: GUakfOpMk
@@ -510,28 +510,28 @@ groups:
             datasourceUid: __expr__
             model:
               conditions:
-                  - evaluator:
-                      params:
-                          - 0
-                      type: gt
-                    operator:
-                      type: and
-                    query:
-                      params:
-                          - A
-                    reducer:
-                      type: last
-                  - evaluator:
-                      params:
-                          - 0
-                      type: gt
-                    operator:
-                      type: or
-                    query:
-                      params:
-                          - B
-                    reducer:
-                      type: last
+                - evaluator:
+                    params:
+                      - 0
+                    type: gt
+                  operator:
+                    type: and
+                  query:
+                    params:
+                      - A
+                  reducer:
+                    type: last
+                - evaluator:
+                    params:
+                      - 0
+                    type: gt
+                  operator:
+                    type: or
+                  query:
+                    params:
+                      - B
+                  reducer:
+                    type: last
               refId: C
               type: classic_conditions
         dashboardUid: YAniUGC
@@ -560,17 +560,17 @@ groups:
             datasourceUid: __expr__
             model:
               conditions:
-                  - evaluator:
-                      params:
-                          - 1
-                      type: gt
-                    operator:
-                      type: and
-                    query:
-                      params:
-                          - B
-                    reducer:
-                      type: avg
+                - evaluator:
+                    params:
+                      - 1
+                    type: gt
+                  operator:
+                    type: and
+                  query:
+                    params:
+                      - B
+                  reducer:
+                    type: avg
               refId: A
               type: classic_conditions
           - refId: B
@@ -582,7 +582,7 @@ groups:
               expr: count(up{pod=~"fluentd.*"}) by (service) - sum(up{pod=~"fluentd.*"}) by (service)
               format: time_series
               intervalFactor: 1
-              legendFormat: '{{service}}'
+              legendFormat: "{{service}}"
               refId: B
         dashboardUid: 70pnQaxZz
         panelId: 16
@@ -610,17 +610,17 @@ groups:
             datasourceUid: __expr__
             model:
               conditions:
-                  - evaluator:
-                      params:
-                          - 25
-                      type: lt
-                    operator:
-                      type: and
-                    query:
-                      params:
-                          - B
-                    reducer:
-                      type: avg
+                - evaluator:
+                    params:
+                      - 25
+                    type: lt
+                  operator:
+                    type: and
+                  query:
+                    params:
+                      - B
+                  reducer:
+                    type: avg
               refId: A
               type: classic_conditions
           - refId: B
@@ -632,7 +632,7 @@ groups:
               expr: fluentd_output_status_buffer_available_space_ratio
               format: time_series
               intervalFactor: 1
-              legendFormat: '{{pod}}'
+              legendFormat: "{{pod}}"
               refId: B
         dashboardUid: 70pnQaxZz
         panelId: 10
@@ -665,23 +665,23 @@ groups:
               expr: sum(goldpinger_nodes_health_total{status="unhealthy"}) by (goldpinger_instance)
               format: time_series
               intervalFactor: 1
-              legendFormat: '{{ goldpinger_instance }}'
+              legendFormat: "{{ goldpinger_instance }}"
               refId: A
           - refId: B
             datasourceUid: __expr__
             model:
               conditions:
-                  - evaluator:
-                      params:
-                          - 0.5
-                      type: gt
-                    operator:
-                      type: and
-                    query:
-                      params:
-                          - A
-                    reducer:
-                      type: avg
+                - evaluator:
+                    params:
+                      - 0.5
+                    type: gt
+                  operator:
+                    type: and
+                  query:
+                    params:
+                      - A
+                  reducer:
+                    type: avg
               refId: B
               type: classic_conditions
         dashboardUid: D4EyPQTWk
@@ -713,8 +713,8 @@ groups:
             datasourceUid: prometheus
             model:
               datasource:
-                  type: prometheus
-                  uid: prometheus
+                type: prometheus
+                uid: prometheus
               expr: eks_version_exporter_is_past_eol
               format: time_series
               instant: false
@@ -725,17 +725,17 @@ groups:
             datasourceUid: __expr__
             model:
               conditions:
-                  - evaluator:
-                      params:
-                          - 0.9
-                      type: gt
-                    operator:
-                      type: and
-                    query:
-                      params:
-                          - A
-                    reducer:
-                      type: last
+                - evaluator:
+                    params:
+                      - 0.9
+                    type: gt
+                  operator:
+                    type: and
+                  query:
+                    params:
+                      - A
+                  reducer:
+                    type: last
               refId: B
               type: classic_conditions
         dashboardUid: YMBzktpGz
@@ -767,28 +767,28 @@ groups:
             datasourceUid: prometheus
             model:
               datasource:
-                  type: prometheus
-                  uid: prometheus
+                type: prometheus
+                uid: prometheus
               exemplar: true
               expr: up{job="kafka-exporter"}
               interval: ""
-              legendFormat: '{{job}}'
+              legendFormat: "{{job}}"
               refId: A
           - refId: B
             datasourceUid: __expr__
             model:
               conditions:
-                  - evaluator:
-                      params:
-                          - 0.5
-                      type: lt
-                    operator:
-                      type: and
-                    query:
-                      params:
-                          - A
-                    reducer:
-                      type: avg
+                - evaluator:
+                    params:
+                      - 0.5
+                    type: lt
+                  operator:
+                    type: and
+                  query:
+                    params:
+                      - A
+                  reducer:
+                    type: avg
               refId: B
               type: classic_conditions
         dashboardUid: CoYn_3-nk
@@ -817,17 +817,17 @@ groups:
             datasourceUid: __expr__
             model:
               conditions:
-                  - evaluator:
-                      params:
-                          - 0.5
-                      type: gt
-                    operator:
-                      type: and
-                    query:
-                      params:
-                          - B
-                    reducer:
-                      type: avg
+                - evaluator:
+                    params:
+                      - 0.5
+                    type: gt
+                  operator:
+                    type: and
+                  query:
+                    params:
+                      - B
+                  reducer:
+                    type: avg
               refId: A
               type: classic_conditions
           - refId: B
@@ -867,17 +867,17 @@ groups:
             datasourceUid: __expr__
             model:
               conditions:
-                  - evaluator:
-                      params:
-                          - 0.85
-                      type: gt
-                    operator:
-                      type: and
-                    query:
-                      params:
-                          - C
-                    reducer:
-                      type: avg
+                - evaluator:
+                    params:
+                      - 0.85
+                    type: gt
+                  operator:
+                    type: and
+                  query:
+                    params:
+                      - C
+                  reducer:
+                    type: avg
               refId: A
               type: classic_conditions
           - refId: C
@@ -887,8 +887,8 @@ groups:
             datasourceUid: prometheus
             model:
               datasource:
-                  type: prometheus
-                  uid: prometheus
+                type: prometheus
+                uid: prometheus
               editorMode: code
               expr: sum(namespace_memory:kube_pod_container_resource_requests:sum{}) / sum(kube_node_status_allocatable{job="kube-state-metrics",resource="memory"})
               legendFormat: Memory Capacity Utilization
@@ -932,17 +932,17 @@ groups:
             datasourceUid: __expr__
             model:
               conditions:
-                  - evaluator:
-                      params:
-                          - 0.5
-                      type: gt
-                    operator:
-                      type: and
-                    query:
-                      params:
-                          - A
-                    reducer:
-                      type: avg
+                - evaluator:
+                    params:
+                      - 0.5
+                    type: gt
+                  operator:
+                    type: and
+                  query:
+                    params:
+                      - A
+                  reducer:
+                    type: avg
               refId: B
               type: classic_conditions
         dashboardUid: W8nct6zGz
@@ -971,17 +971,17 @@ groups:
             datasourceUid: __expr__
             model:
               conditions:
-                  - evaluator:
-                      params:
-                          - 0
-                      type: gt
-                    operator:
-                      type: and
-                    query:
-                      params:
-                          - E
-                    reducer:
-                      type: avg
+                - evaluator:
+                    params:
+                      - 0
+                    type: gt
+                  operator:
+                    type: and
+                  query:
+                    params:
+                      - E
+                  reducer:
+                    type: avg
               refId: A
               type: classic_conditions
           - refId: E
@@ -991,8 +991,8 @@ groups:
             datasourceUid: prometheus
             model:
               datasource:
-                  type: prometheus
-                  uid: prometheus
+                type: prometheus
+                uid: prometheus
               editorMode: code
               expr: sum(kube_node_status_condition{condition="Ready",status!="true"})
               legendFormat: __auto
@@ -1024,17 +1024,17 @@ groups:
             datasourceUid: __expr__
             model:
               conditions:
-                  - evaluator:
-                      params:
-                          - 0
-                      type: gt
-                    operator:
-                      type: and
-                    query:
-                      params:
-                          - B
-                    reducer:
-                      type: last
+                - evaluator:
+                    params:
+                      - 0
+                    type: gt
+                  operator:
+                    type: and
+                  query:
+                    params:
+                      - B
+                  reducer:
+                    type: last
               refId: A
               type: classic_conditions
           - refId: B
@@ -1044,8 +1044,8 @@ groups:
             datasourceUid: prometheus
             model:
               datasource:
-                  type: prometheus
-                  uid: prometheus
+                type: prometheus
+                uid: prometheus
               editorMode: code
               exemplar: true
               expr: sum(kube_node_status_condition{condition=~"NotReady"})
@@ -1079,17 +1079,17 @@ groups:
             datasourceUid: __expr__
             model:
               conditions:
-                  - evaluator:
-                      params:
-                          - 0.85
-                      type: gt
-                    operator:
-                      type: and
-                    query:
-                      params:
-                          - C
-                    reducer:
-                      type: last
+                - evaluator:
+                    params:
+                      - 0.85
+                    type: gt
+                  operator:
+                    type: and
+                  query:
+                    params:
+                      - C
+                  reducer:
+                    type: last
               refId: A
               type: classic_conditions
           - refId: C
@@ -1099,8 +1099,8 @@ groups:
             datasourceUid: prometheus
             model:
               datasource:
-                  type: prometheus
-                  uid: prometheus
+                type: prometheus
+                uid: prometheus
               editorMode: code
               expr: count(kube_pod_info)/sum(kube_node_status_capacity{resource="pods"})
               legendFormat: Pod Capacity Utilization
@@ -1134,7 +1134,7 @@ groups:
               to: 0
             datasourceUid: prometheus
             model:
-              expr: count(kube_pod_info{priority_class=~"system.*",namespace!~"kube-system|monitoring|flux-system"}) OR on() vector(0)
+              expr: count(kube_pod_info{priority_class=~"system.*",namespace!~"kube-system|monitoring|flux-system|nvidia-device-plugin"}) OR on() vector(0)
               format: time_series
               intervalFactor: 2
               legendFormat: system*
@@ -1179,50 +1179,50 @@ groups:
             datasourceUid: __expr__
             model:
               conditions:
-                  - evaluator:
-                      params:
-                          - 0
-                      type: gt
-                    operator:
-                      type: and
-                    query:
-                      params:
-                          - A
-                    reducer:
-                      type: last
-                  - evaluator:
-                      params:
-                          - 0
-                      type: gt
-                    operator:
-                      type: or
-                    query:
-                      params:
-                          - B
-                    reducer:
-                      type: last
-                  - evaluator:
-                      params:
-                          - 0
-                      type: gt
-                    operator:
-                      type: or
-                    query:
-                      params:
-                          - C
-                    reducer:
-                      type: last
-                  - evaluator:
-                      params:
-                          - 0
-                      type: gt
-                    operator:
-                      type: or
-                    query:
-                      params:
-                          - D
-                    reducer:
-                      type: last
+                - evaluator:
+                    params:
+                      - 0
+                    type: gt
+                  operator:
+                    type: and
+                  query:
+                    params:
+                      - A
+                  reducer:
+                    type: last
+                - evaluator:
+                    params:
+                      - 0
+                    type: gt
+                  operator:
+                    type: or
+                  query:
+                    params:
+                      - B
+                  reducer:
+                    type: last
+                - evaluator:
+                    params:
+                      - 0
+                    type: gt
+                  operator:
+                    type: or
+                  query:
+                    params:
+                      - C
+                  reducer:
+                    type: last
+                - evaluator:
+                    params:
+                      - 0
+                    type: gt
+                  operator:
+                    type: or
+                  query:
+                    params:
+                      - D
+                  reducer:
+                    type: last
               refId: E
               type: classic_conditions
         dashboardUid: axdphXDZz
@@ -1251,17 +1251,17 @@ groups:
             datasourceUid: __expr__
             model:
               conditions:
-                  - evaluator:
-                      params:
-                          - 4.294967296e+11
-                      type: gt
-                    operator:
-                      type: and
-                    query:
-                      params:
-                          - B
-                    reducer:
-                      type: last
+                - evaluator:
+                    params:
+                      - 4.294967296e+11
+                    type: gt
+                  operator:
+                    type: and
+                  query:
+                    params:
+                      - B
+                  reducer:
+                    type: last
               refId: A
               type: classic_conditions
           - refId: B
@@ -1271,8 +1271,8 @@ groups:
             datasourceUid: prometheus
             model:
               datasource:
-                  type: prometheus
-                  uid: prometheus
+                type: prometheus
+                uid: prometheus
               editorMode: code
               expr: kubelet_volume_stats_capacity_bytes{persistentvolumeclaim="prometheus-monitoring-kube-prometheus-prometheus-db-prometheus-monitoring-kube-prometheus-prometheus-0"}-kubelet_volume_stats_available_bytes{persistentvolumeclaim="prometheus-monitoring-kube-prometheus-prometheus-db-prometheus-monitoring-kube-prometheus-prometheus-0"}
               legendFormat: Usage
@@ -1307,16 +1307,16 @@ groups:
             datasourceUid: prometheus
             model:
               datasource:
-                  type: prometheus
-                  uid: prometheus
+                type: prometheus
+                uid: prometheus
               editorMode: code
               exemplar: false
               expr: |-
-                  sum(
-                      container_memory_working_set_bytes{job="kubelet", metrics_path="/metrics/cadvisor", namespace="monitoring", container="prometheus", image!=""}
-                    * on(namespace,pod)
-                      group_left(workload, workload_type) namespace_workload_pod:kube_pod_owner:relabel{ namespace="monitoring", workload="prometheus-monitoring-kube-prometheus-prometheus", workload_type="statefulset"}
-                  ) by (workload, workload_type, container)
+                sum(
+                    container_memory_working_set_bytes{job="kubelet", metrics_path="/metrics/cadvisor", namespace="monitoring", container="prometheus", image!=""}
+                  * on(namespace,pod)
+                    group_left(workload, workload_type) namespace_workload_pod:kube_pod_owner:relabel{ namespace="monitoring", workload="prometheus-monitoring-kube-prometheus-prometheus", workload_type="statefulset"}
+                ) by (workload, workload_type, container)
               legendFormat: Usage
               range: true
               refId: A
@@ -1324,17 +1324,17 @@ groups:
             datasourceUid: __expr__
             model:
               conditions:
-                  - evaluator:
-                      params:
-                          - 1.2884901888e+10
-                      type: gt
-                    operator:
-                      type: and
-                    query:
-                      params:
-                          - A
-                    reducer:
-                      type: avg
+                - evaluator:
+                    params:
+                      - 1.2884901888e+10
+                    type: gt
+                  operator:
+                    type: and
+                  query:
+                    params:
+                      - A
+                  reducer:
+                    type: avg
               refId: B
               type: classic_conditions
         dashboardUid: ipAB0iB4z
@@ -1373,17 +1373,17 @@ groups:
             datasourceUid: __expr__
             model:
               conditions:
-                  - evaluator:
-                      params:
-                          - 0
-                      type: gt
-                    operator:
-                      type: and
-                    query:
-                      params:
-                          - A
-                    reducer:
-                      type: last
+                - evaluator:
+                    params:
+                      - 0
+                    type: gt
+                  operator:
+                    type: and
+                  query:
+                    params:
+                      - A
+                  reducer:
+                    type: last
               refId: B
               type: classic_conditions
         dashboardUid: YAniUGC
@@ -1417,23 +1417,23 @@ groups:
               exemplar: true
               expr: probe_ssl_earliest_cert_expiry{} - time()
               interval: ""
-              legendFormat: '{{ instance }}'
+              legendFormat: "{{ instance }}"
               refId: A
           - refId: B
             datasourceUid: __expr__
             model:
               conditions:
-                  - evaluator:
-                      params:
-                          - 2.592e+06
-                      type: lt
-                    operator:
-                      type: and
-                    query:
-                      params:
-                          - A
-                    reducer:
-                      type: avg
+                - evaluator:
+                    params:
+                      - 2.592e+06
+                    type: lt
+                  operator:
+                    type: and
+                  query:
+                    params:
+                      - A
+                  reducer:
+                    type: avg
               refId: B
               type: classic_conditions
         dashboardUid: bXDq_ZNnz
@@ -1462,17 +1462,17 @@ groups:
             datasourceUid: __expr__
             model:
               conditions:
-                  - evaluator:
-                      params:
-                          - 0
-                      type: gt
-                    operator:
-                      type: and
-                    query:
-                      params:
-                          - E
-                    reducer:
-                      type: avg
+                - evaluator:
+                    params:
+                      - 0
+                    type: gt
+                  operator:
+                    type: and
+                  query:
+                    params:
+                      - E
+                  reducer:
+                    type: avg
               refId: A
               type: classic_conditions
           - refId: E
@@ -1482,8 +1482,8 @@ groups:
             datasourceUid: prometheus
             model:
               datasource:
-                  type: prometheus
-                  uid: prometheus
+                type: prometheus
+                uid: prometheus
               editorMode: code
               exemplar: true
               expr: avg(node_sockstat_sockets_used{}) - (avg_over_time(avg(node_sockstat_sockets_used{})[24h:1m]) + 3 * stddev_over_time(avg(node_sockstat_sockets_used{})[24h:1m]))
@@ -1527,17 +1527,17 @@ groups:
             datasourceUid: __expr__
             model:
               conditions:
-                  - evaluator:
-                      params:
-                          - 500
-                      type: lt
-                    operator:
-                      type: and
-                    query:
-                      params:
-                          - A
-                    reducer:
-                      type: avg
+                - evaluator:
+                    params:
+                      - 500
+                    type: lt
+                  operator:
+                    type: and
+                  query:
+                    params:
+                      - A
+                  reducer:
+                    type: avg
               refId: B
               type: classic_conditions
         dashboardUid: 1NxY8ypGk
@@ -1569,28 +1569,28 @@ groups:
             datasourceUid: prometheus
             model:
               datasource:
-                  type: prometheus
-                  uid: prometheus
+                type: prometheus
+                uid: prometheus
               exemplar: true
               expr: count(kafka_consumergroup_lag) by (topic)
               interval: ""
-              legendFormat: '{{topic}}'
+              legendFormat: "{{topic}}"
               refId: A
           - refId: B
             datasourceUid: __expr__
             model:
               conditions:
-                  - evaluator:
-                      params:
-                          - 150
-                      type: gt
-                    operator:
-                      type: and
-                    query:
-                      params:
-                          - A
-                    reducer:
-                      type: avg
+                - evaluator:
+                    params:
+                      - 150
+                    type: gt
+                  operator:
+                    type: and
+                  query:
+                    params:
+                      - A
+                  reducer:
+                    type: avg
               refId: B
               type: classic_conditions
         dashboardUid: CoYn_3-nk
@@ -1619,17 +1619,17 @@ groups:
             datasourceUid: __expr__
             model:
               conditions:
-                  - evaluator:
-                      params:
-                          - 0.5
-                      type: gt
-                    operator:
-                      type: and
-                    query:
-                      params:
-                          - B
-                    reducer:
-                      type: avg
+                - evaluator:
+                    params:
+                      - 0.5
+                    type: gt
+                  operator:
+                    type: and
+                  query:
+                    params:
+                      - B
+                  reducer:
+                    type: avg
               refId: A
               type: classic_conditions
           - refId: B
@@ -1672,8 +1672,8 @@ groups:
             datasourceUid: prometheus
             model:
               datasource:
-                  type: prometheus
-                  uid: prometheus
+                type: prometheus
+                uid: prometheus
               expr: eks_version_exporter_is_outdated
               format: time_series
               instant: false
@@ -1684,17 +1684,17 @@ groups:
             datasourceUid: __expr__
             model:
               conditions:
-                  - evaluator:
-                      params:
-                          - 0.9
-                      type: gt
-                    operator:
-                      type: and
-                    query:
-                      params:
-                          - A
-                    reducer:
-                      type: last
+                - evaluator:
+                    params:
+                      - 0.9
+                    type: gt
+                  operator:
+                    type: and
+                  query:
+                    params:
+                      - A
+                  reducer:
+                    type: last
               refId: B
               type: classic_conditions
         dashboardUid: YMBzktpGz
@@ -1733,17 +1733,17 @@ groups:
             datasourceUid: __expr__
             model:
               conditions:
-                  - evaluator:
-                      params:
-                          - 0
-                      type: gt
-                    operator:
-                      type: and
-                    query:
-                      params:
-                          - A
-                    reducer:
-                      type: last
+                - evaluator:
+                    params:
+                      - 0
+                    type: gt
+                  operator:
+                    type: and
+                  query:
+                    params:
+                      - A
+                  reducer:
+                    type: last
               refId: B
               type: classic_conditions
         dashboardUid: YAniUGC
