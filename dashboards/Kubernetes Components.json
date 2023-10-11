@@ -683,7 +683,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "count(count by (image) (kube_pod_container_info{namespace=\"kube-system\", container=\"aws-node\"})) - 1",
+          "expr": "count(count by (image) (kube_pod_container_info{namespace=\"kube-system\", container=\"aws-node\"})) - 2",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "cni",
