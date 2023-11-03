@@ -18,7 +18,6 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 2478,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -173,14 +172,6 @@
               {
                 "color": "green",
                 "value": null
-              },
-              {
-                "color": "#EAB839",
-                "value": 1
-              },
-              {
-                "color": "red",
-                "value": 3
               }
             ]
           },
@@ -225,7 +216,7 @@
       "type": "timeseries"
     }
   ],
-  "refresh": false,
+  "refresh": "",
   "schemaVersion": 38,
   "style": "dark",
   "tags": [],
@@ -233,7 +224,7 @@
     "list": [
       {
         "current": {
-          "selected": true,
+          "selected": false,
           "text": "customer-iam-ykpqn-customeriam-oktauserextension-production-1eae03a0fd11fb88cc20@kubernetescrd",
           "value": "customer-iam-ykpqn-customeriam-oktauserextension-production-1eae03a0fd11fb88cc20@kubernetescrd"
         },
@@ -336,13 +327,13 @@
     ]
   },
   "time": {
-    "from": "2023-11-02T09:39:53.504Z",
-    "to": "2023-11-02T14:16:06.136Z"
+    "from": "now-12h",
+    "to": "now"
   },
   "timepicker": {},
   "timezone": "",
   "title": "Traefik service latency",
   "uid": "a584a6e5-3523-4976-9ba8-e6eb2f128699",
-  "version": 9,
+  "version": 1,
   "weekStart": ""
 }
