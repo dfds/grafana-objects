@@ -249,7 +249,7 @@ groups:
               to: 0
             datasourceUid: prometheus
             model:
-              expr: count(count by (kubelet_version) (kube_node_info)) - 1
+              expr: count(count by (kubelet_version) (kube_node_info)) - 2
               format: time_series
               intervalFactor: 1
               legendFormat: kubelet
