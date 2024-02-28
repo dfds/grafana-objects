@@ -697,7 +697,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "count(kube_pod_info{priority_class=~\"system.*\",namespace!~\"kube-system|monitoring|flux-system|nvidia-device-plugin\"}) OR on() vector(0)",
+          "expr": "count(kube_pod_info{priority_class=~\"system.*\",namespace!~\"kube-system|monitoring|flux-system|nvidia-device-plugin|metrics-server\"}) OR on() vector(0)",
           "format": "time_series",
           "hide": false,
           "intervalFactor": 2,
