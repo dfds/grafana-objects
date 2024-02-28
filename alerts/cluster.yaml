@@ -1134,7 +1134,7 @@ groups:
               to: 0
             datasourceUid: prometheus
             model:
-              expr: count(kube_pod_info{priority_class=~"system.*",namespace!~"kube-system|monitoring|flux-system|nvidia-device-plugin"}) OR on() vector(0)
+              expr: count(kube_pod_info{priority_class=~"system.*",namespace!~"kube-system|monitoring|flux-system|nvidia-device-plugin|metrics-server"}) OR on() vector(0)
               format: time_series
               intervalFactor: 2
               legendFormat: system*
@@ -1790,21 +1790,21 @@ groups:
             datasourceUid: __expr__
             model:
               conditions:
-                  - evaluator:
-                      params: []
-                      type: gt
-                    operator:
-                      type: and
-                    query:
-                      params:
-                          - B
-                    reducer:
-                      params: []
-                      type: last
-                    type: query
+                - evaluator:
+                    params: []
+                    type: gt
+                  operator:
+                    type: and
+                  query:
+                    params:
+                      - B
+                  reducer:
+                    params: []
+                    type: last
+                  type: query
               datasource:
-                  type: __expr__
-                  uid: __expr__
+                type: __expr__
+                uid: __expr__
               expression: A
               hide: false
               intervalMs: 1000
@@ -1819,22 +1819,22 @@ groups:
             datasourceUid: __expr__
             model:
               conditions:
-                  - evaluator:
-                      params:
-                          - 0
-                      type: gt
-                    operator:
-                      type: and
-                    query:
-                      params:
-                          - C
-                    reducer:
-                      params: []
-                      type: last
-                    type: query
+                - evaluator:
+                    params:
+                      - 0
+                    type: gt
+                  operator:
+                    type: and
+                  query:
+                    params:
+                      - C
+                  reducer:
+                    params: []
+                    type: last
+                  type: query
               datasource:
-                  type: __expr__
-                  uid: __expr__
+                type: __expr__
+                uid: __expr__
               expression: B
               hide: false
               intervalMs: 1000
