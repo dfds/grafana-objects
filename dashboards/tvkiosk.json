@@ -130,7 +130,7 @@
             "refId": "A"
           }
         ],
-        "title": "API requests served (Kubernetes-only)",
+        "title": "API requests served (per hour, Hellman cluster only)",
         "type": "timeseries"
       },
       {
@@ -226,12 +226,12 @@
             "editorMode": "code",
             "expr": "sum(increase(confluent_kafka_server_received_records[1h]))",
             "instant": false,
-            "legendFormat": "Kafka Events Sent",
+            "legendFormat": "Events Created",
             "range": true,
             "refId": "A"
           }
         ],
-        "title": "Kafka Events - Sent (per hour)",
+        "title": "Events Created (per hour)",
         "type": "timeseries"
       },
       {
@@ -389,12 +389,12 @@
             "editorMode": "code",
             "expr": "sum(increase(confluent_kafka_server_sent_records[15m]))",
             "instant": false,
-            "legendFormat": "Kafka Events Received",
+            "legendFormat": "Events Received",
             "range": true,
             "refId": "A"
           }
         ],
-        "title": "Kafka Events - Received (per hour)",
+        "title": "Events Received (per hour)",
         "type": "timeseries"
       },
       {
@@ -744,7 +744,7 @@
               "uid": "prometheus"
             },
             "editorMode": "code",
-            "expr": "212",
+            "expr": "213",
             "instant": false,
             "legendFormat": "__auto",
             "range": true,
@@ -920,7 +920,7 @@
               "uid": "prometheus"
             },
             "editorMode": "code",
-            "expr": "184",
+            "expr": "189",
             "instant": false,
             "legendFormat": "__auto",
             "range": true,
@@ -984,7 +984,7 @@
               "uid": "prometheus"
             },
             "editorMode": "code",
-            "expr": "1111",
+            "expr": "1784",
             "instant": false,
             "legendFormat": "__auto",
             "range": true,
