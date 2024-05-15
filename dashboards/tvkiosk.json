@@ -920,7 +920,7 @@
               "uid": "prometheus"
             },
             "editorMode": "code",
-            "expr": "189",
+            "expr": "212",
             "instant": false,
             "legendFormat": "__auto",
             "range": true,
@@ -984,7 +984,7 @@
               "uid": "prometheus"
             },
             "editorMode": "code",
-            "expr": "1784",
+            "expr": "2176",
             "instant": false,
             "legendFormat": "__auto",
             "range": true,
